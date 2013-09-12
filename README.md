@@ -1,4 +1,4 @@
-2013_SDM_ILI
+DM_ILI
 ============
 
 Git repository to write up the paper for SDM
@@ -7,11 +7,13 @@ TODO:
 ----
 
 Deadline: Sep 17, 2013 
-Have all parts except intro and except results (but write 6.1 and 6.2) and except fusion
+Have all parts except intro and except results (but write 6.1 and 6.2) and
+except fusion
 Use SIAM DM format
 
 Forecasting a moving target: Ensemble models for ILI case count predictions
-Prithwish, Pejman, Patrick, Aravindan Mahendiran, Bryan, Elaine, Sumiko, Brownstein, Madhav, Naren
+Prithwish, Pejman, Patrick, Aravindan Mahendiran, Bryan, Elaine, Sumiko,
+Brownstein, Madhav, Naren
 
 1. **Introduction**  
    naren will write this at the end.  
@@ -25,7 +27,8 @@ Prithwish, Pejman, Patrick, Aravindan Mahendiran, Bryan, Elaine, Sumiko, Brownst
 2. **Preliminaries** 
 
     * invent a notation for lagging arrivals and revisions vs stable values
-    * State the problem formally. Define RMS metric (either absolute or relative)
+    * State the problem formally. Define RMS metric (either absolute or
+      relative)
     * Need a nice big block diagram
 
 3. **Models**
@@ -34,24 +37,22 @@ Prithwish, Pejman, Patrick, Aravindan Mahendiran, Bryan, Elaine, Sumiko, Brownst
     * write descriptions for each model, 1 in each subsection
 
 4. **Ensembling approaches**  
-
    1. Data level fusion (Prithwish)
-
-      * talk about MI filtering etc.
-
-   2. model level fusion (Pejman)
-
-      * sequential ensembling
-      * simultaneous ensembling
-
+        * talk about MI filtering etc.
+   2. Model level fusion (Pejman)
+        * sequential ensembling
+        * simultaneous ensembling
    3. Sensor fusion approach (Prithwish)
-
-      * Prithwish will dig out some papers
+        * Prithwish will dig out some papers
 
 5. **Forecasting a moving target**
 
    1. Include Pejman's preliminary analysis here. Revise the PAHO value itself.
-   2. Assigning variance to PAHO data and using them in the models. Use N_muetras (sample size correction). Put a simple threshold? Use confidence-based nearest neighbor matching. Use this other information to revise the prediction.
+   2. Assigning variance to PAHO data and using them in the models. Use
+      ``N_muetras``
+     (sample size correction). Put a simple threshold? Use confidence-based
+nearest
+      neighbor matching. Use this other information to revise the prediction.
 
 6. **Experimental results**
 
@@ -66,5 +67,7 @@ Prithwish, Pejman, Patrick, Aravindan Mahendiran, Bryan, Elaine, Sumiko, Brownst
 
 8. **Future work**
 
--------------------------------------------------------------
+--- 
+
 * simdemics
+
