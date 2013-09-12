@@ -1,4 +1,4 @@
-DM_ILI
+``SDM_ILI``
 ============
 
 Git repository to write up the paper for SDM
@@ -19,22 +19,20 @@ Brownstein, Madhav, Naren
    naren will write this at the end.  
    Contributions:
 
-    * Multiple time series with staggered arrival rates
-    * Revisions to published values are possible
-    * Surrogates, models, ensemble
-    * lead time as a consideration
+   * Multiple time series with staggered arrival rates
+   * Revisions to published values are possible
+   * Surrogates, models, ensemble
+   * lead time as a consideration
 
-2. **Preliminaries** 
+2. **Preliminaries**  
+   * invent a notation for lagging arrivals and revisions vs stable values
+   * State the problem formally. Define RMS metric (either absolute or
+     relative)
+   * Need a nice big block diagram
 
-    * invent a notation for lagging arrivals and revisions vs stable values
-    * State the problem formally. Define RMS metric (either absolute or
-      relative)
-    * Need a nice big block diagram
-
-3. **Models**
-
-    * then, for each time `t_i`,  describe a model that can predict `t_i`
-    * write descriptions for each model, 1 in each subsection
+3. **Models**  
+   * then, for each time `t_i`,  describe a model that can predict `t_i`
+   * write descriptions for each model, 1 in each subsection
 
 4. **Ensembling approaches**  
    1. Data level fusion (Prithwish)
@@ -49,10 +47,9 @@ Brownstein, Madhav, Naren
 
    1. Include Pejman's preliminary analysis here. Revise the PAHO value itself.
    2. Assigning variance to PAHO data and using them in the models. Use
-      ``N_muetras``
-     (sample size correction). Put a simple threshold? Use confidence-based
-nearest
-      neighbor matching. Use this other information to revise the prediction.
+      ``N_muetras`` (sample size correction). Put a simple threshold? 
+      Use confidence-based nearest neighbor matching. Use this other 
+      information to revise the prediction.
 
 6. **Experimental results**
 
