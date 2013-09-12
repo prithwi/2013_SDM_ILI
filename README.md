@@ -17,8 +17,7 @@ Brownstein, Madhav, Naren
 
 1. **Introduction**  
    naren will write this at the end.  
-   Contributions:
-
+   Contributions:  
    * Multiple time series with staggered arrival rates
    * Revisions to published values are possible
    * Surrogates, models, ensemble
