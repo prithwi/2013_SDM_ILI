@@ -1,0 +1,20 @@
+%% Revised 10/03/01 to remove page numbering
+%% Revised 10/19/01 to add space after run-in titles
+%%         word space no longer needed after run-ins
+%%         
+%%         Possible spacing bug in \subsection fixed
+%%
+%% This is soda2e.all. This file is to be used for creating a paper
+%% in the ACM/SIAM Preprint series with LaTeX2E. It consists of the following 
+%% two files:
+%%
+%%       ltexpprt.tex ---- an example and documentation file
+%%       ltexpprt.sty ---- the macro file
+%%
+%% To use, cut this file apart at the appropriate places.  You can run the
+%% example file with the macros to get sample output.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  CUT HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+
