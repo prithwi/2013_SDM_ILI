@@ -53,27 +53,52 @@
 
 \documentclass[twoside,leqno,twocolumn]{article}  
 \usepackage{ltexpprt} 
+\usepackage{color}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{subfigure}
+% -----------------------------------------------------------------------------
+\newcommand{\prithwish}[1]{[{\color{magenta}\textit{Prithwish}\textit{: #1}}]}
+\newcommand{\pejman}[1]{[{\color{blue}\textit{Pejman}\textit{: #1}}]}
+\newcommand{\naren}[1]{[{\color{green}\textit{Naren}\textit{: #1}}]}
+
+\newcommand{\TODO}[2][NA]{{\color{red}[\textbf{TODO:} #2 \\ \textbf{Assignee:} #1]}}
 
 \begin{document}
+
 
 
 %\setcounter{chapter}{2} % If you are doing your chapter as chapter one,
 %\setcounter{section}{3} % comment these two lines out.
 
 \title{\Large Forecasting a Moving Target: Ensemble Models for ILI Case
-  Count Predictions.\thanks{IARPA OSI.}}
-\author{Neo\thanks{Wachoswki bros.} \\
-\and 
-Goku\thanks{Saiyaan}}
+Count Predictions.~\footnotemark[4]}
+  \author{Prithwish Chakraborty \footnotemark[1] \\ \and
+    Pejman Khadivi \footnotemark[1] \\ \and
+  Bryan Lewis \footnotemark[2] \\ \and
+    Aravindan Mahendiran \footnotemark[1] \\ \and 
+    Patrick Butler \footnotemark[1] \\ \and 
+    Elaine Nsoesie \footnotemark[3] \\ \and
+    Sumiko Mekaru \footnotemark[3] \\ \and
+      John Brownstein \footnotemark[3] \\ \and
+    Madhav Marathe \footnotemark[2] \\ \and
+    Naren Ramakrishnan \footnotemark[1]
+  }
 \date{}
 
 \maketitle
+% Affiliations Macros to handle 10 authors!!
+\footnotetext[1]{Dept. of Computer Science, Virginia Tech,  Blacksbutrg, VA 24061}
+\footnotetext[2]{Virginia Bioinformatics Institute, Blacksburg, VA 24061}
+\footnotetext[3]{HEALTHMAP}
+\footnotetext[4]{IARPA OSI}
+
 
  
 %\pagenumbering{arabic}
 %\setcounter{page}{1}%Leave this line commented out.
-
 \begin{abstract}
+  \TODO[Prithwish]{figure out the footnote discrepancies.}\\
   \small\baselineskip=9pt
   This is the text of my  abstract.
   Maximum number of words : 300.\\
