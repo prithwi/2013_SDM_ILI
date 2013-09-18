@@ -1,2 +1,63 @@
 % mainfile: ../ltexpprt.tex
+\prithwish{Resolve conflicts for \\
+1. ``time-point'' vs ``time point''\\
+2. ``langle'' vs ``left(''}
+
+In order to solve the problem formalized in Section~\ref{sec:problem}, we employ
+non-linear regressions on the case count and the surrogate attributes. 
+We describe two models:
+\begin{itemize}
+  \item Nearest Neighbor Based Regression.
+  \item Matrix Factor Based Regression.
+\end{itemize}
+For both of the methods, we deine two paramters- $\beta$ and $\alpha$. 
+$\alpha$ is the ``lookahead window length'' denoting the time-point from $T$ 
+for which we want to predict the case count and $\beta$ 
+is the ``lookback window length'' denoting the number of time-points to looback
+in order to find the regression relation between the case count and the surrogate 
+data.
+
+Also, we define regression vectors $V_t$  and 
+labels $L_t$ for all time points $t, \forall t = 1,\dots, T$
+as given in equation~\ref{eq:regressionvector}.
+\prithwish{Check this}
+\begin{equation}
+  \label{eq:regressionvector}
+  \begin{array}{lcl}
+    V_t & \equiv & \langle P_{t-\beta - \alpha}, \mathcal{X}_{t-\beta - \alpha}, P_{t + 1 -\beta-\alpha}, \mathcal{X}_{t + 1 - \beta-\alpha}, \dots, \\
+        &        & P_{t-\alpha},\mathcal{X}_{t-\alpha} \rangle \\
+    L_t & \equiv & P_{t - \alpha}\\
+  \end{array}
+\end{equation}
+The the regression vector for predicting the case count at time point $T' (T +
+\alpha > T' > T)$ is given by equation~\ref{eq:regressiontestvector}.
+\begin{equation}
+  \label{eq:regressiontestvector}
+  \begin{array}{lcl}
+    V_{T'} & \equiv & \langle P_{T'-\beta - \alpha}, \mathcal{X}_{T'-\beta - \alpha}, P_{t + 1 -\beta-\alpha}, \mathcal{X}_{t + 1 - \beta-\alpha}, \dots, \\
+           &        & P_{T'-\alpha},\mathcal{X}_{T'-\alpha} \rangle \\
+  \end{array}
+\end{equation}
+
+Under these definitions we describe the models as follows:
+
+\subsection{\label{sec:model:nearestneighbor} Nearest Neighbor Based
+Regression:}
+For Nearest Neighbor Models, we define a training set $\Gamma_{NN}
+= \lbrace V_t, L_t \rbrace$, where $V_t$ represents the regression attributes
+and $L_t$ denote the corresponding labels. 
+
+The predicted count $\widehat{P_{T'}}$ for the time point $T'$ is given as:
+\begin{equation} \label{eq:nearestneighbor:pred}
+  \begin{array}{lcl}
+    \widehat{P_{T'}} & = & \frac{\sum\limits_{k=1}^{K} b_{k}L_{T^k}}{\sum\limits_{k=1}^{K} b_{k}}\\
+  \end{array}
+\end{equation}
+where,$K$ indicates the maximum number of nearest neighbors considered, $T^k$
+indicates the $k-th$ nearest neighbor to $V_{T'}$ in $\Gamma_{NN}$, and $b_k$
+indicates the weight assigned to the $k^{th}$ nearest neighbor. Typically the 
+inverse euclidean distances to $V_{T'}$ is chosen as the weights.
+
+\subsection{\label{sec:model:matrixfactor} Matrix Factorization Based
+Regression:}
 

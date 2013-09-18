@@ -6,15 +6,18 @@
     \hline
     Abbreviation. & Description \\
     \hline \hline
-    ${P}_t$ & Known ILI case count for time point $t$.\\
-        $T$ & Max number of time-points for which ILI case count is known.\\
+    ${P}_t        $ & Known ILI case count for time point $t$.\\
+        $T        $ & Max number of time-points for which ILI case count is known.\\
     $\mathcal{X}_t$ & Surroagte data stream at time point $t$ .\\
-    $\mathcal{W}_t$ & Weather attributes at time point $t$ .\\
-    $\mathcal{T}_t$ & Twitter attributes at time point $t$ .\\
+    $\mathcal{F}_t$ & Google Search Trends attributes at time point $t$.\\
     $\mathcal{H}_t$ & Healthmap attributes at time point $t$ .\\
     $\mathcal{R}_t$ & Reservation data attributes at time point $t$ .\\
-    $\mathcal{F}_t$ & Google Search Trends attributes at time point $t$.\\
-    ${S}_t$ & Google Flu Trends estimate at time point $t$ .\\
+    $\mathcal{T}_t$ & Twitter attributes at time point $t$ .\\
+        ${S}_t    $ & Google Flu Trends estimate at time point $t$ .\\
+    $\mathcal{W}_t$ & Weather attributes at time point $t$ .\\
+    $\alpha$ & Lookahead window length.\\
+    $\beta$ & Lookback window length.\\
+        $K$ & Maximum number of Nearest Neighbors.\\
     \hline
   \end{tabular}
   \caption{\label{tb:notations} Notations used in the paper.
@@ -23,20 +26,24 @@ section.}}
 \end{table*}
 
 In this section, we formally describe the problem.
-Let $\mathcal{P} = \langle {P}_1, {P}_2, \dots,
-{P}_T \rangle$ denote the known ILI case count for the country under
+Let 
+\[\mathcal{P} = \langle {P}_1, {P}_2, \dots,{P}_T \rangle\]
+denote the known ILI case count for the country under
 consideration , where ${P}_t$  denotes the case count for
-the time point $t$.
+the time point $t$.\\
 Also let $T$ denote the time-point till which ILI case count is known.
 \prithwish{Will have to decide later whether we want to specify PAHO
   here $\rightarrow$ \textnormal{``as reported by the Pan-American Health Organization
-(PAHO)~\cite{PAHO:2013}''}}
+(PAHO)~\cite{PAHO:2013}''}}\\
 Corresponding to the ILI case count data, let us denote the available surrogate informations
-for the same country by $\mathcal{X} = \langle \mathcal{X}_1, \mathcal{X}_2, 
-\dots, \mathcal{X}_{T1}\rangle$, where $T1$ is the time-point till which the surrogate
+for the same country by 
+\[\mathcal{X} = \langle \mathcal{X}_1, \mathcal{X}_2, \dots, \mathcal{X}_{T1}\rangle\]
+, where $T1$ is the time-point till which the surrogate
 information is known and $\mathcal{X}_{t}$ denotes the surrogate attributes for time
-point $t$. Then we want to find a predictive model ($f$)  for the case count dataas given in  
-equation~\ref{eq:problem}.
+point $t$. 
+
+Then the problem we want to solve is to find a predictive model ($f$)  for the 
+case count data, as presented formally in equation~\ref{eq:problem}.
 \begin{equation}
   \label{eq:problem}
   f: \mathcal{P}_t = f\left(\mathcal{P}, \mathcal{X}\right)
