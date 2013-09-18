@@ -47,10 +47,10 @@ For Nearest Neighbor Models, we define a training set $\Gamma_{NN}
 = \lbrace V_t, L_t \rbrace$, where $V_t$ represents the regression attributes
 and $L_t$ denote the corresponding labels. 
 
-The predicted count $\widehat{P_{T'}}$ for the time point $T'$ is given as:
+The predicted count $\widehat{P}_{T'}$ for the time point $T'$ is given as:
 \begin{equation} \label{eq:nearestneighbor:pred}
   \begin{array}{lcl}
-    \widehat{P_{T'}} & = & \frac{\sum\limits_{k=1}^{K} b_{k}L_{T^k}}{\sum\limits_{k=1}^{K} b_{k}}\\
+  \widehat{P}_{T'} & = & \frac{\sum\limits_{k=1}^{K} b_{k}L_{T^k}}{\sum\limits_{k=1}^{K} b_{k}}\\
   \end{array}
 \end{equation}
 where,$K$ indicates the maximum number of nearest neighbors considered, $T^k$
