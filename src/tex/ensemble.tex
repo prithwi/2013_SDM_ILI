@@ -48,10 +48,12 @@ If we have more than one dataset, one can use an ensemble method to combine the 
 
 where, $w_{i}^{\mathbb{D}1}$ and $w_{i}^{\mathbb{D}2}$ are constant weights for the $i$th nearest neighbors of week $j$ with respect to datasets $\mathbb{D}1$ and $\mathbb{D}2$. The following optimization problem can be solved to estimate these weights:
 
+
 \begin{equation}
 \min_{w_{*}^{\mathbb{D}1},w_{*}^{\mathbb{D}2}} \sum_{j \in \mathcal{P}} {(P_j - b - \sum_{i \in \mathcal{L}_{j}^{\mathbb{D}1}}{} (P_i - b)w_{i}^{\mathbb{D}1} - \sum_{i \in \mathcal{L}_{j}^{\mathbb{D}2}}{} (P_i - b - \sum_{k \in \mathcal{L}_{j}^{\mathbb{D}1}}{} (P_k - b)w_{k}^{\mathbb{D}1})w_{i}^{\mathbb{D}2})^2} + \lambda (\sum_{}{}{{(w_{i}^{\mathbb{D}1})}^2}+\sum_{}{}{{(w_{i}^{\mathbb{D}2})}^2})
 \label{eq:opt2}
 \end{equation}
+
 
 In order to solve optimization problem of Eq. ~\ref{eq:opt2}, one can use stochastic gradient decent method. For this purpose, let us assume that $e_j$ is the error of prediction for week $j$, i.e. $e_j = P_j - \hat{P}_j$. Then, by going through the known values of PAHO count, we can update weights in the opposite direction of the gradient of Eq. ~\ref{eq:opt2} and we will have:
 
