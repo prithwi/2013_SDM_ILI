@@ -1,2 +1,46 @@
 % mainfile: ../ltexpprt.tex
+We used a number of different data sources from widely different domains
+such as physical indicators like weather characterisitcs to social
+networking/user queries. For a number of sources such as Twitter data,
+the most important part is to properly identify the The keywords
+associated with flu so that we can get a proper estimate of the flu
+realted surrogate information. In section~\ref{sec:keyword}, we describe
+our keyword collection mechanism as follows.
+\subsection{\label{sec:keyword} Keywords Extraction}
 \input{tex/keywords}
+
+\subsection{Data sources}
+We next desribe the different data sources as follows: 
+\subsubsection{Twitter} 
+\subsubsection{Healthmap}
+\subsubsection{Weather Data}
+\subsubsection{Google Flu Trends}
+\subsubsection{Google Search Trends}
+\subsubsection{Open table}
+We monitored table availability using OpenTable; an online restaurant
+table reservation site for cities in the USA and Mexico. Our analysis
+can be summarized as follows. First, using the OpenTable site, we
+searched for the number of restaurants with available tables for two
+persons at lunch and dinner. Since different regions and individuals
+have different eating habits, we defined the lunch period between
+12–3:30pm and dinner between 6–10:30pm. We searched for available tables
+every hour and half past the hour for every day of the week. Next, we
+investigated any occurrences of social unrest and natural disasters,
+which might have affected the trend in the time series. Lastly, using
+moving averages, cross-correlations and regression models, we elucidated
+and compared the time-trend in the data of table availabilities to data
+collected for various disease outbreaks. In the USA, we examined table
+availability for restaurants in Boston, Atlanta, Baltimore and Miami.
+For Mexico, we studied table availabilities in Cancun, Mexico City,
+Puebla, Monterrey, and Guadalajara.
+--We started collecting data on table availabilities starting September
+4th 2012.
+--The number of restaurants available varies over time since restaurants
+are added and removed from the site. At the time of this writing, there
+were over 28,000 restaurants in the database.
+--Since we monitored ten regions at twenty search times, this resulted
+in 200 distinct time-series curves.
+--Size of data: The data files are not too big. When I analyzed it, each
+was about 1kb which implies about 200kb in total.
+
+

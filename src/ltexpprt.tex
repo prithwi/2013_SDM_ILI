@@ -60,12 +60,12 @@
 \usepackage{subfigure}
 \usepackage{amssymb}
 
-
+\usepackage[symbol]{footmisc}
 \usepackage{xr}
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{epsfig}
-\usepackage{url,graphics}
+\usepackage{graphics}
 
 % -----------------------------------------------------------------------------
 \newcommand{\prithwish}[1]{[{\color{magenta}\textit{Prithwish}\textit{: #1}}]}
@@ -82,15 +82,16 @@
 %\setcounter{section}{3} % comment these two lines out.
 
 \title{\Large Forecasting a Moving Target: Ensemble Models for ILI Case
-Count Predictions.~\footnotemark[4]}
+Count Predictions.}
   \author{Prithwish Chakraborty \footnotemark[1] \\ \and
     Pejman Khadivi \footnotemark[1] \\ \and
-  Bryan Lewis \footnotemark[2] \\ \and
+    Bryan Lewis \footnotemark[2] \\ \and
     Aravindan Mahendiran \footnotemark[1] \\ \and 
+    Jiangzhuo Chen \footnotemark[2] \\ \and
     Patrick Butler \footnotemark[1] \\ \and 
-    Elaine Nsoesie \footnotemark[3] \\ \and
+    Elaine Nsoesie \footnotemark[2] \footnotemark[3] \footnotemark[4] \\ \and
     Sumiko Mekaru \footnotemark[3] \\ \and
-      John Brownstein \footnotemark[3] \\ \and
+    John Brownstein \footnotemark[3] \footnotemark[4] \footnotemark[5] \\ \and
     Madhav Marathe \footnotemark[2] \\ \and
     Naren Ramakrishnan \footnotemark[1]
   }
@@ -98,11 +99,12 @@ Count Predictions.~\footnotemark[4]}
 
 \maketitle
 % Affiliations Macros to handle 10 authors!!
-\footnotetext[1]{Dept. of Computer Science, Virginia Tech,  Blacksbutrg, VA 24061}
-\footnotetext[2]{Virginia Bioinformatics Institute, Blacksburg, VA 24061}
-\footnotetext[3]{HEALTHMAP}
-\footnotetext[4]{IARPA OSI}
-
+\footnotetext[1]{Dept. of Computer Science, Virginia Tech,  Blacksburg, VA, USA}
+\footnotetext[2]{Virginia Bioinformatics Institute, Virginia Tech, Blacksburg, VA, USA}
+\footnotetext[3]{Children’s Hospital Informatics Program, Boston Children’s Hospital, Boston, MA, USA}
+\footnotetext[4]{Department of Pediatrics, Harvard Medical School, Boston, MA, USA}
+\footnotetext[5]{Department of Epidemiology, Biostatistics and Occupational Health, McGill University, Montreal, QC, Canada}
+%\footnotetext[6]{IARPA OSI}
 
  
 %\pagenumbering{arabic}
@@ -112,8 +114,9 @@ Count Predictions.~\footnotemark[4]}
 \end{abstract}
  
 \section{Introduction.}
-\TODO[Prithwish]{figure out the footnote discrepancies.}\\
-\small\baselineskip=9pt\input{tex/intro.tex}
+%\TODO[Prithwish]{figure out the footnote discrepancies.}\\
+%\small\baselineskip=9pt
+\input{tex/intro.tex}
 
 \section{Related Works.}
 \input{tex/related.tex}
