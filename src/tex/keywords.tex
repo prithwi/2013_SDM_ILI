@@ -7,7 +7,7 @@ expansion.
 The set of starting keywords was constructed based on feedback from our 
 in-house subject mattter expers. These included keywords such as 
 ``symptoms'', ``medical'' and ``effects''.
-\paragraph{Pseudo-query Exapnsion}
+\paragraph{Pseudo-query Expansion}
 Using this set as the initial seed for pseudo-query expansion we crawled
 the top 20 web sites (according to Google Search) associated with each
 word in this set. We also crawled some ``expert'' sites such as the official CDC
@@ -18,7 +18,7 @@ Additionally, we also crawled a few hand picked websites such as
 We filtered the words from these sites using standard language
 processing filtering techniques such as stopword removal and porter
 stemming. The filtered set of keywords were then ranked according to 
-the absolute frequency of occurence. The top 500 words for Spanish and
+the absolute frequency of occurrence. The top 500 words for Spanish and
 English were then selected. For example, words such as ``enfermedad'' 
 and ``pandemia'' were obtained from this step.
 \paragraph{Time-series Correlation analysis}
@@ -26,17 +26,17 @@ Next we used Google Correlate (now a part of Google Trends) to compare
 the ILI case count time-series for each country and found the top 20
 correlated words. Once again these words were found to be a mix of 
  both English and Spanish. As an added step in this process, we also
- compared time-shifter ILI counts: left-shited  to capture the words searched leading up to 
+ compared time-shifter ILI counts: left-shifted  to capture the words searched leading up to 
  the actual flu infection and right-shifted to capture the words
 commonly searched during the tail of the infection. 
 This entire exercise provided us some interesting terms like ``ginger'' which has been used as
-a natural herbal remedy in the eastern world. We also found populaar flu medications
+a natural herbal remedy in the eastern world. We also found popular flu medications
 such as ``Acemuk''and  ``Oseltamivir'', which are also sold under the trade name of
-``Tamiflu'' as highly correlated search queries - paritcularly for
+``Tamiflu'' as highly correlated search queries - particularly for
 Argentina.
 \paragraph{Final Filtering}
 The set of terms obtained from query expansion and correlation analysis were then 
-pruned by hand to obtain a vocabular of 151 words. We performed a final
+pruned by hand to obtain a vocabulary of 151 words. We performed a final
 correlation check considering all the words and the ILI case counts and
 removed all the words with correlation scores lower than a certain
 threshold and were left with a final set of 114 keywords that are
