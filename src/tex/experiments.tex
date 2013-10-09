@@ -1,46 +1,215 @@
 % mainfile: ../ltexpprt.tex
-We used a number of different data sources from widely different domains
-such as physical indicators like weather characterisitcs to social
-networking/user queries. For a number of sources such as Twitter data,
-the most important part is to properly identify the The keywords
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.3]{fig/ili_data_pipeline.pdf}
+  \caption{\label{fig:ili_data_pipeline} ILI Data Pipeline}
+\end{figure}
+
+\subsection{Experimental Setup}
+In this paper, we concentrated mainly on 15 Latin
+American countries viz. Argentina, Bolivia, Costa Rica, Colombia,
+Chile, Ecuador,  El Salvador, Guatemala, French Guiana, Honduras, Mexico, 
+Nicaragua, Paraguay, Panama and Peru. We collected weekly Influenza
+estimates (ILI counts) from the official Pan American Health
+Organization (PAHO) website~\cite{PAHO:2013}, every day from January 2013 to
+August 2013. The estimates downloaded every day contains data from
+January 2010 to the last available week for the said day, for each
+country under consideration. The downloaded data is next pre-processed to
+fill ILI counts for any missing weeks using linear interpolation. This
+dataset is stored in a database we refer to as ``Temporal Data Repository'' (TDR) .
+The TDR is also timestamped so that for any given day between the said
+period, we can readily retrieve the ILI case counts that were download
+on the same day.
+For the purpose of experimental validation we used the data for the period Jan 2010 to
+December 2012 as the static training set. We considered Wednesdays of the weeks as our 
+time points. 
+For each Wednesday from Jan
+2013 to July 2013, we used the latest available PAHO data in TDR for that day
+and predicted 3 weeks from the last available week for which the PAHO
+data was available. These predictions are next evaluated against the
+final ILI case count as downloaded on September 1, 2013 and we report the
+performance of our algorithms in Section~\ref{sec:results}. 
+
+\subsection{Evaluation criteria}
+We evaluated the prediction accuracy of the different algorithms using
+a modified version of ``Percentage Relative Error''. Using the notation
+as explained earlier and listed in Table~\ref{tb:notations} we defined
+the error as given in equation~\ref{eq:def:accuracy}.
+
+\begin{equation}
+  \label{eq:def:accuracy}
+  \mathcal{A} = \frac{4}{N_p}\sum \limits_{t=t_s}^{t_e}\frac{|P_t -\hat{P}_t| }{max(P_t, \hat{P}_t, 10)}
+\end{equation}
+where, $t_s$ and $t_e$ indicates the starting and the ending time point for which predictions were generated.
+$N_p$ indicates the number of time points over the same time period (i.e. $N_p = t_e - t_s + 1$). 
+
+The accuracy criterion was designed according the following criteria:
+\begin{itemize}
+  \item The accuracy estimates should reflect the percentage deviation in prediction rather than
+    absolute deviation. 
+    \prithwish{should we justify this?}
+  \item The accuracy estimates must be non-negative.
+  \item 
+    If we don't consider the max operator in the denominator, even ``good'' 
+    predictions such as 1 for an actual count of 0 will be assigned an accuracy 
+    score of 0. As such we chose a threshold (here 10) for which very small deviations
+    are not over-penalized. The threshold was chosen by manually inspecting the 
+    span of ILI case counts ( which were found to lie between 0 and 
+    2000) and subsequent feedback from subject experts about the ``interesting'' 
+    range of predictions.
+\end{itemize}
+It is to be noted that the accuracy metric so defined is non-convex and was found to be 
+multi-modal. 
+
+
+\subsection{Surrogate Data sources}
+For the algorithm we described in Section~\ref{sec:methods}, we used a number of 
+different data sources as surrogates. We considered a wide range for such surrogates 
+comprising both physical indicators such as weather characteristics, and also 
+non-physical indicators such as social network activities and user search queries.
+For a number of the non-physical indicators such as Twitter activities,
+the most important part is to properly identify the keywords
 associated with flu so that we can get a proper estimate of the flu
-realted surrogate information. In section~\ref{sec:keyword}, we describe
-our keyword collection mechanism as follows.
-\subsection{\label{sec:keyword} Keywords Extraction}
+related surrogate information. This key step is described in section~\ref{sec:keyword},
+and is followed by an explanation of the surrogates sources in section. 
+
+\subsubsection{\label{sec:keyword} Keywords Extraction}
 \input{tex/keywords}
 
-\subsection{Data sources}
-We next desribe the different data sources as follows: 
-\subsubsection{Twitter} 
-\subsubsection{Healthmap}
-\subsubsection{Weather Data}
+We next describe the different data sources. 
 \subsubsection{Google Flu Trends}
+Google Flu Trends~\cite{GFT:2013} (GFT) is a tool based on~\cite{ginsberg2008detecting} 
+and provided by Google.org which gives weekly and up-to-date ILI case count 
+estimates using search query volumes. As mentioned in~\cite{ginsberg2008detecting},
+GFT is based on a regression model from search query estimates to actual ILI case counts.
+For the countries under consideration, GFT provides weekly estimates for 6 of them viz. 
+Argentina, Bolivia, Chile, Mexico, Peru and Paraguay. As mentioned in 
+Table.~\ref{tb:notations}, we denote the weekly estimate of GFT data for the country
+under consideration by $\mathcal{F} = \langle \mathcal{F}_1, \mathcal{F}_2, \dots, 
+\mathcal{F}_{T1} \rangle$. This estimate is typically at a different scale than at which 
+ILI case counts are provided by PAHO and needs to scaled accordingly while using. 
+We collected this data weekly on Monday from Jan 2013 to Aug 2013. The data downloaded on 
+a particular day contains the entire time-series from 2004 to the corresponding week.  
+ 
+
 \subsubsection{Google Search Trends}
+Google Search Trends~\cite{GST:2013} is another tool provided by Google. Using this 
+tool we can download an estimate of search query volume as a percentage over its own
+temporal history. This download can be further filtered geographically over a country. 
+We download the search query volumes for the 114 keywords as described in Section~\ref{sec:keyword}
+every week and convert the percentage measures to absolute values using a static dataset 
+we download on Oct 2012 when Google Search Trends used to provide absolute relative values of 
+query volumes. The time series constructed using this dataset, for the country under consideration
+is denoted by   
+$\mathcal{S} = \langle \mathcal{S}_1, \mathcal{S}_2, \dots, \mathcal{S}_{T1} \rangle$. 
+\subsubsection{Twitter}
+We also collected Twitter data from Datasift~\cite{Twitter:2013}, 
+one of the certified data resellers for Twitter data. Using a paid data collection 
+API, we can specific queries in datasift and get the corresponding filtered data.
+We started with a mix of queries targeted at collecting data from only the 
+countries under consideration. Using our in-house Geo coders we next processed the 
+collected Tweets to specific countries and then using syntactic analyzers from 
+Basis Enrichment~\cite{Basis:2013} we parsed the Tweet contents into ``lemma'' - root forms of words, 
+and also detected the Language and the part of speech for the word under consideration. 
+The importance of using this basis enrichment step is that we can differentiate 
+between different languages (for example the Spanish word ``gripe'', meaning flu,
+is part of our flu keyword and we don't want to match the English word 
+``gripe'' which is entirely non-related to flu) and also using the lemmatized versions
+we can match between different parts-of-speech variations of the same word. Using the 
+lemma sized equivalents of our keyword dictionary we next parsed the enriched Tweets
+for possible matches with flu related keywords and constructed a time series of 
+flu keyword weekly occurrence count. For the country under consideration, we denote 
+this time series by
+$\mathcal{T} = \langle \mathcal{T}_1, \mathcal{T}_2, \dots, \mathcal{T}_{T1} \rangle$.
+
+We started collecting flu filtered Tweeter Data from November 2012 and everyday 
+we download the corresponding Twitter time-series for each country. As shown in 
+Figure~\ref{fig:ili_data_pipeline}, every week we collect 10GB of data of raw Twitter Data which 
+are next enriched to 20GB of structured data. From this dataset, we parse flu related Tweets and 
+are left with around 7GB of data. This data is finally abstracted into a multi-variate time series
+over lemmatized versions of the 114 flu related keywords and added to the TDR. 
+
+\subsubsection{Healthmap}
+Similar to Twiter data, we also collect News data about flu using
+Healthmap~\cite{HM:2013}.
+Using this service we can get flu related news as a daily feed which is similarly processed using
+Basis Enrichment and further filtered to get a multivariate time series over over
+lemmatized version of the keywords. For a particular country, we denote this time 
+series by:
+$\mathcal{H} = \langle \mathcal{H}_1, \mathcal{H}_2, \dots, \mathcal{H}_{T1} \rangle$.
+
+While Twitter Data is more suitable to look for general public response,
+the Healthmap data
+can be argued to represent more specific information. Given that, its expected to 
+capture the trends slower than the Twitter Data. Thus we can rationale the use of both of 
+these sources to capture different surrogate signals - Twitter Data for leading but noisy
+indicators whereas Healthmap Data is a slightly delayed but more reliable indicator.
+
 \subsubsection{Open table}
-We monitored table availability using OpenTable; an online restaurant
-table reservation site for cities in the USA and Mexico. Our analysis
-can be summarized as follows. First, using the OpenTable site, we
-searched for the number of restaurants with available tables for two
-persons at lunch and dinner. Since different regions and individuals
-have different eating habits, we defined the lunch period between
-12–3:30pm and dinner between 6–10:30pm. We searched for available tables
-every hour and half past the hour for every day of the week. Next, we
-investigated any occurrences of social unrest and natural disasters,
-which might have affected the trend in the time series. Lastly, using
-moving averages, cross-correlations and regression models, we elucidated
-and compared the time-trend in the data of table availabilities to data
-collected for various disease outbreaks. In the USA, we examined table
-availability for restaurants in Boston, Atlanta, Baltimore and Miami.
-For Mexico, we studied table availabilities in Cancun, Mexico City,
-Puebla, Monterrey, and Guadalajara.
---We started collecting data on table availabilities starting September
-4th 2012.
---The number of restaurants available varies over time since restaurants
-are added and removed from the site. At the time of this writing, there
+Another interesting data source we use is the restaurant reservation statistics. 
+With the postulate that higher than average number of table availability in a 
+region can be a social indicator of a community with ill people, we monitored 
+table availability using OpenTable\cite{Opentable:2013}. OpenTable is 
+an online restaurant table reservation site for cities in the USA and Mexico. 
+Using the OpenTable site, we searched for the number of restaurants with available 
+tables for two persons at lunch and dinner. To account for the variability 
+of eating habits, we defined lunch period between 12–3:30pm and dinner 
+between 6–10:30pm. For the countries under consideration we can thus
+collect data for only Mexico and for the said country we collected the
+reservation data for the specified time slots in Cancun, Mexico City,
+Puebla, Monterrey, and Guadalajara. Finally we aggregate this data as a
+weekly time-series of available tables and denote the time-series by
+$\mathcal{O} = \langle \mathcal{O}_1, \mathcal{O}_2, \dots, \mathcal{O}_{T1} \rangle$.
+
+We started collecting this data daily from September, 2012. The
+number of restaurants varies over time (as new restaurants are added and
+removed from the site) and at the time of this writing there 
 were over 28,000 restaurants in the database.
---Since we monitored ten regions at twenty search times, this resulted
-in 200 distinct time-series curves.
---Size of data: The data files are not too big. When I analyzed it, each
-was about 1kb which implies about 200kb in total.
+%--Since we monitored ten regions at twenty search times, this resulted
+%in 200 distinct time-series curves.
+\begin{figure}
+  \includegraphics[width=3.33in]{fig/humidity_centers.pdf}
+  \caption{\label{fig:surveillance} PAHO surveillance centers for the 15
+  Latin American countries.}
+\end{figure}
+
+\subsubsection{Weather Data} 
+All of the data sources so described can be termed as `non-physical'
+indicators. These data sources can work as indirect indicators about the
+state of the population with respect to flu by exposing different
+population characteristics. At the same time, meteorological data can be
+though of as more direct and `physical' indicator of the flu. It has
+been shown in~\cite{ref9} that absolute humidity can be directly used to
+predict the state of epidemics. Here, we collected several other
+meteorological factors such as temperature and rainfall in addition to
+humidity from the NASA repository~\cite{HD:2013}. The data is provided
+in GDAS format and by specifying the resolution and the geographical
+boundaries we can collect the data for the countries under consideration
+to a resolution of 1 degrees lat/long interval. However, looking at all
+the lat/long for a country can often lead to noisy data. As such we
+filtered the downloaded data and parsed the meteorological data only around
+the PAHO surveillance centers as shown in
+Figure~\ref{fig:surveillance}. We also aggregate this data using weekly
+averages and for a particular country we represent the time resultant
+time series by:
+$\mathcal{W} = \langle \mathcal{W}_1, \mathcal{W}_2, \dots, \mathcal{W}_{T1} \rangle$.
+
+We collected this data weekly from Jan 2013 to August 2013. 
 
 
+\subsubsection{Temporal Data Repository}
+As alluded to earlier, all of the data sources thus described were added to a temporal database
+we refer to as ``Temporal Data Repository'' (TDR). Some of the data
+sources such as the Weather Data, Twitter Data, Healthmap Data and
+OpenTable data once downloaded doesn't change. Also at the time of
+download these datasets are updated till the corresponding day. 
+Thus to extract the data available at a certain time point for these
+data sets we can simply consider the corresponding truncated time series
+from the latest data. However, Statistics like Google Search Trends and
+the PAHO ILI case counts exhibit variability in past data. Thus the
+actual time series for these datasets are stored in TDR with the
+corresponding timestamps. Thus given any time point, using TDR we can
+quickly refer the data available at that point of time and run our
+algorithm to simulate a prospective analysis scenario. 
+The entire data collection process is depicted
+pictorially in Figure~\ref{fig:ili_data_pipeline}.

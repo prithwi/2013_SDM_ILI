@@ -1,44 +1,43 @@
 % mainfile: ../ltexpprt.tex
 
-By using multiple methods like pseudo query expansion and correlation
-analysis using Google Correlate we built a vocabulary of 151 words (both
-in Spanish and English) that were found to be closely associated with
-flu. To begin with, our subject matter experts provided us with a set of
-words that were associated with flu. These included symptoms, medical
-synonyms and effects. This set was used as the initial seed for pseudo
-query expansion, wherein the top 20 web sites returned by Google search
-for each of these words were crawled. Apart from this, the official CDC
-website and equivalent websites in each country detailing the
-causes,symptoms and treatment for influenza was also crawled.
-Additionally some hand picked websites such as
-\url{http://www.flufacts.com}
-and \url{http://health.yahoo.net/channel/flu\_treatments} were also crawled.
-This entire corpus was then normalized by removing stop words and using
-porter stemming, post which the words were ranked according to the
-number of occurrences. The top 500 words for each language was selected.
-Words such as enfermedad (Spanish for disease) and pandemia were
-obtained from this step.  Google Correlate (now a part of Google Trends)
-allowed one to provide an arbitrary time series and it returned back a
-list of words whose search volume was most correlated to the given time
-series. For our vocabulary building exercise, the ILI case counts
-published by PAHO on their official website
-\url{http://ais.paho.org/phip/viz/ed\_flu.asp} was used to create a time
-series. For each country, this time series was then fed into Google's
-Correlate engine and the top 20 correlated words were obtained. These
-words were a mix of both English and Spanish. As an added exercise, the
-case count time series was shifted to the left by upto 2 weeks in order
-to capture the words searched leading up to the actual flu infection.
-Similarly, we shifted the time series to the right to capture the words
-commonly searched during the tail of the infection. This entire exercise
-provided us some interesting terms like ``ginger'' which has been used as
-a natural herbal remedy in the eastern world and many popular flu
-medications like ``Acemuk'' which is popular flu medication in South
-America and  ``Oseltamivir'' which is sold under the trade name of
-``Tamiflu'' were found to be highly correlated to the flu case count time
-series particularly in Argentina.   The set of terms obtained from query
-expansion and correlation analysis were then pruned by hand to obtain
-the final vocabulary 151 words. These words were used as input for the
-GST model. We then noticed 37 of these words had negligible to almost-no
-weights that the model learnt during the training phase and hence were
-omitted from the vocabulary, giving us a total of 114 keywords that are
+The keywords indicating Influenza like Illness (ILI) activites was
+constructed from a set of seed words and expaned using a combination of 
+techniques such as time-series correlation analysis and pseudo-query
+expansion.
+The set of starting keywords was constructed based on feedback from our 
+in-house subject mattter expers. These included keywords such as 
+``symptoms'', ``medical'' and ``effects''.
+\paragraph{Pseudo-query Exapnsion}
+Using this set as the initial seed for pseudo-query expansion we crawled
+the top 20 web sites (according to Google Search) associated with each
+word in this set. We also crawled some ``expert'' sites such as the official CDC
+website and equivalent websites of the countries under consideration detailing the
+causes, symptoms and treatment for influenza.
+Additionally, we also crawled a few hand picked websites such as
+\url{http://www.flufacts.com} and \url{http://health.yahoo.net/channel/flu\_treatments}.
+We filtered the words from these sites using standard language
+processing filtering techniques such as stopword removal and porter
+stemming. The filtered set of keywords were then ranked according to 
+the absolute frequency of occurence. The top 500 words for Spanish and
+English were then selected. For example, words such as ``enfermedad'' 
+and ``pandemia'' were obtained from this step.
+\paragraph{Time-series Correlation analysis}
+Next we used Google Correlate (now a part of Google Trends) to compare
+the ILI case count time-series for each country and found the top 20
+correlated words. Once again these words were found to be a mix of 
+ both English and Spanish. As an added step in this process, we also
+ compared time-shifter ILI counts: left-shited  to capture the words searched leading up to 
+ the actual flu infection and right-shifted to capture the words
+commonly searched during the tail of the infection. 
+This entire exercise provided us some interesting terms like ``ginger'' which has been used as
+a natural herbal remedy in the eastern world. We also found populaar flu medications
+such as ``Acemuk''and  ``Oseltamivir'', which are also sold under the trade name of
+``Tamiflu'' as highly correlated search queries - paritcularly for
+Argentina.
+\paragraph{Final Filtering}
+The set of terms obtained from query expansion and correlation analysis were then 
+pruned by hand to obtain a vocabular of 151 words. We performed a final
+correlation check considering all the words and the ILI case counts and
+removed all the words with correlation scores lower than a certain
+threshold and were left with a final set of 114 keywords that are
 predictive of flu outbreak in South America.
