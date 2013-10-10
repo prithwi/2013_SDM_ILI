@@ -178,12 +178,17 @@ All of the data sources so described can be termed as `non-physical'
 indicators. These data sources can work as indirect indicators about the
 state of the population with respect to flu by exposing different
 population characteristics. At the same time, meteorological data can be
-though of as more direct and `physical' indicator of the flu. It has
-been shown in~\cite{ref9} that absolute humidity can be directly used to
-predict the state of epidemics. Here, we collected several other
+though of as more direct and `physical' driver of influenza transmission
+~\cite{flu_humidity_physical}. It has been shown in~\cite{Shaman_orig_humidity_link} 
+~\cite{Shaman_humidity_USA} ~\cite{ref9} that absolute humidity can be directly used to
+predict the onset of influenza epidemics. Here, we collected several other
 meteorological factors such as temperature and rainfall in addition to
-humidity from the NASA repository~\cite{HD:2013}. The data is provided
-in GDAS format and by specifying the resolution and the geographical
+humidity from the Global Data Assimilation System (GDAS) which is 
+a series of weather models run by National Weather Service's National 
+Centers for Environmental Prediction that provides detailed meteorological 
+data in near real-time across the globe.  We accessed the data via an archive hosted by 
+NASA (http://ladsweb.nascom.nasa.gov/) ~\cite{HD:2013}, and provided
+in GRIB format. By specifying the resolution and the geographical
 boundaries we can collect the data for the countries under consideration
 to a resolution of 1 degrees lat/long interval. However, looking at all
 the lat/long for a country can often lead to noisy data. As such we
