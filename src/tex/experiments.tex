@@ -135,11 +135,11 @@ flu related keywords and added to the TDR.
 Similar to Twitter data, we also collect flu-related
 news stories using HealthMap~\cite{HM:2013}, an online global disease alert
 system capturing outbreak data from over 50,000 electronic sources [including
-expert-curated accounts, such as ProMED-Mail (citations available), news media
+  expert-curated accounts, such as ProMED-Mail~\cite{chase1996promed}, news media
 and official reports from local, national and global public health
-organizations. ] Using this service we receive flu-related news as a daily feed
+organizations.] Using this service we receive flu-related news as a daily feed
 which is similarly processed using Basis Enrichment and further filtered to get
-a multivariate time series over over lemmatized version of the keywords. For a
+a multivariate time series over  lemmatized version of the keywords. For a
 particular country, we denote this time series by: 
 $\mathcal{H} = \langle \mathcal{H}_1, \mathcal{H}_2, \dots, \mathcal{H}_{T1} \rangle$.
 
@@ -151,26 +151,24 @@ indicators whereas HealthMap Data provides a slightly delayed but more reliable
 indicator.
 
 \subsubsection{OpenTable}
-Another interesting data source we use is the
-restaurant reservation statistics.  With the postulate that higher than average
-number of table availability in a region can be a social indicator of a
-community with ill people, we monitored table availability using
-OpenTable~\cite{Opentable:2013}. OpenTable is an online restaurant table
-reservation site for cities in the USA and Mexico.  Using the OpenTable site,
-we searched for the number of restaurants with available tables for two persons
-at lunch and dinner. To account for the variability of eating habits, we
-defined lunch period between 12–3:30pm and dinner between 6–10:30pm. For the
-countries under consideration we can thus collect data for only Mexico and for
-the said country we collected the reservation data for the specified time slots
-in Cancun, Mexico City, Puebla, Monterrey, and Guadalajara. Finally we
-aggregate this data as a weekly time-series of available tables and denote the
-time-series by 
+We also use data on trends of restaurant table reservations, as initially 
+found in~\cite{elaine2013opentable} to be a potential early indicator for
+outbreak surveillance, as another surrogate for ILI detection.
+This novel data stream is based on the
+postulate that higher than average number of restaurants with table
+availabilities in a region can serve as an indicator of an event of interest
+such as increase in flu cases. Table availability was monitored using OpenTable
+~\cite{Opentable:2013}; an online restaurant reservation site with 28,000 restaurants at the time
+of this writing. Daily searches were performed starting from September 2012 for
+a table for two persons at lunch and dinner; between 12:30-3pm, and between
+6-10:30pm. Data was collected for Mexico by city (Cancun, Mexico City, Puebla,
+Monterrey, and Guadalajara) and for the entire country. The daily proportion
+(proportion used due to changes in the number of restaurants in the system) of
+restaurants with available tables was aggregated as a weekly time-series and
+is denoted by 
 $\mathcal{O} = \langle \mathcal{O}_1, \mathcal{O}_2, \dots, \mathcal{O}_{T1} \rangle$.
 
-We started collecting this data daily from September, 2012. The number of
-restaurants varies over time (as new restaurants are added and removed from the
-site) and at the time of this writing there were over 28,000 restaurants in the
-database.
+
 %--Since we monitored ten regions at twenty search times, this resulted in 200
 %distinct time-series curves.
 \begin{figure} 
