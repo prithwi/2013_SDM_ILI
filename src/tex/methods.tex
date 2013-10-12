@@ -4,16 +4,16 @@
 %2. ``langle'' vs ``left(''}
 
 In order to solve the problem formalized in Section~\ref{sec:problem}, we employ
-non-linear regressions on the case count and the surrogate attributes. 
-We describe two models:
+non-linear temporal regressions on the case count and the surrogate attributes. 
+We describe three models:
 \begin{itemize}
+  \item Classical Matrix Factorizaiton Based Regression.
   \item Nearest Neighbor Based Regression.
-  \item Matrix Factor Based Regression.
+  \item Matrix Factorization Regression using Nearest Neighbor embedding.
 \end{itemize}
-For both of the methods, we deine two paramters- $\beta$ and $\alpha$. 
-$\alpha$ is the ``lookahead window length'' denoting the time point from $T$ 
-for which we want to predict the case count and $\beta$ 
-is the ``lookback window length'' denoting the number of time points to looback
+For all of the methods, we deine two paramters- $\beta$ and $\alpha$. 
+`$\alpha$' is the ``lookahead window length'' denoting distance of the time point for prediction from $T$ 
+ and $\beta$ is the ``lookback window length'' denoting the number of time points to looback
 in order to find the regression relation between the case count and the surrogate 
 data.
 
@@ -26,7 +26,7 @@ as given in equation~\ref{eq:regressionvector}.
   \begin{array}{lcl}
     V_t & \equiv & \langle P_{t-\beta - \alpha}, \mathcal{X}_{t-\beta - \alpha}, P_{t + 1 -\beta-\alpha}, \mathcal{X}_{t + 1 - \beta-\alpha}, \dots, \\
         &        & P_{t-\alpha},\mathcal{X}_{t-\alpha} \rangle \\
-    L_t & \equiv & P_{t - \alpha}\\
+    L_t & \equiv & P_{t}\\
   \end{array}
 \end{equation}
 The the regression vector for predicting the case count at time point $T' (T +
@@ -40,24 +40,110 @@ The the regression vector for predicting the case count at time point $T' (T +
 \end{equation}
 
 Under these definitions we describe the models as follows:
+\subsection{\label{sec:model:matrixfactor} Matrix Factorization Based Regression:}
+Matrix Factorization has been long used in the recommender systems to predict user 
+preferences from incomplete user ratings/informations. Typically~\cite{canny2002factor},
+in recommender system an user-preference matrix is factored into an user-factor and
+factor-preference matrix. However, such factorizations are incognizant of any 
+temporal continuity. As such to enforce temporal continuity, to predict for the time point 
+$T' (T +\alpha > T' > T)$ we use the regression vectors 
+and labels as defined in equation~\ref{eq:regressionvector} to define a $m \times n$ ``prediction
+matrix'' $\mathcal{M}$ as given in equation~\ref{eq:predictionmatrix} 
+\begin{equation}
+  \label{eq:predictionmatrix}
+\mathcal{M} = \left[\begin{array}{ll}
+              V_{\alpha + \beta + 1} & L_{\alpha+\beta + 1} \\
+                              \vdots & \vdots \\
+                               V_{T} & L_T \\
+                               V_{T'} & L_{T'} \\ 
+    \end{array}
+  \right]
+\end{equation}
 
-\subsection{\label{sec:model:nearestneighbor} Nearest Neighbor Based
-Regression:}
+The prediction matrix is factorized into a $f\times m$ factor-feature matrix $U$ and 
+a $f\times n$ factor-prediction matrix as :
+\[ \widehat{\mathcal{M}}_{i,j} = b_{u,i} + U^T_i \times F_j\]
+Here, $b_{i,j}$ is the baseline estimate given by:
+ \begin{equation}
+   \label{eq:baseline}
+   b_{i,j} = \bar{\mathcal{M}} + b_j 
+ \end{equation}
+ where $\bar{\mathcal{M}}$ represents the all element average and $b_j$ represents 
+ the column wise deviations from the average and is generally a free-parameter i.e.
+ its fitted as part of the optimization problem.
+
+ Also, $U$ and $F$ matrix are estimated by minimizing the error function:
+\begin{equation}
+  \begin{array}{ll}
+  \label{eq:matrix:fit}
+  b_*, F, U  & =  argmin (\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n}  - \widehat{\mathcal{M}}_{i,n} \right)^2 \\ 
+  & + \lambda_1\times(\sum \limits_{j=1}^{n}b_j^2 + \sum \limits_{i=1}^{m-1} || U_i||^2 + \sum \limits_{j=1}^{n} || F_j||^2))
+\end{array}
+\end{equation}
+
+Where, $\lambda_1$ is a regularization parameter. An important design criteria towards
+the error function as given in equation~\ref{eq:matrix:fit} is the fact that we only compute the error
+between the predicted label values and the actual label values i.e. the $n^{th}$ column of the prediction 
+matrix $\mathcal{M}$. The rationale behind this choice is the fact that unlike traditional recommender 
+systems we are only concerned with the label column and can sacrifice reconstruction accuracies for other 
+columns. 
+
+The lookback window $\beta$, the factor size $f$ and the regularization parameter $\lambda_1$ 
+are estimated using the best cross-validation accuracy 
+and the final prediction for time point $T'$ is given by:
+\[\widehat{P}_{T'} = b_{m,n} + U_m^T \times F_{m,n} \]]
+
+\subsection{\label{sec:model:nearestneighbor} Nearest Neighbor Based Regression:}
 For Nearest Neighbor Models, we define a training set $\Gamma_{NN}
 = \lbrace V_t, L_t \rbrace$, where $V_t$ represents the regression attributes
-and $L_t$ denote the corresponding labels. 
+and $L_t$ denote the corresponding labels.
+
+Also, let us define the set 
+$\mathcal{N}(i) = \lbrace k : \mbox{$V_k$ is one of the top  K nearest neighbors of $V_{i}$} \rbrace$ 
+where, $K$ indicates the maximum number of nearest neighbors considered.
+
 
 The predicted count $\widehat{P}_{T'}$ for the time point $T'$ is given as:
 \begin{equation} \label{eq:nearestneighbor:pred}
   \begin{array}{lcl}
-  \widehat{P}_{T'} & = & \frac{\sum\limits_{k=1}^{K} b_{k}L_{k,T}}{\sum\limits_{k=1}^{K} b_{k}}\\
+    \widehat{P}_{T'} & = & \frac{\sum\limits_{k in \mathcal{N}(T')} \gamma_{k}L_{k,T - \alpha}}
+    {\sum\limits_{k=1}^{K} \gamma_{k}}\\
   \end{array}
 \end{equation}
-where, $K$ indicates the maximum number of nearest neighbors considered
-and $L_{k,T}$ indicates the label of the $k^{th}$ nearest neighbor to $V_{T'}$ in $\Gamma_{NN}$
-at timep point $T$. Also, $b_k$ indicates the weight assigned to the $k^{th}$ nearest neighbor.
+
+%and $L_{k,T}$ indicates the label of the $k^{th}$ nearest neighbor to $V_{T'}$ in $\Gamma_{NN}$
+%at time point $T$. 
+Also, $\gamma_k$ indicates the weight assigned to the $k^{th}$ nearest neighbor.
 Typically the inverse euclidean distances to $V_{T'}$ is chosen as the weights.
 
-\subsection{\label{sec:model:matrixfactor} Matrix Factorization Based
-Regression:}
+\subsection{\label{sec:model:nearestmatrix} Matrix Factorization Based
+Regression using Nearest Neighbor Embedding:}
+It was shown in~\cite{koren2008factor},  that matrix factorization using nearest neighbor constraints can
+outperform classical matrix factorization approach as well as nearest neighbor approaches towards
+recommender systems. Here, we modify the method to suit the temporal nature of our problem in similar ways 
+as described in section~\ref{sec:model:matrixfactor}. We again define a similar prediction matrix $\mathcal{M}$ 
+(see equation~\ref{eq:predictionmatrix}). Following ~\cite{koren2008factor}, we define the 
+matrix decomposition rule as 
+
+\begin{equation}
+  \label{eq:model:matrixfactornbr}
+  \begin{array}{lcl}
+    \widehat{\mathcal{M}}_{i,j} & = &  b_{i,j} + U_i^T\times F_j \\
+                                &   & + F_j \times |\mathcal{N}(i)|^{-\frac{1}{2}}\sum_{k \in N(i)} (\mathcal{M}_{i,k} - b_{i,k}) x_k \\
+  \end{array}
+\end{equation}
+
+The key difference between equation~\ref{eq:model:matrixfactornbr} and the one proposed in 
+~\cite{koren2008factor} is that we don't have any term for implicit feedback and also here 
+only the top $K$ neighbors as found through Euclidean distance is used. 
+
+The model is fitted using equation~\ref{eq:matrixnbr:fit} as given below:
+
+\begin{equation}
+  \label{eq:matrixnbr:fit}
+  \begin{array}{ll}
+    b_*, F, U, x_*  & = argmin (\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n} - \widehat{\mathcal{M}}_{i,n}   \right)^2 \\
+    &  + \lambda_2\times(\sum \limits_{j=1}^{n}b_j^2 + \sum \limits_{i=1}^{m-1} || U_i||^2 + \sum \limits_{j=1}^{n} || F_j||^2 + \sum_k ||x_k||^2))
+  \end{array}
+  \end{equation}
 
