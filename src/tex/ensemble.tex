@@ -1,5 +1,18 @@
 % mainfile: ../ltexpprt.tex
 
+\prithwish{
+In the previous section, we have discussed different non-linear regression strategies to correlate 
+a specific source with the ILI case count of the corresponding country and generate predictions.
+However, as outline in Section~\ref{sec:intro}, we want to work with a multitude of different 
+sources. We broadly explored two different ways to work with all the sources :
+\begin{enumerate}
+  \item Model level fusion, where we build one regressor for each data source and 
+    the combine the prediction from the models.
+  \item Data level fusion, where we build a single regressor for all the different data
+    sources.
+\end{enumerate}
+We discuss these two different methods next and present our findings in Section~\ref{sec:results}.
+}
 
 Preliminary experiments shown that performance of neighborhood models for prediction of PAHO count values are better than other prediction methods. Hence, in this section, we propose an ensemble model based on nearest neighborhood regression models. For simplicity, we use subscripts $i$ and $j$ for indicating time slots (weeks). Known PAHO count values for week $i$ are shown by $P_{i}$ and predicted values are shown by $\hat{P}_{i}$. We assume that $\mathcal{P}$ is the set of all known PAHO count values for a specific country.
 
