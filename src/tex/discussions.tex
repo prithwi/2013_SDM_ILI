@@ -1,16 +1,22 @@
 % mainfile: ../ltexpprt.tex
-\begin{itemize}
-  \item Table~\ref{tb:comparison_single} Comapring the three regression methods (one for each source and country). 
-  \item Discussion GST vs GFT.
-  \item Table~\ref{tb:comparison_ensemble} Which Ensembling method to use.
-  \item Table~\ref{tb:Ablation} Ablation tests
-  \item Table~\ref{tb:moving} Forecasting moving target (three different methods).
-  \item Opentable data (more analysis... make this with only Mexico.. just a single plot may suffice). 
-\end{itemize}
+Using the experimental setup we proceed to present our analysis about the efficacy 
+of the proposed algorithms. In the process we also investiagte several possibilites 
+and we next present our findings in accordance with such investigations. For all of 
+these experimental results, we evaulated the algorithms over 6 months of predictions 
+from Jan, 2013 to August, 2013. The final estimates of ILI case count was fixed according
+to the estimates downloaded from PAHO on Oct 1, 2013 - a time frame with sufficient time
+so that the values in our test set are stabilized. On this data set, we ran all the three different 
+regressors as presented in Section~\ref{sec:methods} individually on all the surrogate sources (by setting
+$\mathcal{X}$ to the corresponding surrogate time series)
+as explained in the previous section (except OpenTable). The regressors were used to predict
+2 weeks from the latest available PAHO ILI estimates for the corresponding calendar day. 
+The findings of this endeavor is presented in Table.~\ref{tb:comparison_single}. We analyze 
+some important observations from this table next
 
 \begin{table*}[tb!]
 \centering
 \caption{\label{tb:comparison_single}  Comparing Prediction accuracy of regression models using individual sources.}
+\vspace{1em}
 \footnotesize
 \begin{tabular}{|*{18}{c|}}
 \hline
@@ -19,29 +25,53 @@ Model               & Sources       & AR & BO & CL & CR & CO & EC & GF & GT & HN
 \multirow{5}{*}{MF} & $\mathcal{W}$ &2.78&2.46&2.39&2.14&2.70&2.22&2.12&2.63&2.52&2.73&2.31&2.21&2.49&2.77&2.61&2.47\\ 
                     & $\mathcal{H}$ &2.81&2.31&2.22&1.92&2.43&2.04&2.11&2.57&2.33&2.48&2.39&2.15&2.18&2.47&2.33&2.32\\ 
                     & $\mathcal{T}$ &2.37&2.35&2.18&2.03&2.21&2.12&1.83&2.12&2.29&2.03&1.89&2.06&1.96&2.20&2.21&2.12\\ 
-                    & $\mathcal{F}$ &2.34&2.11&2.29& N/A& N/A& N/A& N/A& N/A& N?A&2.71& N/A& N/A&2.31&2.24& N/A&2.33\\ 
+                    & $\mathcal{F}$ &2.34&2.11&2.29& N/A& N/A& N/A& N/A& N/A& N/A&2.71& N/A& N/A&2.31&2.24& N/A&2.33\\ 
                     & $\mathcal{S}$ &2.48&2.21&2.33&2.04&2.31&2.21&1.93&2.03&2.15&2.51&2.42&2.52&2.33&1.93&2.30&2.24 \\ 
 \hline
 \multirow{5}{*}{NN} & $\mathcal{W}$ &2.92&2.93&2.63&2.52&2.66&2.51&2.71&2.82&2.59&2.62&2.55&2.59&2.61&2.80&2.52&2.66\\ 
                     & $\mathcal{H}$ &2.73&3.10&2.42&2.27&2.83&2.64&2.43&2.25&2.71&2.31&2.61&2.35&2.43&2.39&2.52&2.53\\ 
                     & $\mathcal{T}$ &2.72&2.86&2.31&2.62&2.77&2.52&2.71&2.66&2.51&2.44&2.13&2.01&1.77&2.51&2.20&2.45\\ 
-                    & $\mathcal{F}$ &2.11&2.21&2.33& N/A& N/A& N/A& N/A& N/A& N?A&2.19& N/A& N/A&2.41&2.32& N/A&2.26\\ 
+                    & $\mathcal{F}$ &2.11&2.21&2.33& N/A& N/A& N/A& N/A& N/A& N/A&2.19& N/A& N/A&2.41&2.32& N/A&2.26\\ 
                     & $\mathcal{S}$ &2.51&2.31&2.41&1.81&2.52&2.41&2.12&2.29&2.51&2.13&2.61&2.14&2.51&1.87&2.12&2.28 \\ 
 \hline
 \multirow{5}{*}{MFN}& $\mathcal{W}$ &2.99&3.01&2.88&2.53&2.78&2.81&2.77&2.83&2.61&2.70&2.56&2.66&2.82&2.79&2.51&2.75\\ 
                     & $\mathcal{H}$ &2.81&3.13&2.63&2.58&2.91&2.77&2.57&2.63&2.73&2.50&2.61&2.54&2.51&2.69&2.61&2.68\\ 
                     & $\mathcal{T}$ &2.74&3.03&2.51&2.64&2.83&2.51&2.81&2.71&2.60&2.48&2.13&2.55&2.19&2.57&2.31&2.57\\ 
-                    & $\mathcal{F}$ &2.33&2.41&2.34& N/A& N/A& N/A& N/A& N/A& N?A&2.69& N/A& N/A&2.54&2.48& N/A&2.46\\ 
+                    & $\mathcal{F}$ &2.33&2.41&2.34& N/A& N/A& N/A& N/A& N/A& N/A&2.69& N/A& N/A&2.54&2.48& N/A&2.46\\ 
                     & $\mathcal{S}$ &2.61&2.44&2.55&2.22&2.61&2.52&2.71&2.31&2.62&2.48&2.61&2.31&2.53&2.23&2.13&2.46\\ 
 \hline
 \end{tabular}
 \end{table*}
 
 
+{\noindent \textbf{Google Flu Trends vs Google Search Trends: }}  Google Flu Trends
+was one of the first and perhaps the most popular approach 
+towards ILI outbreak detection using search query estimates. However, the Google
+Flu Trends works on a closed-source keyword dictionary. We recreated the GFT setup 
+by tracking search query volumes over our own custom ILI related keyword dictionary.
+We evaluated the two different sources by using the same regression model on each 
+data source and comparing the overall accuracy. As can be seen Table~\ref{tb:comparison_single},
+for majority of the common countries (countries for which data from both Google Search Trends
+and Google Flu Trends is present), regressors running on GST consistently 
+outperforms those running on GFT. The only deviation could be seen in the case of Mexico, where the
+accuracy from GFT trails the one from GST slightly. 
+Thus we posit that the GST model so deviced is a a sufficiently close approximation to GFT, and 
+with the added advantage of having access to raw level data and being available for more countries 
+than GFT (among the 15 countries we consider, only 6 of them are present in the GFT database).
+
+
+{\noindent \textbf{Optimal Regression model: }} From Table.~\ref{tb:comparison_single}, we can also
+analyze the three different regressors proposed in Section.~\ref{sec:methods} with respect to overall accuracy.
+With respect to each individual source, we can see that the Matrix Factorization with nearest 
+neighbor embdedding performs the best in average over the countries, amonsgt the three.
+Although, for some countties such as Panama while using only Google Search Trends, MFN works poorer to 
+MF, the average accuracy over all countries for any given data source is best while using MFN.
+
 \begin{table*}[tb!]
   \centering
   \caption{\label{tb:comparison_ensemble}Comparison of prediction accuracy while combining all data sources
   and using MFN regression.}
+\vspace{1em}
   \begin{tabular}{|p{1.5cm}|*{16}{l|}}
 \hline
 Fusion Level& AR & BO & CL & CR & CO & EC & GF & GT & HN & MX & NI & PA & PY & PE & SV & All\\
@@ -52,26 +82,60 @@ Data        &3.01&2.97&3.13&2.87&2.86&3.04&2.91&2.88&2.72&2.89&2.70&2.60&2.88&2.
 \end{tabular}
 \end{table*}
 
+{\noindent \textbf{Best way to combine the different data sources.: }} Another important 
+question that needs to be investigated is to find out how best to combine these sources. 
+As explained in Section.~\ref{sec:ensemble}, we proposed two different methods for fusing the
+different sources: Model level vs Data level fusion. To analyse this, we ran the two different methods
+using the Matrix Factorization based regression using nearest neighbor embedding which was found earlier 
+found to be the best performing regression algorithm. The results are presented in Table~\ref{tb:comparison_ensemble}, 
+which shows that the Model level fusion workds better overall. For 8 of the 15 countries, the model level fusion works
+appreciably better than Data level fusion, while the reverse trend is seen for 4 other countries. 
+This showcases the importance of considering both kinds of fusion as depending on the country of interest 
+a particular type of fusion may be preferrable.
+
 \begin{table*}[tb!]
   \centering
   \caption{\label{tb:moving} Comparison of prediction accuracy while using model level fusion 
   on MFN regressors and employing PAHO stabilization.}
+\vspace{1em}
 \begin{tabular}{|p{1.5cm}|*{16}{c|}}
 \hline
 Correction Method& AR & BO & CL & CR & CO & EC & GF & GT & HN & MX & NI & PA & PY & PE & SV & All\\
 \hline \hline
-Uncorrected      &3.12&3.22&3.03&2.88&2.98&3.13&2.87&2.99&2.87&3.00&2.77&2.82&2.81&2.92&2.87&2.95\\ 
-Weeks Ahead      &3.15&3.24&3.04&2.87&2.97&3.17&2.87&2.99&2.88&3.05&2.77&2.91&3.02&2.91&2.88&2.98\\ 
-Num samples      &3.20&3.24&3.03&2.88&2.96&3.12&2.87&3.01&2.89&3.12&2.78&2.92&3.04&2.91&2.87&2.99\\ 
+None             &3.12&3.22&3.03&2.88&2.98&3.13&2.87&2.99&2.87&3.00&2.77&2.82&2.81&2.92&2.87&2.95\\ \hline
+Weeks Ahead      &3.15&3.24&3.04&2.87&2.97&3.17&2.87&2.99&2.88&3.05&2.77&2.91&3.02&2.91&2.88&2.98\\ \hline 
+Num samples      &3.20&3.24&3.03&2.88&2.96&3.12&2.87&3.01&2.89&3.12&2.78&2.92&3.04&2.91&2.87&2.99\\ \hline
 Combined         &3.21&3.24&3.05&2.89&2.96&3.19&2.87&3.00&2.89&3.13&2.77&2.93&3.08&2.92&2.88&3.00\\ 
 \hline
 \end{tabular}
 \end{table*}
 
+
+{\noindent \textbf{Best way to combine the different data sources.: }} Thus finding the 
+best in-average regressor and source fusion strategy, we investigate how we can use the 
+official ILI case count estimate correction as presented in Section~\ref{sec:moving} to 
+produce better quality predictions. As was shown, we can estimate the variability in the 
+official ILI estimates either by looking at the difference in weeks between the day of upload 
+and the week for which being the data is uploaded. At the same time, the number of samples used 
+by the agencies to produce the estimates are also good indicators with lower number of samples
+indicating variable estiamtes and high number of samples indicating more stable estimates. 
+We test the correction procedures, by replacing the PAHO ILI case counts by their corrected values
+and run the MFN over all data sources combined using model level fusion.
+The results are reported in Table.~\ref{tb:moving}. As can be seen, corrected estimates 
+using both the number of samples and 
+the ``weeks ahead'' from the upload date, are generally better. It is to be noted that although
+the correction is 
+able to increase the overall accuracy only by a score 0.05 over all the countries, 
+for some countries such as Mexico and Argentina (for which the data update is typically noisy) we get 
+a substantial imporovement of scores. This indicates that the corrections may be selectively applied 
+while predicting for certain countries. 
+
+
 \begin{table*}[tb!]
   \centering
   \caption{\label{tb:Ablation} Discovering importance of sources in Model level fusion on MFN 
   regressors by ablating one source at a time.}
+\vspace{1em}
 \begin{tabular}{|*{17}{c|}}
 \hline
 Sources & AR & BO & CL & CR & CO & EC & GF & GT & HN & MX & NI & PA & PY & PE & SV & All\\
@@ -87,11 +151,46 @@ w/o $\mathcal{F}$ & 3.20& 3.12& 2.88& 2.89& 2.96& 3.19& 2.87& 3.00& 2.83& 3.02& 
 \end{tabular}
 \end{table*}
 
+{\noindent \textbf{Importance of data sources - Physical vs. Non-physical indicators: }} Finally we revisit the importance of different data sources
+towards final prediction. From Table.~\ref{tb:comparison_single}, we can analyze the data sources
+to find the ones which works the best when only individual models are created for each of them. 
+In that analysis, the data source with the best accuracy happens to be the physical indicator source, 
+weather data. However, while combining multiple sources the relations as identified via the individual models
+may no longer hold true. As such we present a detailed ``ablation test'' where we removed one data source at a time
+from the MFN and model level fusion framework and compared the final accruacy over the different countries. 
+While removing the weather data, degrades the accuracy score the most, removing any source from the framework is found
+to degrade the score to varying degrees. Thus we claim that it is important to consider both the physical 
+and non-physical indicators to get a refined signal about the prevalent ILI incidence in the population.
+
+
+\begin{itemize}
+  %\item Table~\ref{tb:comparison_single} Comapring the three regression methods (one for each source and country). 
+  %\item Discussion GST vs GFT.
+  %\item Table~\ref{tb:comparison_ensemble} Which Ensembling method to use.
+  %\item Table~\ref{tb:Ablation} Ablation tests
+  %\item Table~\ref{tb:moving} Forecasting moving target (three different methods).
+  \item Opentable data (more analysis... make this with only Mexico.. just a single plot may suffice). 
+\end{itemize}
+
+
+{\noindent \textbf{How good is restaurant reservation data to detect ILI: }} All the results so produced till now
+didn't consider OpenTable reservations data. The reason is that this data is available only for Mexico among the 
+countries being investigated. In general greater avaiability of tables may indicate higher ILI incidence rate in population.
+We considered two different time winodws : Lunch and Dinner and used the number of open tables as the surrogate data.
+We applied the three different regressors and also applied Model fusion over MFN regressors on this data and present 
+our findings in Table~\ref{tb:opentable}. There we also compare the accuracy while using reservation 
+data from only lunch and dinner as well as both time slots. As the results show, from this dataset we get the best 
+result when we consider both lunch and dinner reservation data. Also, we find that including this data as part of the
+ensemble decrease the accuracy by 0.01 over the one observed while using uncorrected ILI case count data. Thus its 
+our opinion that although the reservation data does conceal some signals about prevlent ILI conditions, additional
+information such as social-unrest events must be appended to this dataset to make this useful over the 
+other described sources.
 
 \begin{table}[tb!]
 \centering
 \caption{\label{tb:opentable}  ILI case count prediction accruacy for MX using OpenTable Data as a single source and
-by combining it with all other sources using Model level fusion.}
+by combining it with all other sources using Model level fusion on uncorrected ILI case count data.}
+\vspace{1em}
 \begin{tabular}{|p{1.5cm}|*{2}{l|}p{2cm}|}
 \hline
 Method& Lunch & Dinner & Lunch and Dinner Time \\

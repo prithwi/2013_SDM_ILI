@@ -3,28 +3,53 @@
 In the last section, we described different regression strategies to correlate a specific source with the ILI case count of a specfic country and predict future ILI counts. However, we want to work with a multitude of different data sources to get more accurate results. For this purpose, we broadly explored two different ways to work with multiple data sources:
 
 \begin{enumerate}
-  \item Model level fusion, where we build one regressor for each data source and 
-    the combine the prediction from the models.
   \item Data level fusion, where we build a single regressor for all the different data
     sources.
+  \item Model level fusion, where we build one regressor for each data source and 
+    the combine the prediction from the models.
 \end{enumerate}
 
 In this section, we describe these fusion methods. Experiment results with each method is presented in Section~\ref{sec:results}.
 
-\subsection{Model level fusion}
+\subsection{\label{sec:fusion:data} Data level fusion :}
+In Data level fusion, we express the feature vector $\mathcal{X}$ as a tuple over all the different data 
+sources and then proceed with either of the regression methods as outlined in Section~\ref{sec:methods}.
+For example, while combining Twitter Data and Weather Data, the feature vector $\mathcal{X}$ is given 
+by:
+\[\mathcal{X}_t = \langle \mathcal{T}_t, \mathcal{W}_t \rangle
+\]
 
-\subsection{Data level fusion}
-In this subsection we describe our data level fusion approach. Preliminary experiments shown that performance of neighborhood models for prediction of PAHO count values are better than other prediction methods. Hence, in this section, we propose an ensemble model based on nearest neighborhood regression models. For simplicity, we use subscripts $i$ and $j$ for indicating time slots (weeks). Known PAHO count values for week $i$ are shown by $P_{i}$ and predicted values are shown by $\hat{P}_{i}$. We assume that $\mathcal{P}$ is the set of all known PAHO count values for a specific country.
+\subsection{\label{sec:fusion:model} Model level fusion :}
+Model level fusion is a more involved operation than the Data level fusion. 
+%Preliminary experiments shown that performance of neighborhood models for 
+%prediction of ILI case count values are better than other prediction methods.
+%Hence, in this section, we propose an ensemble model based on nearest 
+%neighborhood regression models. 
+%For simplicity, we use subscripts $i$ and $j$ for indicating time slots (weeks). 
+%Known ILI count values for week $i$ are shown by $P_{i}$ and predicted values 
+%are shown by $\hat{P}_{i}$. 
+%We assume that $\mathcal{P}$ is the set of all known ILI count values for a specific country.
 
-The first part of the model is to predict PAHO count values based on a simple averaging method. We name this basic averaging, $b$, as baseline prediction and is determined as follows:
+The models are combined in sequential fashion by first fitting an average count to 
+the ILI case count as given by:
+%The first part of the model is to predict ILI count values based on a simple
+%averaging method. We name this basic averaging, $b$, as baseline prediction and
+%is determined as follows:
 
-\begin{equation}
-b = {1 \over {|\mathcal{P}|}} \sum_{i=1}^{|\mathcal{P}|}P_{i}
-\end{equation}
+\begin{equation*}
+b = {1 \over {|\mathcal{P}|}} \sum_{t}P_{t}
+\end{equation*}
+%where $|\mathcal{P}|$ is size of $\mathcal{P}$. 
 
-where $|\mathcal{P}|$ is size of $\mathcal{P}$. 
-
-Let us assume that we know the baseline prediction of a country and we want to predict PAHO count value for a specific week, $j$. Furthermore, assume that we want to use a generic data source, $\mathbb{D}$, for our predictions where $\vec{d}_i$ is a sample of $\mathbb{D}$ for week $i$. Each $\vec{d}_i$ is a vector of features and we show each element of $\vec{d}_i$ by $d_{ik}$. For the lookback window length $\beta$, to estimate the value of PAHO count for week $j$, PAHO counts of the last $\beta$ weeks ending at $j$ are used. Hence, PAHO count value for week $j$ is estimated as a function of $\vec{d}_{j-\beta+1}$, ..., $\vec{d}_{j}$, as follows:
+Let us assume that we know the baseline prediction of a country and we want to
+predict ILI count value for a specific week, $j$. Furthermore, assume that we
+want to use a generic data source, $\mathbb{D}$, for our predictions where
+$\vec{d}_i$ is a sample of $\mathbb{D}$ for week $i$. Each $\vec{d}_i$ is a
+vector of features and we show each element of $\vec{d}_i$ by $d_{ik}$. For the
+lookback window length $\beta$, to estimate the value of ILI count for week
+$j$, ILI counts of the last $\beta$ weeks ending at $j$ are used. Hence, ILI
+count value for week $j$ is estimated as a function of $\vec{d}_{j-\beta+1}$,
+..., $\vec{d}_{j}$, as follows:
 
 \begin{equation}
 \hat{P}_{j} = \mathit{f}(\vec{d}_{j-\beta+1},...,\vec{d}_{j})
@@ -38,7 +63,7 @@ Distance between weeks $i$ and $j$ is determined as follows:
 
 where $\Delta_{\mathbb{D},ij}$ is the distance between weeks $i$ and $j$ based on generic dataset $\mathbb{D}$.
 
-Let us assume that we have $n$ known PAHO values. In order to adjust the baseline prediction of week $j$, we measure $\Delta_{\mathbb{D},ij}$ for all $n$ known weeks. $\mathcal{L}_{\mathbb{D},j}$ is an ordered list, containing $n$ members, where the $i$th member is the $i$th nearest neighbor of week $j$. Then, we have:
+Let us assume that we have $n$ known ILI values. In order to adjust the baseline prediction of week $j$, we measure $\Delta_{\mathbb{D},ij}$ for all $n$ known weeks. $\mathcal{L}_{\mathbb{D},j}$ is an ordered list, containing $n$ members, where the $i$th member is the $i$th nearest neighbor of week $j$. Then, we have:
 
 \begin{equation}
 \hat{P}_{j} = b + \sum_{i \in \mathcal{L}_{\mathbb{D},j}}{} (P_i - b)w_{\mathbb{D},i}
@@ -92,7 +117,7 @@ where, $w_{\mathbb{D}k,i}$ is a constant weight for the $i$th nearest neighbor o
 
 where, $\hat{P}_j$ is the estimated value for $P_j$ and is determined based on Eq. ~\ref{eq:manysource1} and Eq. ~\ref{eq:manysource2}.
 
-In order to solve the optimization problem of Eq. ~\ref{eq:opt2}, one can use stochastic gradient decent method. For this purpose, let us assume that $e_j$ is the error of prediction for week $j$, i.e. $e_j = P_j - \hat{P}_j$. Then, by going through the known values of PAHO count, we can update weights in the opposite direction of the gradient of Eq. ~\ref{eq:opt2}. It can be shown that we have:
+In order to solve the optimization problem of Eq. ~\ref{eq:opt2}, one can use stochastic gradient decent method. For this purpose, let us assume that $e_j$ is the error of prediction for week $j$, i.e. $e_j = P_j - \hat{P}_j$. Then, by going through the known values of ILI count, we can update weights in the opposite direction of the gradient of Eq. ~\ref{eq:opt2}. It can be shown that we have:
 
 \begin{equation}
 \begin{array}{ll}
