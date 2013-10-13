@@ -126,16 +126,12 @@ In order to solve the optimization problem of Eq. ~\ref{eq:opt2}, one can use st
 \end{array}
 \end{equation}
 
-, 
-
 \begin{equation}
 \begin{array}{ll}
-& w_{\mathbb{D}k,i}  \leftarrow w_{\mathbb{D}k,i}+ \\
-& \gamma \left [e_j(P_i - \hat{P}_{\mathbb{D}(k-1),j})\prod_{h=k+1}^{m} (1- \sum_{l_h}w_{\mathbb{D}h,l_h})   - \lambda w_{\mathbb{D}k,i}  \right ]
+& w_{\mathbb{D}k,i}  \leftarrow w_{\mathbb{D}k,i}+ \gamma  \\
+& \left [e_j(P_i - \hat{P}_{\mathbb{D}(k-1),j})\prod_{h=k+1}^{m} (1- \sum_{l_h}w_{\mathbb{D}h,l_h})   - \lambda w_{\mathbb{D}k,i}  \right ]
 \end{array}
 \end{equation}
-
-, and
 
 \begin{equation}
 w_{\mathbb{D}m,i} \leftarrow w_{\mathbb{D}m,i}+ \gamma \left [e_j(P_i - \hat{P}_{\mathbb{D}(m-1),j}) - \lambda w_{\mathbb{D}m,i}  \right ]
