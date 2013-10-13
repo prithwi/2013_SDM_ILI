@@ -8,7 +8,7 @@
 %types, symptoms, and treatments. Results of these analyses are
 %visualized separately and can be used by healthcare officials. An almost
 %similar approach was reported in \cite{ref7} that uses spatio-temporal
-%analysis of Tweeter data to monitor West Nile Virus. 
+%analysis of Twitter data to monitor West Nile Virus. 
 \begin{figure}[t] \centering
     \includegraphics[scale=0.3]{fig/ili_data_pipeline.pdf}
     \caption{\label{fig:ili_data_pipeline} Different Data sources used to predict ILI case
@@ -19,8 +19,8 @@
 inspired our works. We present this works into three seprate categories as follows: \\
 
 \textbf{Keyword detection for Social Media :} 
-As presented in Section~\ref{sec:intro}, there has been a lot of 
-work at correlating ILI activities to social media signals from sources as diverse 
+As presented in Section~\ref{sec:intro}, there has been an work aimed at uncovering the hidden
+correlations between ILI activities with social media signals from sources as diverse 
 as Twitter to historical newspaper archives. Most of these methods rely on 
 accurate language processing techniques and the key to such techniques is an 
 accurate dictionary of ILI related keywords which we must track in order to 
@@ -28,20 +28,20 @@ uncover the relationship between the social ``chatter'' and ILI case counts.
 There has been some investigations into importance of diversity of words
 in tweets ~\cite{ref5, ref6}. In
 \cite{ref5}, Kanhabua and Nejdl used clustering methods to determine
-important topics in Tweeter data. They constructed time series for
+important topics in Twitter data. They constructed time series for
 matched keywords and used Jaccard coefficient to determine temporal
 diversity of tweets. They have noted that this temporal diversity may be
 correlated with real-world ILI outbreaks. On the other hand, in \cite{ref6}
 authors studied the dynamic of changes in tweets related to H1N1 virus. We 
 present our approach towards creating the keyword dictionary in Section~\ref{sec:keyword}.
 
-\textbf{ Physical indicatory for detecting ILI incidence levels :} 
+\textbf{ Physical indicators for detecting ILI incidence levels :} 
 One of the key indicators of ILI levels in a country is the prevalent 
 climactic patterns and the deviation from ``normal'' levels of these 
 indicators. For example Tamerius et al.~\cite{ref9}, investigated the existence of seasonal 
 cycles of influenza epidemics in different climate regions
 by considering
-climatic information from 78 globally distributedsites. Through logistic
+climatic information from 78 globally distributed sites. Through logistic
 regression they found out that in cold-dry and humid-rainy
 environments strong correlation exists between influenza epidemics and
 weather conditions. Similary exciting results were found from the works
@@ -53,7 +53,7 @@ vaired data sources as explained in Section~\ref{sec:methods}.
 
 \textbf{Non-linear regression methods}
 There has been a lot of research in recommender systems to predict unknown user 
-ratings from other the known data using different techniques such as collaborative 
+ratings from the known data using different techniques such as collaborative 
 filtering, matrix factorizations and nearest neighbor detection. Although
 working essentially on categorical data, these methods are fine examples of non-linear
 regression methods which have been found to be robust as well as scalable (See~\cite{koren2008factor}).
@@ -68,7 +68,7 @@ Finally, there have some other related works which has helped us shape this pape
 In \cite{ref3}, Denecke et al.
 proposed an event-based approach which can be used for early prediction
 of ILI threats \cite{ref3}. In their method (M-Eco) they consider
-multiple resources such as Tweeter, TV reports, online news articles,
+multiple resources such as Twitter, TV reports, online news articles,
 and blogs. M-Eco is a bi-lingual system that works with information in
 English and German and uses clustering to group documents in to
 clusters. These clusters are then interpreted as signals and used for
