@@ -73,7 +73,9 @@ explanation of the surrogates sources in section.
 
 \subsubsection{\label{sec:keyword} Keywords Extraction} \input{tex/keywords}
 
-We next describe the different data sources.  \subsubsection{Google Flu Trends}
+We next describe the different data sources.
+
+\subsubsection{Google Flu Trends ($\mathcal{F}$) :}
 Google Flu Trends~\cite{GFT:2013} (GFT) is a tool based
 on~\cite{ginsberg2008detecting} and provided by Google.org which gives weekly
 and up-to-date ILI case count estimates using search query volumes. As
@@ -90,7 +92,7 @@ to be scaled accordingly.  We collected this data weekly on Monday from Jan
 time-series from 2004 to the corresponding week.  
  
 
-\subsubsection{Google Search Trends} Google Search Trends~\cite{GST:2013} is
+\subsubsection{Google Search Trends ($\mathcal{S}$) :} Google Search Trends~\cite{GST:2013} is
 another tool provided by Google. Using this tool we can download an estimate of
 search query volume as a percentage over its own temporal history. This
 download can be further filtered geographically over a country.  We download
@@ -102,7 +104,7 @@ time series constructed using this dataset, for the country under consideration
 is denoted by
 $\mathcal{S} = \langle \mathcal{S}_1, \mathcal{S}_2, \dots, \mathcal{S}_{T1} \rangle$.
 
-\subsubsection{Twitter} 
+\subsubsection{Twitter ($\mathcal{T}$) :} 
 We also collected Twitter data from Datasift~\cite{Twitter:2013},
 one of the certified data resellers for
 Twitter data. Using a paid data collection API, we can specify queries in
@@ -131,7 +133,7 @@ parse flu-related Tweets resulting in around 7GB of data. This data is finally
 abstracted into a multivariate time series over lemmatized versions of the 114
 flu related keywords and added to the TDR. 
 
-\subsubsection{HealthMap} 
+\subsubsection{HealthMap ($\mathcal{H}$) :} 
 Similar to Twitter data, we also collect flu-related
 news stories using HealthMap~\cite{HM:2013}, an online global disease alert
 system capturing outbreak data from over 50,000 electronic sources [including
@@ -150,7 +152,7 @@ capturing different surrogate signals: Twitter Data offers leading but noisy
 indicators whereas HealthMap Data provides a slightly delayed but more reliable
 indicator.
 
-\subsubsection{OpenTable}
+\subsubsection{OpenTable ($\mathcal{O}$) :}
 We also use data on trends of restaurant table reservations, as initially 
 found in~\cite{elaine2013opentable} to be a potential early indicator for
 outbreak surveillance, as another surrogate for ILI detection.
@@ -177,7 +179,7 @@ $\mathcal{O} = \langle \mathcal{O}_1, \mathcal{O}_2, \dots, \mathcal{O}_{T1} \ra
   American countries.}
 \end{figure}
 
-\subsubsection{Weather Data}
+\subsubsection{Weather Data ($\mathcal{W}$) :}
 All of the previously described data sources can
 be termed as `non-physical' indicators. These data sources can work as indirect
 indicators about the state of the population with respect to flu by exposing

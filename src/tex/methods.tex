@@ -7,9 +7,9 @@ In order to solve the problem formalized in Section~\ref{sec:problem}, we employ
 non-linear temporal regressions on the case count and the surrogate attributes. 
 We describe three models:
 \begin{itemize}
-  \item Classical Matrix Factorizaiton Based Regression.
-  \item Nearest Neighbor Based Regression.
-  \item Matrix Factorization Regression using Nearest Neighbor embedding.
+  \item Matrix Factorizaiton Based Regression (MF).
+  \item Nearest Neighbor Based Regression (NN).
+  \item Matrix Factorization Regression using Nearest Neighbor embedding (MFN).
 \end{itemize}
 For all of the methods, we deine two paramters- $\beta$ and $\alpha$. 
 `$\alpha$' is the ``lookahead window length'' denoting distance of the time point for prediction from $T$ 
@@ -40,7 +40,7 @@ The the regression vector for predicting the case count at time point $T' (T +
 \end{equation}
 
 Under these definitions we describe the models as follows:
-\subsection{\label{sec:model:matrixfactor} Matrix Factorization Based Regression:}
+\subsection{\label{sec:model:matrixfactor} Matrix Factorization Based Regression (MF):}
 Matrix Factorization has been long used in the recommender systems to predict user 
 preferences from incomplete user ratings/informations. Typically~\cite{canny2002factor},
 in recommender system an user-preference matrix is factored into an user-factor and
@@ -93,7 +93,7 @@ are estimated using the best cross-validation accuracy
 and the final prediction for time point $T'$ is given by:
 \[\widehat{P}_{T'} = b_{m,n} + U_m^T \times F_{m,n} \]]
 
-\subsection{\label{sec:model:nearestneighbor} Nearest Neighbor Based Regression:}
+\subsection{\label{sec:model:nearestneighbor} Nearest Neighbor Based Regression (NN):}
 For Nearest Neighbor Models, we define a training set $\Gamma_{NN}
 = \lbrace V_t, L_t \rbrace$, where $V_t$ represents the regression attributes
 and $L_t$ denote the corresponding labels.
@@ -117,7 +117,7 @@ Also, $\gamma_k$ indicates the weight assigned to the $k^{th}$ nearest neighbor.
 Typically the inverse euclidean distances to $V_{T'}$ is chosen as the weights.
 
 \subsection{\label{sec:model:nearestmatrix} Matrix Factorization Based
-Regression using Nearest Neighbor Embedding:}
+Regression using Nearest Neighbor Embedding (MFN):}
 It was shown in~\cite{koren2008factor},  that matrix factorization using nearest neighbor constraints can
 outperform classical matrix factorization approach as well as nearest neighbor approaches towards
 recommender systems. Here, we modify the method to suit the temporal nature of our problem in similar ways 
