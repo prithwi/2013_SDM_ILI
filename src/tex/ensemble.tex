@@ -1,6 +1,10 @@
 % mainfile: ../ltexpprt.tex
 
-In the last section, we described different regression strategies to correlate a specific source with the ILI case count of a specfic country and predict future ILI counts. However, we want to work with a multitude of different data sources to get more accurate results. For this purpose, we broadly explored two different ways to work with multiple data sources:
+In the last section, we described different regression strategies to correlate
+a specific source with the ILI case count of a specfic country and predict
+future ILI counts. However, we want to work with a multitude of different data
+sources to get more accurate results. For this purpose, we broadly explored two
+different ways to work with multiple data sources:
 
 \begin{enumerate}
   \item Data level fusion, where we build a single regressor for all the different data
@@ -21,120 +25,60 @@ by:
 
 \subsection{\label{sec:fusion:model} Model level fusion :}
 Model level fusion is a more involved operation than the Data level fusion. 
-%Preliminary experiments shown that performance of neighborhood models for 
-%prediction of ILI case count values are better than other prediction methods.
-%Hence, in this section, we propose an ensemble model based on nearest 
-%neighborhood regression models. 
-%For simplicity, we use subscripts $i$ and $j$ for indicating time slots (weeks). 
-%Known ILI count values for week $i$ are shown by $P_{i}$ and predicted values 
-%are shown by $\hat{P}_{i}$. 
-%We assume that $\mathcal{P}$ is the set of all known ILI count values for a specific country.
 
-The models are combined in sequential fashion by first fitting an average count to 
-the ILI case count as given by:
-%The first part of the model is to predict ILI count values based on a simple
-%averaging method. We name this basic averaging, $b$, as baseline prediction and
-%is determined as follows:
+The models are combined using matrix factorization regression with 
+nearest neighbor embedding by comparing the
+prediction estimates from each model with the actual estimate and the average
+ILI case count for the month for the particular country.
 
+Let us denote the average ILI case count for a particular calendar 
+month $I$ for a given country by:
 \begin{equation*}
-b = {1 \over {|\mathcal{P}|}} \sum_{t}P_{t}
+  \mu_I = {1 \over {|\lbrace t \in I\rbrace|}} \sum_{t \in I}P_{t}
 \end{equation*}
 %where $|\mathcal{P}|$ is size of $\mathcal{P}$. 
 
-Let us assume that we know the baseline prediction of a country and we want to
-predict ILI count value for a specific week, $j$. Furthermore, assume that we
-want to use a generic data source, $\mathbb{D}$, for our predictions where
-$\vec{d}_i$ is a sample of $\mathbb{D}$ for week $i$. Each $\vec{d}_i$ is a
-vector of features and we show each element of $\vec{d}_i$ by $d_{ik}$. For the
-lookback window length $\beta$, to estimate the value of ILI count for week
-$j$, ILI counts of the last $\beta$ weeks ending at $j$ are used. Hence, ILI
-count value for week $j$ is estimated as a function of $\vec{d}_{j-\beta+1}$,
-..., $\vec{d}_{j}$, as follows:
+Considering $C$ different sources and hence $C$ different models, 
+let us denote the prediction for the $t^{th}$ time point 
+from the $c^{th}$ model by ${}_c\widehat{P}_t$.
+
+Under these definitions we can now proceed to describe the fusion 
+model. Essentially, the model is similar to the one described in 
+Section~\ref{sec:model:nearestmatrix}, with the difference being 
+the way we construct the feature vectors. Similar to equation~\ref{eq:predictionmatrix},
+we construct a prediction  $m'\times n'$ matrix for fusion given by${}_C\mathcal{M}$ where 
+the $t^{th}$ row is represented by equation~\ref{eq:fusion:predictionmatrix}.
 
 \begin{equation}
-\hat{P}_{j} = \mathit{f}(\vec{d}_{j-\beta+1},...,\vec{d}_{j})
+  \label{eq:fusion:predictionmatrix}
+  {}_C\mathcal{M}_{t} = \left[\begin{array}{llll}
+      {}_1\widehat{P}_{t}& \dots & {}_C\widehat{P}_t & P_t 
+    \end{array}
+  \right]
 \end{equation}
-
-Distance between weeks $i$ and $j$ is determined as follows:
-
+Then similar to equation~\ref{eq:model:matrixfactornbr}
+, we factor this matrix into latent factors, ${}_C U$, ${}_C F$, ${}_C b_*$ as 
+given by equation\ref{eq:fusion:matrixfactornbr}
 \begin{equation}
-\Delta_{\mathbb{D},ij} = \sqrt{\sum_{l=0}^{\beta-1} \sum_{k} (d_{k(i-l)}-d_{k(j-l)})^2}
+  \label{eq:fusion:matrixfactornbr}
+  \begin{array}{l}
+    {}_C \widehat{\mathcal{M}}_{i,j} =  \mu_i + {}_C b_{j} + {}_C U_i^T\times {}_C F_j \\
+                                \qquad + {}_C F_j \times |{}_C \mathcal{N}(i)|^{-\frac{1}{2}}
+    \sum_{k \in {}_C N(i)} ({}_C\mathcal{M}_{i,k} - \mu_i + {}_C b_{k}) {}_Cx_k \\
+  \end{array}
 \end{equation}
-
-where $\Delta_{\mathbb{D},ij}$ is the distance between weeks $i$ and $j$ based on generic dataset $\mathbb{D}$.
-
-Let us assume that we have $n$ known ILI values. In order to adjust the baseline prediction of week $j$, we measure $\Delta_{\mathbb{D},ij}$ for all $n$ known weeks. $\mathcal{L}_{\mathbb{D},j}$ is an ordered list, containing $n$ members, where the $i$th member is the $i$th nearest neighbor of week $j$. Then, we have:
-
+and the final prediction for the
+$T$ data point is given by
+\[\widehat{P}_T = {}_C \widehat{\mathcal{M}}_T,n'\].
+The fitting function is given by equation~\ref{eq:fusion:matrixnbr:fit}:
 \begin{equation}
-\hat{P}_{j} = b + \sum_{i \in \mathcal{L}_{\mathbb{D},j}}{} (P_i - b)w_{\mathbb{D},i}
-\label{eq:onesource}
+  \label{eq:fusion:matrixnbr:fit}
+  \begin{array}{l}
+    {}_C b_*, {}_C F, {}_C U, {}_C x_*  = argmin (\sum \limits_{i=1}^{m'-1} \left({}_C \mathcal{M}_{i,n'} - {}_C \widehat{\mathcal{M}}_{i,n'}   \right)^2 \\
+     \qquad + \lambda_3 (\sum \limits_{j=1}^{n'}{}_C b_j^2 + \sum \limits_{i=1}^{m'-1} ||{}_C U_i||^2 \\
+     \qquad+ \sum \limits_{j=1}^{n'} ||{}_C F_j||^2 + \sum_k ||{}_C x_k||^2))
+  \end{array}
 \end{equation}
 
-where, $w_{\mathbb{D},i}$ is a constant weight for the $i$th nearest neighbor of week $j$. To determine these weights, one can solve the following optimization problem:
+As before the free parameters are estimated through cross-validation.
 
-\begin{equation}
-\min_{w_{\mathbb{D},*}} \sum_{j \in \mathcal{P}} {(P_j - b - \sum_{i \in \mathcal{L}_{\mathbb{D},j}}{} (P_i - b)w_{\mathbb{D},i})^2} + \lambda \sum_{}{}{{(w_{\mathbb{D},i})}^2}
-\end{equation}
-
-where, $\lambda \sum_{}{}{{(w_{\mathbb{D},i})}^2}$ is the regularization term which is used to avoid over-fitting. This problem can be solved through a stochastic gradient descent algorithm.
-
-If we have more than one dataset, one can use an ensemble method to combine the results of different predictors. Let us assume that we have two generic datasets, $\mathbb{D}1$ and $\mathbb{D}2$. Then, similar to Eq. ~\ref{eq:onesource}, we can use one dataset, $\mathbb{D}1$, to adjust the baseline prediction, and the other dataset to adjust the later prediction. This approach is illustrated in Eq. ~\ref{eq:twosource}:
-
-\begin{equation}
-\begin{array}{ll}
-& \hat{P}_{j} =  b + \sum_{i \in \mathcal{L}_{\mathbb{D}1,j}}{} (P_i - b)w_{\mathbb{D}1,i} \\
- & + \sum_{i \in \mathcal{L}_{\mathbb{D}2,j}}{} (P_i - b - \sum_{k \in \mathcal{L}_{\mathbb{D}1,j}}{} (P_k - b)w_{\mathbb{D}1,k})w_{\mathbb{D}2,i}
-\end{array}
-\label{eq:twosource}
-\end{equation}
-
-where, $w_{\mathbb{D}1,i}$ and $w_{\mathbb{D}2,i}$ are constant weights for the $i$th nearest neighbors of week $j$ with respect to datasets $\mathbb{D}1$ and $\mathbb{D}2$. 
-
-To generalize the method, let us assume that we have $m$ datasets, $\mathbb{D}1$, ...,  $\mathbb{D}m$. Similar to Eq. ~\ref{eq:twosource}, we can use dataset, $\mathbb{D}k$ for $k>1$, to adjust the prediction we made with previous $k-1$ datasets. Then, if $\hat{P}_{\mathbb{D}k,j}$ is the predicted value for $P_j$ based on $\mathbb{D}k$, we have:
-
-\begin{equation}
-\hat{P}_{\mathbb{D}1,j} = b + \sum_{i \in \mathcal{L}_{\mathbb{D}1,j}}{} (P_i - b)w_{\mathbb{D}1,i} 
-\label{eq:manysource1}
-\end{equation}
-
-and
-
-\begin{equation}
-\hat{P}_{\mathbb{D}k,j} = \hat{P}_{\mathbb{D}(k-1),j} + \sum_{i \in \mathcal{L}_{\mathbb{D}k,j}}{} (P_i - \hat{P}_{\mathbb{D}(k-1),j} )w_{\mathbb{D}k,i} 
-\label{eq:manysource2}
-\end{equation}
-
-where, $w_{\mathbb{D}k,i}$ is a constant weight for the $i$th nearest neighbor of week $j$ with respect to datasets $\mathbb{D}k$. Also, we have to mention that with $m$ datasets, $\hat{P}_j = \hat{P}_{\mathbb{D}k,j}$. The following optimization problem can be solved to estimate these weights:
-
-\begin{equation}
-\begin{array}{ll}
-\min_{w_{\mathbb{D}1,*}, ... ,w_{\mathbb{D}m,*}} & \sum_{j \in \mathcal{P}} {(P_j - \hat{P}_j)^2} +
-\\ 
-& \lambda (\sum_{}{}{{(w_{\mathbb{D}1,i})}^2}+...+\sum_{}{}{{(w_{\mathbb{D}m,i})}^2})
-\end{array}
-\label{eq:opt2}
-\end{equation}
-
-where, $\hat{P}_j$ is the estimated value for $P_j$ and is determined based on Eq. ~\ref{eq:manysource1} and Eq. ~\ref{eq:manysource2}.
-
-In order to solve the optimization problem of Eq. ~\ref{eq:opt2}, one can use stochastic gradient decent method. For this purpose, let us assume that $e_j$ is the error of prediction for week $j$, i.e. $e_j = P_j - \hat{P}_j$. Then, by going through the known values of ILI count, we can update weights in the opposite direction of the gradient of Eq. ~\ref{eq:opt2}. It can be shown that we have:
-
-\begin{equation}
-\begin{array}{ll}
-& w_{\mathbb{D}1,i} \leftarrow w_{\mathbb{D}1,i}+ \\
-& \gamma \left [e_j(P_i - b)\prod_{h=2}^{m} (1- \sum_{l_h}w_{\mathbb{D}h,l_h})   - \lambda w_{\mathbb{D}1,i}  \right ]
-\end{array}
-\end{equation}
-
-\begin{equation}
-\begin{array}{ll}
-& w_{\mathbb{D}k,i}  \leftarrow w_{\mathbb{D}k,i}+ \gamma  \\
-& \left [e_j(P_i - \hat{P}_{\mathbb{D}(k-1),j})\prod_{h=k+1}^{m} (1- \sum_{l_h}w_{\mathbb{D}h,l_h})   - \lambda w_{\mathbb{D}k,i}  \right ]
-\end{array}
-\end{equation}
-
-\begin{equation}
-w_{\mathbb{D}m,i} \leftarrow w_{\mathbb{D}m,i}+ \gamma \left [e_j(P_i - \hat{P}_{\mathbb{D}(m-1),j}) - \lambda w_{\mathbb{D}m,i}  \right ]
-\end{equation}
-
-where $\gamma$ is a constant variable that determines step size of optimization. Parameters $\gamma$ and $\lambda$ are determined through cross validation.

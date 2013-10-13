@@ -106,14 +106,14 @@ where, $K$ indicates the maximum number of nearest neighbors considered.
 The predicted count $\widehat{P}_{T'}$ for the time point $T'$ is given as:
 \begin{equation} \label{eq:nearestneighbor:pred}
   \begin{array}{lcl}
-    \widehat{P}_{T'} & = & \frac{\sum\limits_{k in \mathcal{N}(T')} \gamma_{k}L_{k,T - \alpha}}
-    {\sum\limits_{k=1}^{K} \gamma_{k}}\\
+    \widehat{P}_{T'} & = & \frac{\sum\limits_{k \in \mathcal{N}(T')} \theta_{k}L_{k,T - \alpha}}
+    {\sum\limits_{k=1}^{K} \theta_{k}}\\
   \end{array}
 \end{equation}
 
 %and $L_{k,T}$ indicates the label of the $k^{th}$ nearest neighbor to $V_{T'}$ in $\Gamma_{NN}$
 %at time point $T$. 
-Also, $\gamma_k$ indicates the weight assigned to the $k^{th}$ nearest neighbor.
+Also, $\theta_k$ indicates the weight assigned to the $k^{th}$ nearest neighbor.
 Typically the inverse euclidean distances to $V_{T'}$ is chosen as the weights.
 
 \subsection{\label{sec:model:nearestmatrix} Matrix Factorization Based
