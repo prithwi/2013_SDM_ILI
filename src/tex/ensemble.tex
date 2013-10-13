@@ -1,22 +1,22 @@
 % mainfile: ../ltexpprt.tex
 
-\prithwish{
-In the previous section, we have discussed different non-linear regression strategies to correlate 
-a specific source with the ILI case count of the corresponding country and generate predictions.
-However, as outline in Section~\ref{sec:intro}, we want to work with a multitude of different 
-sources. We broadly explored two different ways to work with all the sources :
+In the last section, we described different regression strategies to correlate a specific source with the ILI case count of a specfic country and predict future ILI counts. However, we want to work with a multitude of different data sources to get more accurate results. For this purpose, we broadly explored two different ways to work with multiple data sources:
+
 \begin{enumerate}
   \item Model level fusion, where we build one regressor for each data source and 
     the combine the prediction from the models.
   \item Data level fusion, where we build a single regressor for all the different data
     sources.
 \end{enumerate}
-We discuss these two different methods next and present our findings in Section~\ref{sec:results}.
-}
 
-Preliminary experiments shown that performance of neighborhood models for prediction of PAHO count values are better than other prediction methods. Hence, in this section, we propose an ensemble model based on nearest neighborhood regression models. For simplicity, we use subscripts $i$ and $j$ for indicating time slots (weeks). Known PAHO count values for week $i$ are shown by $P_{i}$ and predicted values are shown by $\hat{P}_{i}$. We assume that $\mathcal{P}$ is the set of all known PAHO count values for a specific country.
+In this section, we describe these fusion methods. Experiment results with each method is presented in Section~\ref{sec:results}.
 
-The first part of the model is to predict PAHO count values based on a simple averaging method. We name this basic averaging as baseline prediction. Then, baseline prediction is shown by $b$ and is determined as follows:
+\subsection{Model level fusion}
+
+\subsection{Data level fusion}
+In this subsection we describe our data level fusion approach. Preliminary experiments shown that performance of neighborhood models for prediction of PAHO count values are better than other prediction methods. Hence, in this section, we propose an ensemble model based on nearest neighborhood regression models. For simplicity, we use subscripts $i$ and $j$ for indicating time slots (weeks). Known PAHO count values for week $i$ are shown by $P_{i}$ and predicted values are shown by $\hat{P}_{i}$. We assume that $\mathcal{P}$ is the set of all known PAHO count values for a specific country.
+
+The first part of the model is to predict PAHO count values based on a simple averaging method. We name this basic averaging, $b$, as baseline prediction and is determined as follows:
 
 \begin{equation}
 b = {1 \over {|\mathcal{P}|}} \sum_{i=1}^{|\mathcal{P}|}P_{i}
@@ -33,56 +33,87 @@ Let us assume that we know the baseline prediction of a country and we want to p
 Distance between weeks $i$ and $j$ is determined as follows:
 
 \begin{equation}
-\Delta_{ij}^\mathbb{D} = \sqrt{\sum_{l=0}^{\beta-1} \sum_{k} (d_{k(i-l)}-d_{k(j-l)})^2}
+\Delta_{\mathbb{D},ij} = \sqrt{\sum_{l=0}^{\beta-1} \sum_{k} (d_{k(i-l)}-d_{k(j-l)})^2}
 \end{equation}
 
-where $\Delta_{ij}^\mathbb{D}$ is the distance between weeks $i$ and $j$ based on generic dataset $\mathbb{D}$.
+where $\Delta_{\mathbb{D},ij}$ is the distance between weeks $i$ and $j$ based on generic dataset $\mathbb{D}$.
 
-Let us assume that we have $n$ known PAHO values. In order to adjust the baseline prediction of week $j$, we measure $\Delta_{ij}^\mathbb{D}$ for all $n$ known weeks. $\mathcal{L}_{j}^\mathbb{D}$ is an ordered list, containing $n$ members, where the $i$th member is the $i$th nearest neighbor of week $j$. Then, we have:
+Let us assume that we have $n$ known PAHO values. In order to adjust the baseline prediction of week $j$, we measure $\Delta_{\mathbb{D},ij}$ for all $n$ known weeks. $\mathcal{L}_{\mathbb{D},j}$ is an ordered list, containing $n$ members, where the $i$th member is the $i$th nearest neighbor of week $j$. Then, we have:
 
 \begin{equation}
-\hat{P}_{j} = b + \sum_{i \in \mathcal{L}_{j}^\mathbb{D}}{} (P_i - b)w_{i}^\mathbb{D}
+\hat{P}_{j} = b + \sum_{i \in \mathcal{L}_{\mathbb{D},j}}{} (P_i - b)w_{\mathbb{D},i}
 \label{eq:onesource}
 \end{equation}
 
-where, $w_{i}^\mathbb{D}$ is a constant weight for the $i$th nearest neighbor of week $j$. To determine these weights, one can solve the following optimization problem:
+where, $w_{\mathbb{D},i}$ is a constant weight for the $i$th nearest neighbor of week $j$. To determine these weights, one can solve the following optimization problem:
 
 \begin{equation}
-\min_{w_{*}^\mathbb{D}} \sum_{j \in \mathcal{P}} {(P_j - b - \sum_{i \in \mathcal{L}_{j}^\mathbb{D}}{} (P_i - b)w_{i}^\mathbb{D})^2} + \lambda \sum_{}{}{{(w_{i}^\mathbb{D})}^2}
+\min_{w_{\mathbb{D},*}} \sum_{j \in \mathcal{P}} {(P_j - b - \sum_{i \in \mathcal{L}_{\mathbb{D},j}}{} (P_i - b)w_{\mathbb{D},i})^2} + \lambda \sum_{}{}{{(w_{\mathbb{D},i})}^2}
 \end{equation}
 
-where, $\lambda \sum_{}{}{{(w_{i}^\mathbb{D})}^2}$ is the regularization term which is used to avoid over-fitting. This problem can be solved through a stochastic gradient descent algorithm.
+where, $\lambda \sum_{}{}{{(w_{\mathbb{D},i})}^2}$ is the regularization term which is used to avoid over-fitting. This problem can be solved through a stochastic gradient descent algorithm.
 
 If we have more than one dataset, one can use an ensemble method to combine the results of different predictors. Let us assume that we have two generic datasets, $\mathbb{D}1$ and $\mathbb{D}2$. Then, similar to Eq. ~\ref{eq:onesource}, we can use one dataset, $\mathbb{D}1$, to adjust the baseline prediction, and the other dataset to adjust the later prediction. This approach is illustrated in Eq. ~\ref{eq:twosource}:
 
 \begin{equation}
-\hat{P}_{j} = b + \sum_{i \in \mathcal{L}_{j}^{\mathbb{D}1}}{} (P_i - b)w_{i}^{\mathbb{D}1} + \sum_{i \in \mathcal{L}_{j}^{\mathbb{D}2}}{} (P_i - b - \sum_{k \in \mathcal{L}_{j}^{\mathbb{D}1}}{} (P_k - b)w_{k}^{\mathbb{D}1})w_{i}^{\mathbb{D}2}
+\begin{array}{ll}
+& \hat{P}_{j} =  b + \sum_{i \in \mathcal{L}_{\mathbb{D}1,j}}{} (P_i - b)w_{\mathbb{D}1,i} \\
+ & + \sum_{i \in \mathcal{L}_{\mathbb{D}2,j}}{} (P_i - b - \sum_{k \in \mathcal{L}_{\mathbb{D}1,j}}{} (P_k - b)w_{\mathbb{D}1,k})w_{\mathbb{D}2,i}
+\end{array}
 \label{eq:twosource}
 \end{equation}
 
-where, $w_{i}^{\mathbb{D}1}$ and $w_{i}^{\mathbb{D}2}$ are constant weights for the $i$th nearest neighbors of week $j$ with respect to datasets $\mathbb{D}1$ and $\mathbb{D}2$. The following optimization problem can be solved to estimate these weights:
+where, $w_{\mathbb{D}1,i}$ and $w_{\mathbb{D}2,i}$ are constant weights for the $i$th nearest neighbors of week $j$ with respect to datasets $\mathbb{D}1$ and $\mathbb{D}2$. 
+
+To generalize the method, let us assume that we have $m$ datasets, $\mathbb{D}1$, ...,  $\mathbb{D}m$. Similar to Eq. ~\ref{eq:twosource}, we can use dataset, $\mathbb{D}k$ for $k>1$, to adjust the prediction we made with previous $k-1$ datasets. Then, if $\hat{P}_{\mathbb{D}k,j}$ is the predicted value for $P_j$ based on $\mathbb{D}k$, we have:
 
 \begin{equation}
-\min_{w_{*}^{\mathbb{D}1},w_{*}^{\mathbb{D}2}} \sum_{j \in \mathcal{P}} {(P_j - \hat{P}_j)^2} + \lambda (\sum_{}{}{{(w_{i}^{\mathbb{D}1})}^2}+\sum_{}{}{{(w_{i}^{\mathbb{D}2})}^2})
+\hat{P}_{\mathbb{D}1,j} = b + \sum_{i \in \mathcal{L}_{\mathbb{D}1,j}}{} (P_i - b)w_{\mathbb{D}1,i} 
+\label{eq:manysource1}
+\end{equation}
+
+and
+
+\begin{equation}
+\hat{P}_{\mathbb{D}k,j} = \hat{P}_{\mathbb{D}(k-1),j} + \sum_{i \in \mathcal{L}_{\mathbb{D}k,j}}{} (P_i - \hat{P}_{\mathbb{D}(k-1),j} )w_{\mathbb{D}k,i} 
+\label{eq:manysource2}
+\end{equation}
+
+where, $w_{\mathbb{D}k,i}$ is a constant weight for the $i$th nearest neighbor of week $j$ with respect to datasets $\mathbb{D}k$. Also, we have to mention that with $m$ datasets, $\hat{P}_j = \hat{P}_{\mathbb{D}k,j}$. The following optimization problem can be solved to estimate these weights:
+
+\begin{equation}
+\begin{array}{ll}
+\min_{w_{\mathbb{D}1,*}, ... ,w_{\mathbb{D}m,*}} & \sum_{j \in \mathcal{P}} {(P_j - \hat{P}_j)^2} +
+\\ 
+& \lambda (\sum_{}{}{{(w_{\mathbb{D}1,i})}^2}+...+\sum_{}{}{{(w_{\mathbb{D}m,i})}^2})
+\end{array}
 \label{eq:opt2}
 \end{equation}
 
+where, $\hat{P}_j$ is the estimated value for $P_j$ and is determined based on Eq. ~\ref{eq:manysource1} and Eq. ~\ref{eq:manysource2}.
 
-%\begin{equation}
-%\min_{w_{*}^{\mathbb{D}1},w_{*}^{\mathbb{D}2}} \sum_{j \in \mathcal{P}} {(P_j - b - \sum_{i \in \mathcal{L}_{j}^{\mathbb{D}1}}{} (P_i - b)w_{i}^{\mathbb{D}1} - \sum_{i \in \mathcal{L}_{j}^{\mathbb{D}2}}{} (P_i - b - \sum_{k \in \mathcal{L}_{j}^{\mathbb{D}1}}{} (P_k - b)w_{k}^{\mathbb{D}1})w_{i}^{\mathbb{D}2})^2} + \lambda (\sum_{}{}{{(w_{i}^{\mathbb{D}1})}^2}+\sum_{}{}{{(w_{i}^{\mathbb{D}2})}^2})
-%\label{eq:opt2}
-%\end{equation}
-
-
-where, $\hat{P}_j$ is determined based on Eq. ~\ref{eq:twosource}. In order to solve optimization problem of Eq. ~\ref{eq:opt2}, one can use stochastic gradient decent method. For this purpose, let us assume that $e_j$ is the error of prediction for week $j$, i.e. $e_j = P_j - \hat{P}_j$. Then, by going through the known values of PAHO count, we can update weights in the opposite direction of the gradient of Eq. ~\ref{eq:opt2} and we will have:
+In order to solve the optimization problem of Eq. ~\ref{eq:opt2}, one can use stochastic gradient decent method. For this purpose, let us assume that $e_j$ is the error of prediction for week $j$, i.e. $e_j = P_j - \hat{P}_j$. Then, by going through the known values of PAHO count, we can update weights in the opposite direction of the gradient of Eq. ~\ref{eq:opt2}. It can be shown that we have:
 
 \begin{equation}
-w_{i}^{\mathbb{D}1} \leftarrow w_{i}^{\mathbb{D}1}+ \gamma \left [e_j(P_i - b - (P_i - b) \sum_{k}{}{w_{i}^{\mathbb{D}2}}) + \lambda w_{i}^{\mathbb{D}1}  \right ]
+\begin{array}{ll}
+& w_{\mathbb{D}1,i} \leftarrow w_{\mathbb{D}1,i}+ \\
+& \gamma \left [e_j(P_i - b)\prod_{h=2}^{m} (1- \sum_{l_h}w_{\mathbb{D}h,l_h})   - \lambda w_{\mathbb{D}1,i}  \right ]
+\end{array}
 \end{equation}
+
+, 
+
 \begin{equation}
-w_{i}^{\mathbb{D}2} \leftarrow w_{i}^{\mathbb{D}2}+ \gamma \left [e_j(P_i - b - \sum_{k}{}{(P_k - b)w_{k}^{\mathbb{D}1}}) + \lambda w_{i}^{\mathbb{D}2}  \right ]
+\begin{array}{ll}
+& w_{\mathbb{D}k,i}  \leftarrow w_{\mathbb{D}k,i}+ \\
+& \gamma \left [e_j(P_i - \hat{P}_{\mathbb{D}(k-1),j})\prod_{h=k+1}^{m} (1- \sum_{l_h}w_{\mathbb{D}h,l_h})   - \lambda w_{\mathbb{D}k,i}  \right ]
+\end{array}
+\end{equation}
+
+, and
+
+\begin{equation}
+w_{\mathbb{D}m,i} \leftarrow w_{\mathbb{D}m,i}+ \gamma \left [e_j(P_i - \hat{P}_{\mathbb{D}(m-1),j}) - \lambda w_{\mathbb{D}m,i}  \right ]
 \end{equation}
 
 where $\gamma$ is a constant variable that determines step size of optimization. Parameters $\gamma$ and $\lambda$ are determined through cross validation.
-
-For more than two datasets, a similar combining method can be used. It should be noted that order of datasets in Eq. ~\ref{eq:twosource} (and ensembles based on more datasets) is important and can be determined through cross validation.
