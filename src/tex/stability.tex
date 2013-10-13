@@ -35,8 +35,9 @@ stabilized very slowly while for others, they are stabilizing faster, as the num
 updates for a particular week increases, the values generally stabilize.
 Stability behavior of PAHO count values were also found to be dependent on the 
 time of the year as shown in Figure~\ref{fig:seasonal_relerrors}.
-To plot this curve, we categorized any week with less than 100 cases to be a low season,
-greater than 300 tobe a high season and the remaining values to be low season.
+To plot this curve for Argentina, we categorized any week with less than 100 cases to be a low season,
+greater than 300 tobe a high season and the remaining values to be low season (the thresholds
+were different for different countries).
 
 % talking about priliminary results
 \begin{figure}[h]
@@ -73,7 +74,7 @@ this size is correlated with the accuracy of ILI case counts. In other words,
 in general, larger values of statistical population size results in smaller
 relative errors for ILI case count.Thus using both the number of samples and the lag in 
 uploading the week data, we can use machine learning techniques to revise the officially 
-published PAHO estimates.Preliminary results
+published PAHO estimates. Preliminary results
 show that for different seasons and different countries, we have different
 stability patterns. Therefore, any PAHO count adjustment method should be
 customized for seasons and countries separately. 

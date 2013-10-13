@@ -4,14 +4,16 @@
 %2. ``langle'' vs ``left(''}
 
 In order to solve the problem formalized in Section~\ref{sec:problem}, we employ
-non-linear temporal regressions on the case count and the surrogate attributes. 
+non-linear temporal regressions on the case count and the ``surrogate'' attributes
+where surrogates are the additional data sources which may provide information about the
+ILI case counts. 
 We describe three models:
 \begin{itemize}
   \item Matrix Factorizaiton Based Regression (MF).
   \item Nearest Neighbor Based Regression (NN).
   \item Matrix Factorization Regression using Nearest Neighbor embedding (MFN).
 \end{itemize}
-For all of the methods, we deine two paramters- $\beta$ and $\alpha$. 
+For all of the methods, we define two paramters- $\beta$ and $\alpha$. 
 `$\alpha$' is the ``lookahead window length'' denoting distance of the time point for prediction from $T$ 
  and $\beta$ is the ``lookback window length'' denoting the number of time points to looback
 in order to find the regression relation between the case count and the surrogate 

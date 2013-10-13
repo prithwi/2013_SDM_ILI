@@ -1,4 +1,12 @@
 % mainfile: ../ltexpprt.tex
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{fig/accs.eps}
+\caption{Accuracy of different methods for each country.}
+\label{fig:accuracies}
+\end{figure}
+
 Using the experimental setup we proceed to present our analysis about the efficacy 
 of the proposed algorithms. In the process we also investiagte several possibilites 
 and we next present our findings in accordance with such investigations. For all of 
@@ -130,14 +138,6 @@ for some countries such as Mexico and Argentina (for which the data update is ty
 a substantial imporovement of scores. This indicates that the corrections may be selectively applied 
 while predicting for certain countries. 
 
-To compare different prediction methods for each country, we compare the best accuracy for individual predictors, accuracy of data level and model level fusions, and the best accuracy after correction of PAHO values in Fig. ~\ref{fig:accuracies}.
-
-\begin{figure}[h]
-  \centering
-    \includegraphics[width=0.5\textwidth]{fig/accs.eps}
-  \caption{Accuracy of different methods for each country.}
-  \label{fig:accuracies}
-\end{figure}
 
 
 \begin{table*}[tb!]
@@ -212,4 +212,12 @@ Model Fusion & 2.96 & 2.87 & 2.99 \\
 \end{tabular}
 \end{table}
 
+Finally as a summary statistic, we present Figure~\ref{fig:accuracies} where we compare
+the overall prediction accuracies for different countries. We show the best
+accuracy achievable from an individual source, before showing how we improve our 
+performance by using both Data level and Model level fusion of the different sources and finally 
+present the accuracies when Model level fusion of MF regressors is applied on the corrected PAHO 
+estimates rather than the raw ones. As can be seen, we progresively increase our accuracies
+with the corrected PAHO estimates providing the final increase in predictive power to 
+our model level fusion framework.
 
