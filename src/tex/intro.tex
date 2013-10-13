@@ -7,105 +7,130 @@ delay and hence, it takes a long time for health threats to become
 visible to health officials. Therefore, in recent years, various
 approaches have been proposed in the literature for monitoring and
 prediction of influenza epidemics based on data mining and network
-dynamics methods. These approaches work based on different data sources
-such as search engine query statistics \cite{ref1}\cite{ref2}, social
-media micro-blogs \cite{ref3}-\cite{ref7}, news articles \cite{ref8},
-and weather data \cite{ref9}. A number of approaches use only one data
-source (such as \cite{ref1} and \cite{ref4}) while some solutions work
-based on multiple data sources (such as \cite{ref3} and \cite{ref10}). 
+dynamics methods. A considerable number of such methods are based on collecting
+social signals by mining diverse data sources such as 
+search engine query statistics \cite{ref1, ref2}, social
+media ``chatter''~\cite{ref3, ref4, ref5, ref6, ref7} and news articles \cite{ref8},
 
-Different solutions have been proposed for different purposes. In a
-number of solutions, the aim is to predict the actual number of ILI
-cases in a specific society \cite{ref2}, \cite{ref1}. These methods are
-mostly work based on regression algorithms. In the second category, the
-main goal is to monitor the spatio-temporal distribution of ILI cases in
-a way that can be used by healthcare officials for public reaction
-\cite{ref3}, \cite{ref4}. The dynamic behavior of epidemics in a
-population is also studied in a number of works in order to understand
-the way that disease propagates through people and between cities
-\cite{ref8}, \cite{ref11}.
 
-One of the first prediction methods based on search engine queries was
-reported in \cite{ref2}. In their approach, Ginsberg et al. build time
-series based on Google search queries to track weekly ILI counts. In
-addition to Google search trends, previously published values in CDC ILI
-reports are used to learn a simple regression model that predicts weekly
-influenza counts two weeks ahead of CDC ILI surveillance reports. In
-\cite{ref1}, Yuan et al. usesearch query data of Baidu (a popular search
-engine in China) for influenza outbreak prediction. In their approach
-they use real-time search query results for specific keywords as well as
-official statistics of influenza to build a regression model that can
-predict influenza case count one or two weeks in advance. In addition to
-different data sources, this method differs from \cite{ref2} in terms of
-the used regression model. In \cite{ref2} a logit-linear model is used
-while \cite{ref1} uses a simple linear regression model.
+%and weather data \cite{ref9, Shaman_orig_humidity_link, Shaman_humidity_USA}.
+%A number of approaches use only one data
+%source (such as \cite{ref1} and \cite{ref4}) while some solutions work
+%based on multiple data sources (such as \cite{ref3} and \cite{ref10}). 
 
-Relationship between climate data and influenza outbreak has been
-studied in \cite{ref9}. Existence of seasonal cycles of influenza
-epidemics in different climate regions have been known for a long time.
-In \cite{ref9} Tamerius et al. studied this relationship by considering
-climatic information from 78 globally distributedsites. Through logistic
-regression they found out that in ¿cold-dry¿ and ¿humid-rainy¿
-environments strong correlation exists between influenza epidemics and
-weather conditions.
+%Different solutions have been proposed for different purposes. In a
+%number of solutions, the aim is to predict the actual number of ILI
+%cases in a specific society \cite{ref2}, \cite{ref1}. These methods are mostly 
+%based on classical regression algorithms. At the same time, some research
+%~\cite{ref3, ref4} has been directed at monitoring the spatio-temporal distribution of ILI cases in
+%a way that can be used by healthcare officials for public reaction
+%. The dynamic behavior of epidemics in a
+%population is also studied in a number of works in order to understand
+%the way that disease propagates through people and between cities
+%\cite{ref8}, \cite{ref11}.
+One of the pioneering work in this new-found usage of non-tradional data sources 
+was presented by Ginsberg et al.~\cite{ref2} when the predicted week ILI case counts
+by tracking the volume of search engine queries. This work inspired a number of similar 
+researches such ~\cite{ref1}, where Yuan et al. used search query data from Baidu (a popular
+search engine in Chine) to detect influenza outbreaks. Both these works were based on finding 
+correlation between search query volumes of different keywords with official ILI estimates 
+of corresponding regions. Apart from using different data sources, 
+these two work also differed on the actual regression model used. While the firsst one was based on 
+logit-linear model, the second one uses a simple linear regression model. 
 
-Online social media data plays an important role in ILI epidemic
-prediction. In \cite{ref4}, Lee et al. proposed a real-time surveillance
-system that uses Tweeter data for monitoring and prediction of influenza
-and cancer in US. This method can be considered as a single data source
-solution that works with real-time Tweeter data. In \cite{ref4}
-different types of analysis are used including spatial, temporal, and
-textual analysis. The purpose of spatial analysis is to determine the
-distribution of disease in US while temporal analysis is used for
-tracking the changes in number of tweets with specific keywords.
-Furthermore, text mining is used for tracking the popularity of disease
-types, symptoms, and treatments. Results of these analyses are
-visualized separately and can be used by healthcare officials. An almost
-similar approach was reported in \cite{ref7} that usesspatio-temporal
-analysis of Tweeter data to monitor West Nile Virus.Diversity of words
-in tweets has been studied in \cite{ref5} and \cite{ref6} . In
-\cite{ref5}, Kanhabua and Nejdl use clustering methods to determine
-important topics in Tweeter data. They constructed time series for
-matched keywords and used Jaccard coefficient to determine temporal
-diversity of tweets. They have noted that this temporal diversity may be
-correlated with real-world ILI outbreaks. In \cite{ref6} authors studied
-the dynamic of changes in tweets related to H1N1 virus.
-
-There are a few works in the literature that address using multiple data
-sources \cite{ref10}, \cite{ref3}. These works highly depend on social
-media data as well as other public available resources. In \cite{ref10}
-different data sources are compared based on different factors such as
-reliability and timeliness. Multiple data sources such as news articles,
-social media, and clinical reports are considered in this study. Authors
-also proposed an integrated framework for a health surveillance system
-that works with multiple data sources. In \cite{ref3}, Denecke et al.
-proposed an event-based approach which can be used for early prediction
-of ILI threats \cite{ref3}. In their method (M-Eco) they consider
-multiple resources such as Tweeter, TV reports, online news articles,
-and blogs. M-Eco is a bi-lingual system that works with information in
-English and German and uses clustering to group documents in to
-clusters. These clusters are then interpreted as signals and used for
-event detection. The system is also based on supervised learning methods
-that rely on signal definitions which have been entered by user.
-
-Dynamics of influenza out breaks have been also studied for historically
-influenza epidemics. In \cite{ref8} and \cite{ref12}, epidemics of 1918
-have been studied to understand the behavior of an influenza epidemic in
-a society. Historical news articles have been used by Ewing et al. in
+%In their approach, Ginsberg et al. build time
+%series based on Google search queries to track weekly ILI counts. In
+%addition to Google search trends, previously published values in CDC ILI
+%reports are used to learn a simple regression model that predicts weekly
+%influenza counts two weeks ahead of CDC ILI surveillance reports. 
+%In their approach
+%they use real-time search query results for specific keywords as well as
+%official statistics of influenza to build a regression model that can
+%predict influenza case count one or two weeks in advance. In addition to
+%different data sources, this method differs from \cite{ref2} in terms of
+%the used regression model. In \cite{ref2} a logit-linear model is used
+%while \cite{ref1} uses a simple linear regression model.
+Even real-time ILI detection~\cite{ref4} systems have been proposed by comparing 
+real-time Twitter data with disease statistics to monitor and predict ILI and cancer 
+in USA. This work also focusses on the importance of tracking both spatial and temporal 
+data. A similar work was presented by Sugamaran and Voss~\cite{ref7} to analyze 
+spatio-temporal spread of the West Nile Virus using Twitter Data. 
+Historical news articles have also been used by Ewing et al. in
 \cite{ref8} to study the spread of influenza pandemic. Authors used data
 mining and network analysis methods for this purpose. Topics are modeled
 by using latent Dirichlet allocation. In \cite{ref12}, Eggo et al. use a
 gravity model for propagation of disease between cities. They used
 Bayesian Markov Chain Monte Carlo methods to estimates parameters of
-their model. 
+their model. %This method can be considered as a single data source
+%solution that works with real-time Tweeter data. 
 
-Dynamic behavior of influenza epidemic has been also studied based on
-synthetic data sources to face with scalability and extensibility
-problems \cite{ref11}. Network dynamic solutions are used in
-\cite{ref11} to study the behavior of an epidemic issue in a society.
-Spread of an infection through a network has been also studied as a
-general problem in graph-mining \cite{ref13} \cite{ref14}. In
-\cite{ref14} the main problem is to find the culprits in an epidemic
-situation based on available data. In \cite{ref13} the main concern is
-finding the epidemic threshold to distinguish between die-out regimes
-and break out regimes.
+Apart from these ``social sources'', there has also been considerable work on 
+correlating physical indicators such as climate data with influenza outbreaks. 
+The primary advantage of such data sources is the fact that the effects are much 
+more causal and less noisy. 
+Shaman et. al. ~\cite{ref9, Shaman_orig_humidity_link, Shaman_humidity_USA} 
+explored this area in detail and found absolute humidity to be a good indicator of 
+influezna outbreaks.
+
+While these works have helped in showcasing the importance of the varied 
+``surrogate'' sources that can be used to predict and/or monitor ILI outbreaks, 
+only a few works have aimed at combining mutiple data sources 
+~\cite{ref10, ref3}.  These works are mainly dependent on social
+media data as well as other publicly available data sources such as news 
+articles, social media and clinical reports. However, to the best of our knowledge 
+ours is the first work that aims at investigating both ``social indicators'' as well 
+as ``physical indicators'' to predict the ILI incidence. While, the social indicators
+can serve to elucidate more direct response from the society about prevalent ILI 
+conditions, physical indicators such as humidity provide direct observance about 
+the underlying ILI levels. 
+
+Also, from our analysis we have found that the official estimates as reported by
+agencies~\cite{PAHO:2013} are often lagged by several weeks and even when they
+are reported, the reports are modified upto several weeks before the estimates 
+are finalized. A real-time prediction system which is based on historical data
+needs to handle this kind of variations in the offical estimates to get an 
+accurate picture of the ILI conditions. Finally, most of the analysis have been 
+retrospective and without a proper experimental validation framework.
+
+In this paper we propose a novel matrix-factorization based regression method with 
+nearest neighbor embedding to predict the ILI case counts. Our contributions can be listed
+as:
+\begin{itemize}
+  \item We investigate both ``social indicators'' and ''physical indicators'' to 
+    understand the efficacy of each kind of sources towards ILI prediction.
+  \item We present a systematic way of investigating each individual source for possible 
+    correlation with ILI by describing a novel matrix factorization based regression method
+    using neighborhood embedding to account for 
+    non-linear relations between the surrogates and the official ILI estimates.
+  \item We investigate te efficacy of combining the these different sources at model 
+    level vs. data level towards final accuracy.
+  \item We propose different ways of handling uncertaininties in the official 
+    estimates and factor these uncertainities in our prediction models.
+  \item Finally, we present a detailed and prospective analysis of our proposed methods
+    by comparing predictions from a near-hoirzon real time prediction system to 
+    official estiamtes.
+\end{itemize}
+
+The rest of the paper is organized as follows: we touch upon some related works in 
+Section~\ref{sec:related}, followed by a formal problem definition in Section~\ref{sec:problem},
+and description of our regression framework in Section~\ref{sec:methods}. In Section~\ref{sec:ensemble}, 
+we investigate the question of how best to combine multiple sources and present our strategies to 
+handle the variance in official estimates in Section~\ref{sec:moving}. We conclude with detailed 
+experiments in Section~\ref{sec:experiments}, correspoding results in Section~\ref{sec:results} and present
+our conclusions in Section~\ref{sec:conclusions}.
+ %In \cite{ref10}
+%different data sources are compared based on different factors such as
+%reliability and timeliness. Multiple data sources such as news articles,
+%social media, and clinical reports are considered in this study. Authors
+%also proposed an integrated framework for a health surveillance system
+%that works with multiple data sources. 
+
+%In \cite{ref3}, Denecke et al.
+%proposed an event-based approach which can be used for early prediction
+%of ILI threats \cite{ref3}. In their method (M-Eco) they consider
+%multiple resources such as Tweeter, TV reports, online news articles,
+%and blogs. M-Eco is a bi-lingual system that works with information in
+%English and German and uses clustering to group documents in to
+%clusters. These clusters are then interpreted as signals and used for
+%event detection. The system is also based on supervised learning methods
+%that rely on signal definitions which have been entered by user.
