@@ -8,14 +8,15 @@ Ecuador,  El Salvador, Guatemala, French Guiana, Honduras, Mexico, Nicaragua,
 Paraguay, Panama and Peru. We collected weekly Influenza estimates (ILI counts)
 from the official Pan American Health Organization (PAHO)
 website~\cite{PAHO:2013}, every day from January 2013 to August 2013. The
-estimates downloaded every day contain data from January 2010 to the last
-available week for the said day, for each country under consideration. The
-downloaded data is next pre-processed to fill ILI counts for any missing weeks
-using linear interpolation. This dataset is stored in a database we refer to as
+estimates downloaded every day for each country contain data from January 2010 to the last
+available week on the day of collection. The
+downloaded data may contain some weeks with no ILI estimates and its next 
+pre-processed to fill the missing using linear interpolation. 
+This dataset is stored in a database we refer to as
 ``Temporal Data Repository'' (TDR) .  The TDR is also timestamped so that for
-any given day between the said period, we can readily retrieve the ILI case
-counts that were download on the same day since historic data may be updated by
-PAHO long after the week observed.  For the purpose of experimental validation
+any given day, we can readily retrieve the ILI case
+counts that were download on that day. This is important as historic data may be updated by
+PAHO even a number of weeks after the first update.  For the purpose of experimental validation
 we used the data for the period Jan 2010 to December 2012 as the static
 training set. We considered Wednesdays of the weeks as our time points.  For
 each Wednesday from Jan 2013 to July 2013, we used the latest available PAHO
@@ -96,7 +97,7 @@ download can be further filtered geographically over a country.  We download
 the search query volumes for the 114 keywords as described in
 Section~\ref{sec:keyword} every week and convert the percentage measures to
 absolute values using a static dataset we downloaded on Oct 2012 when Google
-Search Trends used to provide absolute relative values of query volumes. The
+Search Trends used to provide absolute query volumes. The
 time series constructed using this dataset, for the country under consideration
 is denoted by
 $\mathcal{S} = \langle \mathcal{S}_1, \mathcal{S}_2, \dots, \mathcal{S}_{T1} \rangle$.
@@ -122,7 +123,7 @@ a time series of flu keyword weekly occurrence count. For the country under
 consideration, we denote this time series by 
 $\mathcal{T} = \langle \mathcal{T}_1, \mathcal{T}_2, \dots, \mathcal{T}_{T1} \rangle$.
 
-We started collecting flu filtered Tweeter Data from November 2012 and everyday
+We started collecting flu filtered Twitter Data from November 2012 and everyday
 we download the corresponding Twitter time-series for each country. As shown in
 Figure~\ref{fig:ili_data_pipeline}, every week we collect 10GB of raw Twitter
 Data which are next enriched to 20GB of structured data. From this dataset, we
@@ -190,7 +191,7 @@ temperature and rainfall in addition to humidity from the Global Data
 Assimilation System (GDAS) which is a series of weather models run by National
 Weather Service's National Centers for Environmental Prediction that provides
 detailed meteorological data in near real-time across the globe.  We accessed
-the data via an archive hosted by NASA (http://ladsweb.nascom.nasa.gov/)
+the data via an archive hosted by NASA (\url{http://ladsweb.nascom.nasa.gov/})
 ~\cite{HD:2013}, and provided in GRIB format. By specifying the resolution and
 the geographical boundaries we can collect the data for the countries under
 consideration to a resolution of 1 degrees lat/long interval. However, looking
@@ -213,7 +214,7 @@ these datasets are updated till the corresponding day.  Thus to extract the
 data available at a certain time point for these data sets we can simply
 consider the corresponding truncated time series from the latest data. However,
 Statistics like Google Search Trends and the PAHO ILI case counts exhibit
-variability in past data. Thus the actual time series for these datasets are
+variability in past data. In these cases, the actual time series for these datasets are
 stored in TDR with the corresponding timestamps. Thus given any time point,
 using TDR we can quickly reference the data available at that point of time and
 run our algorithm to simulate a prospective analysis scenario.  The entire data
