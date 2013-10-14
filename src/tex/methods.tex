@@ -38,7 +38,7 @@ The regression vector for predicting the case count at time point $T' (T +
 \end{equation}
 \noindent
 Under these definitions we describe the models as follows:
-\subsection{\label{sec:model:matrixfactor} Matrix Factorization Based Regression (MF):}
+\subsubsection{\label{sec:model:matrixfactor} Matrix Factorization Based Regression (MF):}
 Matrix Factorization is a well accepted technique in
 the recommender systems literature, to predict user 
 preferences from incomplete user ratings/informations. Typically~\cite{canny2002factor}
@@ -91,7 +91,7 @@ are estimated using cross-validation
 and the final prediction for time point $T'$ is given by:
 \[\widehat{P}_{T'} = b_{m,n} + U_m^T \times F_{m,n} \]
 
-\subsection{\label{sec:model:nearestneighbor} Nearest Neighbor Based Regression (NN):}
+\subsubsection{\label{sec:model:nearestneighbor} Nearest Neighbor Based Regression (NN):}
 For nearest neighbor models, we define a training set $\Gamma_{NN}
 = \lbrace V_t, L_t \rbrace$, where $V_t$ represents the regression attributes
 and $L_t$ denote the corresponding labels.
@@ -111,7 +111,7 @@ The predicted count $\widehat{P}_{T'}$ for the time point $T'$ is given as:
 Here $\theta_k$ indicates the weight assigned to the $k^{th}$ nearest neighbor.
 Typically the inverse Euclidean distances to $V_{T'}$ are chosen as the weights.
 
-\subsection{\label{sec:model:nearestmatrix} Matrix Factorization Based
+\subsubsection{\label{sec:model:nearestmatrix} Matrix Factorization Based
 Regression using Nearest Neighbor Embedding (MFN):}
 It has been shown in~\cite{koren2008factor} that matrix factorization using nearest neighbor constraints can
 outperform classical matrix factorization approach as well as traditional nearest neighbor approaches towards
