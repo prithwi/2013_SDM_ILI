@@ -90,6 +90,26 @@ w/o $\mathcal{F}$ & 3.20& 3.12& 2.88& 2.89& 2.96& 3.19& 2.87& 3.00& 2.83& 3.02& 
 \end{tabular}
 \vspace{-1em}
 \end{table*}
+\begin{table}[t]
+  \scriptsize
+\centering
+\captionsetup{font=scriptsize}
+\caption{\label{tb:opentable}  ILI case count prediction accruacy for Mexico using OpenTable data as a single source, and
+by combining it with all other sources using model level fusion on uncorrected ILI case count data.}
+\vspace{-1em}
+\begin{tabular}{|p{1.5cm}|*{2}{l|}p{2cm}|}
+\hline
+Method& Lunch & Dinner & Lunch \& Dinner \\
+\hline \hline
+MF   & 1.92 & 2.23 & 2.31 \\
+NN   & 1.99 & 1.83 & 2.11 \\
+MFN  & 2.11 & 2.31 & 2.44 \\
+Model Fusion & 2.96 & 2.87 & 2.99 \\
+\hline
+\end{tabular}
+\vspace{-3em}
+\end{table}
+
 We present an exhaustive set of experiments evaluating our algorithms 
 over 6 months of predictions 
 from Jan 2013 to August 2013. The final estimates of ILI case counts are stable according
@@ -177,26 +197,6 @@ as part of the ensemble decreases the overall accuracy by 0.01 over the uncorrec
 Thus it is our opinion that although the reservation data could exhibit some signals about prevalent ILI
 conditions, it likely is also a surrogate for non-health conditions (e.g., social unrest) which must be factored
 out to make the data source more useful.
-
-\begin{table}[tb!]
-  \scriptsize
-\centering
-\captionsetup{font=scriptsize}
-\caption{\label{tb:opentable}  ILI case count prediction accruacy for Mexico using OpenTable data as a single source, and
-by combining it with all other sources using model level fusion on uncorrected ILI case count data.}
-\vspace{-1em}
-\begin{tabular}{|p{1.5cm}|*{2}{l|}p{2cm}|}
-\hline
-Method& Lunch & Dinner & Lunch \& Dinner \\
-\hline \hline
-MF   & 1.92 & 2.23 & 2.31 \\
-NN   & 1.99 & 1.83 & 2.11 \\
-MFN  & 2.11 & 2.31 & 2.44 \\
-Model Fusion & 2.96 & 2.87 & 2.99 \\
-\hline
-\end{tabular}
-\vspace{-3em}
-\end{table}
 
 Finally we present Figure~\ref{fig:accuracies} where we compare
 the overall prediction accuracies for different countries. We show the best
