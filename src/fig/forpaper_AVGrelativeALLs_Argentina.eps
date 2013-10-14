@@ -1,11 +1,13 @@
-%!PS-Adobe-2.0 EPSF-1.2
+%!PS-Adobe-3.0 EPSF-3.0
 %%Creator: MATLAB, The Mathworks, Inc. Version 7.6.0.324 (R2008a). Operating System: Microsoft Windows Vista.
-%%Title: .\forpaper_AVGrelativeALLs_Argentina.eps
-%%CreationDate: 09/17/2013  23:20:08
+%%Title: C:\Users\MP\Desktop\email\forpaper_AVGrelativeALLs_Argentina.eps
+%%CreationDate: 10/13/2013  20:11:20
 %%DocumentNeededFonts: Helvetica
+%%+ Times-Bold
 %%DocumentProcessColors: Cyan Magenta Yellow Black
+%%LanguageLevel: 2
 %%Pages: 1
-%%BoundingBox:    51   199   547   602
+%%BoundingBox:  -174   137   786   653
 %%EndComments
 
 %%BeginProlog
@@ -143,12 +145,17 @@ ISOLatin1Encoding WindowsLatin1Encoding copy pop
   smat stri tri_to_matrix tmat2 concatmatrix } bdef
 /ds {stri astore pop} bdef
 /dt {dtri astore pop} bdef
-/db {2 copy /cols xdef /rows xdef mul dup string
-  currentfile exch readhexstring pop
-  /bmap xdef pop pop} bdef
+/db {2 copy /cols xdef /rows xdef mul dup 3 mul string
+  currentfile 
+  3 index 0 eq {/ASCIIHexDecode filter}
+  {/ASCII85Decode filter 3 index 2 eq {/RunLengthDecode filter} if }
+  ifelse exch readstring pop
+  dup 0 3 index getinterval /rbmap xdef
+  dup 2 index dup getinterval /gbmap xdef
+  1 index dup 2 mul exch getinterval /bbmap xdef pop pop}bdef
 /it {gs np dtri aload pop moveto lineto lineto cp c
   cols rows 8 compute_transform 
-  {bmap} image gr}bdef
+  rbmap gbmap bbmap true 3 colorimage gr}bdef
 /il {newpath moveto lineto stroke}bdef
 currentdict end def
 %%EndProlog
@@ -163,7 +170,7 @@ end
 
 %%Page: 1 1
 %%BeginPageSetup
-%%PageBoundingBox:    51   199   547   602
+%%PageBoundingBox:  -174   137   786   653
 MathWorks begin
 bpage
 %%EndPageSetup
@@ -172,9 +179,9 @@ bpage
 bplot
 
 /dpi2point 12 def
-portraitMode 0204 7344 csm
+portraitMode -2088 7836 csm
 
-  410   110  5961  4844 MR c np
+    0     0 11520  6192 rc
 85 dict begin %Colortable dictionary
 /c0 { 0.000000 0.000000 0.000000 sr} bdef
 /c1 { 1.000000 1.000000 1.000000 sr} bdef
@@ -187,131 +194,143 @@ portraitMode 0204 7344 csm
 c0
 1 j
 1 sg
-   0    0 6913 5185 PR
+   0    0 11521 6193 rf
 6 w
-0 4225 5356 0 0 -4225 899 4614 4 MP
+0 5047 8928 0 0 -5047 1498 5511 4 MP
 PP
--5356 0 0 4225 5356 0 0 -4225 899 4614 5 MP stroke
+-8928 0 0 5047 8928 0 0 -5047 1498 5511 5 MP stroke
 4 w
 DO
 SO
 6 w
 0 sg
- 899  389 mt 6255  389 L
- 899 4614 mt 6255 4614 L
-6255 4614 mt 6255  389 L
- 899 4614 mt  899  389 L
- 899 4614 mt 6255 4614 L
- 899 4614 mt  899  389 L
- 899 4614 mt  899 4560 L
- 899  389 mt  899  442 L
-%%IncludeResource: font Helvetica
-/Helvetica /WindowsLatin1Encoding 120 FMSR
+1498  464 mt 10426  464 L
+1498 5511 mt 10426 5511 L
+10426 5511 mt 10426  464 L
+1498 5511 mt 1498  464 L
+1498 5511 mt 10426 5511 L
+1498 5511 mt 1498  464 L
+1498 5511 mt 1498 5421 L
+1498  464 mt 1498  553 L
+%%IncludeResource: font Times-Bold
+/Times-Bold /WindowsLatin1Encoding 192 FMSR
 
- 866 4759 mt 
+1450 5724 mt 
 (0) s
-1494 4614 mt 1494 4560 L
-1494  389 mt 1494  442 L
-1461 4759 mt 
+2490 5511 mt 2490 5421 L
+2490  464 mt 2490  553 L
+2442 5724 mt 
 (2) s
-2089 4614 mt 2089 4560 L
-2089  389 mt 2089  442 L
-2056 4759 mt 
+3482 5511 mt 3482 5421 L
+3482  464 mt 3482  553 L
+3434 5724 mt 
 (4) s
-2684 4614 mt 2684 4560 L
-2684  389 mt 2684  442 L
-2651 4759 mt 
+4474 5511 mt 4474 5421 L
+4474  464 mt 4474  553 L
+4426 5724 mt 
 (6) s
-3279 4614 mt 3279 4560 L
-3279  389 mt 3279  442 L
-3246 4759 mt 
+5466 5511 mt 5466 5421 L
+5466  464 mt 5466  553 L
+5418 5724 mt 
 (8) s
-3874 4614 mt 3874 4560 L
-3874  389 mt 3874  442 L
-3808 4759 mt 
+6458 5511 mt 6458 5421 L
+6458  464 mt 6458  553 L
+6362 5724 mt 
 (10) s
-4469 4614 mt 4469 4560 L
-4469  389 mt 4469  442 L
-4403 4759 mt 
+7450 5511 mt 7450 5421 L
+7450  464 mt 7450  553 L
+7354 5724 mt 
 (12) s
-5064 4614 mt 5064 4560 L
-5064  389 mt 5064  442 L
-4998 4759 mt 
+8442 5511 mt 8442 5421 L
+8442  464 mt 8442  553 L
+8346 5724 mt 
 (14) s
-5659 4614 mt 5659 4560 L
-5659  389 mt 5659  442 L
-5593 4759 mt 
+9434 5511 mt 9434 5421 L
+9434  464 mt 9434  553 L
+9338 5724 mt 
 (16) s
-6255 4614 mt 6255 4560 L
-6255  389 mt 6255  442 L
-6189 4759 mt 
+10426 5511 mt 10426 5421 L
+10426  464 mt 10426  553 L
+10330 5724 mt 
 (18) s
- 899 4614 mt  952 4614 L
-6255 4614 mt 6201 4614 L
- 728 4658 mt 
+1498 5511 mt 1587 5511 L
+10426 5511 mt 10336 5511 L
+1258 5582 mt 
 (-1) s
- 899 4191 mt  952 4191 L
-6255 4191 mt 6201 4191 L
- 628 4235 mt 
+1498 5006 mt 1587 5006 L
+10426 5006 mt 10336 5006 L
+1114 5077 mt 
 (-0.9) s
- 899 3769 mt  952 3769 L
-6255 3769 mt 6201 3769 L
- 628 3813 mt 
+1498 4501 mt 1587 4501 L
+10426 4501 mt 10336 4501 L
+1114 4572 mt 
 (-0.8) s
- 899 3346 mt  952 3346 L
-6255 3346 mt 6201 3346 L
- 628 3390 mt 
+1498 3996 mt 1587 3996 L
+10426 3996 mt 10336 3996 L
+1114 4067 mt 
 (-0.7) s
- 899 2924 mt  952 2924 L
-6255 2924 mt 6201 2924 L
- 628 2968 mt 
+1498 3492 mt 1587 3492 L
+10426 3492 mt 10336 3492 L
+1114 3563 mt 
 (-0.6) s
- 899 2501 mt  952 2501 L
-6255 2501 mt 6201 2501 L
- 628 2545 mt 
+1498 2987 mt 1587 2987 L
+10426 2987 mt 10336 2987 L
+1114 3058 mt 
 (-0.5) s
- 899 2078 mt  952 2078 L
-6255 2078 mt 6201 2078 L
- 628 2122 mt 
+1498 2482 mt 1587 2482 L
+10426 2482 mt 10336 2482 L
+1114 2553 mt 
 (-0.4) s
- 899 1656 mt  952 1656 L
-6255 1656 mt 6201 1656 L
- 628 1700 mt 
+1498 1978 mt 1587 1978 L
+10426 1978 mt 10336 1978 L
+1114 2049 mt 
 (-0.3) s
- 899 1234 mt  952 1234 L
-6255 1234 mt 6201 1234 L
- 628 1278 mt 
+1498 1473 mt 1587 1473 L
+10426 1473 mt 10336 1473 L
+1114 1544 mt 
 (-0.2) s
- 899  811 mt  952  811 L
-6255  811 mt 6201  811 L
- 628  855 mt 
+1498  968 mt 1587  968 L
+10426  968 mt 10336  968 L
+1114 1039 mt 
 (-0.1) s
- 899  389 mt  952  389 L
-6255  389 mt 6201  389 L
- 798  433 mt 
+1498  464 mt 1587  464 L
+10426  464 mt 10336  464 L
+1367  535 mt 
 (0) s
- 899  389 mt 6255  389 L
- 899 4614 mt 6255 4614 L
-6255 4614 mt 6255  389 L
- 899 4614 mt  899  389 L
-gs 899 389 5357 4226 MR c np
+1498  464 mt 10426  464 L
+1498 5511 mt 10426 5511 L
+10426 5511 mt 10426  464 L
+1498 5511 mt 1498  464 L
+gs 1498 464 8929 5048 rc
 DA
-298 0 298 0 297 0 298 0 297 0 298 0 297 0 298 0 
-297 0 298 0 298 0 297 0 298 0 297 0 298 0 297 0 
-298 0 1196 389 18 MP stroke
+/c8 { 1.000000 0.000000 0.000000 sr} bdef
+c8
+496 0 496 0 496 0 496 0 496 0 496 0 496 0 496 0 
+496 0 496 0 496 0 496 0 496 0 496 0 496 0 496 0 
+496 0 1994 464 18 MP stroke
 SO
-298 -46 298 -41 297 -31 298 -50 297 -46 298 -109 297 -84 298 -89 
-297 -87 298 -82 298 -183 297 -329 298 -468 297 -608 298 -1021 297 -553 
-298 -233 1196 4513 18 MP stroke
+36 w
+/c9 { 0.000000 0.000000 1.000000 sr} bdef
+c9
+496 -54 496 -49 496 -38 496 -59 496 -55 496 -131 496 -99 496 -108 
+496 -103 496 -98 496 -219 496 -392 496 -560 496 -726 496 -1219 496 -661 
+496 -279 1994 5391 18 MP stroke
 gr
 
-2950 4902 mt 
+36 w
+c9
+0 sg
+4962 5971 mt 
 (time \(number of weeks\)) s
- 546 2968 mt  -90 rotate
+ 957 3795 mt  -90 rotate
 (Avg. relative error) s
 90 rotate
-2562  294 mt 
+%%IncludeResource: font Times-Bold
+/Times-Bold /WindowsLatin1Encoding 168 FMSR
+
+4557  319 mt 
 (Changes in relative error for Argentina) s
+6 w
 
 end %%Color Dict
 
