@@ -7,23 +7,19 @@
 \label{fig:accuracies}
 \end{figure}
 
-Using the experimental setup we proceed to present our analysis about the efficacy 
-of the proposed algorithms. In the process we also investiagte several possibilites 
-and we next present our findings in accordance with such investigations. For all of 
-these experimental results, we evaulated the algorithms over 6 months of predictions 
-from Jan, 2013 to August, 2013. The final estimates of ILI case count was fixed according
-to the estimates downloaded from PAHO on Oct 1, 2013 - a time frame with sufficient time
-so that the values in our test set are stabilized. On this data set, we ran all the three different 
-regressors as presented in Section~\ref{sec:methods} individually on all the surrogate sources (by setting
-$\mathcal{X}$ to the corresponding surrogate time series)
-as explained in the previous section (except OpenTable). The regressors were used to predict
-2 weeks from the latest available PAHO ILI estimates for the corresponding calendar day. 
-The findings of this endeavor is presented in Table.~\ref{tb:comparison_single}. We analyze 
-some important observations from this table next
+We present an exhaustive set of experiments evaluating our algorithms 
+over 6 months of predictions 
+from Jan 2013 to August 2013. The final estimates of ILI case counts are stable according
+to the estimates downloaded from PAHO on Oct 1, 2013. All models considered here were
+used to forecast 2 weeks beyond the latest available PAHO ILI estimates. 
+Key findings
+are presented in 
+Table.~\ref{tb:comparison_single}. We analyze 
+some important observations from this table next.
 
 \begin{table*}[tb!]
 \centering
-\caption{\label{tb:comparison_single}  Comparing Prediction accuracy of regression models using individual sources.}
+\caption{\label{tb:comparison_single}  Comparing forecastng accuracy of models using individual sources.}
 \vspace{1em}
 \footnotesize
 \begin{tabular}{|*{18}{c|}}
@@ -52,21 +48,16 @@ Model               & Sources       & AR & BO & CL & CR & CO & EC & GF & GT & HN
 \end{table*}
 
 
-{\noindent \textbf{Google Flu Trends vs Google Search Trends: }}  Google Flu Trends
-was one of the first and perhaps the most popular approach 
-towards ILI outbreak detection using search query estimates. However, the Google
-Flu Trends works on a closed-source keyword dictionary. We recreated the GFT setup 
-by tracking search query volumes over our own custom ILI related keyword dictionary.
-We evaluated the two different sources by using the same regression model on each 
-data source and comparing the overall accuracy. As can be seen Table~\ref{tb:comparison_single},
-for majority of the common countries (countries for which data from both Google Search Trends
-and Google Flu Trends is present), regressors running on GST consistently 
-outperforms those running on GFT. The only deviation could be seen in the case of Mexico, where the
-accuracy from GFT trails the one from GST slightly. 
-Thus we posit that the GST model so deviced is a a sufficiently close approximation to GFT, and 
-with the added advantage of having access to raw level data and being available for more countries 
+{\noindent \textbf{Google Flu Trends vs Google Search Trends:}}  
+The key difference between GFT and GST is that the former uses a closed dictionary whereas
+we constructed the dictionary to use with GST.
+As can be seen Table~\ref{tb:comparison_single},
+for majority of the common countries (countries for which data from both GST and GFT
+is present), regressors running on GST consistently 
+outperform those running on GFT (with Mexico and Peru being the exception).
+Thus we posit that the GST model devised here is a sufficiently close approximation to GFT, 
+with the added advantages of having access to raw level data and being available for more countries 
 than GFT (among the 15 countries we consider, only 6 of them are present in the GFT database).
-
 
 {\noindent \textbf{Optimal Regression model: }} From Table.~\ref{tb:comparison_single}, we can also
 analyze the three different regressors proposed in Section.~\ref{sec:methods} with respect to overall accuracy.
