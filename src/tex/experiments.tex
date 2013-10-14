@@ -31,6 +31,7 @@ different algorithms using a modified version of percentage relative error:
 \begin{equation} 
     \label{eq:def:accuracy} 
     \mathcal{A} = \frac{4}{N_p}\sum \limits_{t=t_s}^{t_e}\frac{|P_t -\hat{P}_t| }{max(P_t, \hat{P}_t, 10)}
+    \vspace{-1em}
 \end{equation} 
 where $t_s$ and $t_e$ indicate the starting and the ending
 time point for which predictions were generated.  $N_p$ indicates the number of
@@ -147,15 +148,18 @@ restaurants with available tables was aggregated as a weekly time-series.
 
 %--Since we monitored ten regions at twenty search times, this resulted in 200
 %distinct time-series curves.
+\iffalse
 \begin{figure} 
   \centering
   \scriptsize
-  \includegraphics[scale=0.6]{fig/humidity_centers.pdf}
+  \includegraphics[scale=0.4]{fig/humidity_centers.pdf}
+  \captionsetup{font=scriptsize}
   \caption{
     \label{fig:surveillance} PAHO surveillance centers for the 15 Latin
   American countries.}
-    \vspace{-2em}
+    \vspace{-10em}
 \end{figure}
+\fi
 
 \subsubsection{Weather ($\mathcal{W}$):}
 All of the previously described data sources can
