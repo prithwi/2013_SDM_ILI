@@ -48,8 +48,8 @@ Model               & Sources       & AR & BO & CL & CR & CO & EC & GF & GT & HN
 \end{table*}
 
 
-{\noindent \textbf{Google Flu Trends vs Google Search Trends:}}  
-The key difference between GFT and GST is that the former uses a closed dictionary whereas
+{\noindent \textbf{Can we `beat' Google Flu Trends with our custom dictionary?}}  
+The key difference between Google Flu Trends and Google Search Trends is that the former uses a closed dictionary whereas
 we constructed the dictionary to use with GST.
 As can be seen Table~\ref{tb:comparison_single},
 for majority of the common countries (countries for which data from both GST and GFT
@@ -59,12 +59,13 @@ Thus we posit that the GST model devised here is a sufficiently close approximat
 with the added advantages of having access to raw level data and being available for more countries 
 than GFT (among the 15 countries we consider, only 6 of them are present in the GFT database).
 
-{\noindent \textbf{Optimal Regression model: }} From Table.~\ref{tb:comparison_single}, we can also
-analyze the three different regressors proposed in Section.~\ref{sec:methods} with respect to overall accuracy.
-With respect to each individual source, we can see that the Matrix Factorization with nearest 
-neighbor embdedding performs the best in average over the countries, amonsgt the three.
-Although, for some countties such as Panama while using only Google Search Trends, MFN works poorer to 
-MF, the average accuracy over all countries for any given data source is best while using MFN.
+{\noindent \textbf{Which is the optimal regression model?}} From Table~\ref{tb:comparison_single}, we can also
+analyze the three different regressors proposed in Section~\ref{sec:methods} with respect to overall accuracy.
+With respect to each individual source, we can see that matrix factorization with nearest 
+neighbor embdedding (MFN) performs the best in average over the countries.
+For some countries such as Panama, when using only Google Search Trends, MFN
+performs poorer than vanilla MF; nevertheless the average accuracy over all countries for any given
+data source is best when using MFN.
 
 \begin{table*}[tb!]
   \centering
@@ -81,16 +82,13 @@ Data        &3.01&2.97&3.13&2.87&2.86&3.04&2.91&2.88&2.72&2.89&2.70&2.60&2.88&2.
 \end{tabular}
 \end{table*}
 
-{\noindent \textbf{Best way to combine the different data sources.: }} Another important 
-question that needs to be investigated is to find out how best to combine these sources. 
-As explained in Section.~\ref{sec:ensemble}, we proposed two different methods for fusing the
-different sources: Model level vs Data level fusion. To analyse this, we ran the two different methods
-using the Matrix Factorization based regression using nearest neighbor embedding which was found earlier 
-found to be the best performing regression algorithm. The results are presented in Table~\ref{tb:comparison_ensemble}, 
-which shows that the Model level fusion workds better overall. For 8 of the 15 countries, the model level fusion works
-appreciably better than Data level fusion, while the reverse trend is seen for 4 other countries. 
-This showcases the importance of considering both kinds of fusion as depending on the country of interest 
-a particular type of fusion may be preferrable.
+{\noindent \textbf{Which is the best strategy to combine
+multiple data sources?}} 
+As shown in Table~\ref{tb:comparison_ensemble}, in overall,
+model level fusion works better than data level fusion.
+For 8 of the 15 countries, model level fusion works
+appreciably better than data level fusion, while the reverse trend is seen for 4 other countries. 
+This showcases the importance of considering both kinds of fusion depending on the country of interest.
 
 \begin{table*}[tb!]
   \centering
@@ -110,25 +108,17 @@ Combined         &3.21&3.24&3.05&2.89&2.96&3.19&2.87&3.00&2.89&3.13&2.77&2.93&3.
 \end{table*}
 
 
-{\noindent \textbf{Best way to combine the different data sources.: }} Thus finding the 
-best in-average regressor and source fusion strategy, we investigate how we can use the 
-official ILI case count estimate correction as presented in Section~\ref{sec:moving} to 
-produce better quality predictions. As was shown, we can estimate the variability in the 
-official ILI estimates either by looking at the difference in weeks between the day of upload 
-and the week for which being the data is uploaded. At the same time, the number of samples used 
-by the agencies to produce the estimates are also good indicators with lower number of samples
-indicating variable estiamtes and high number of samples indicating more stable estimates. 
-We test the correction procedures, by replacing the PAHO ILI case counts by their corrected values
-and run the MFN over all data sources combined using model level fusion.
-The results are reported in Table.~\ref{tb:moving}. As can be seen, corrected estimates 
+{\noindent \textbf{How effective are we at forecasting a moving PAHO target?}} 
+As shown in Table~\ref{tb:moving}, 
+our
+corrected estimates 
 using both the number of samples and 
-the ``weeks ahead'' from the upload date, are generally better. It is to be noted that although
-the correction is 
-able to increase the overall accuracy only by a score 0.05 over all the countries, 
-for some countries such as Mexico and Argentina (for which the data update is typically noisy) we get 
-a substantial imporovement of scores. This indicates that the corrections may be selectively applied 
-while predicting for certain countries. 
-
+the {\it weeks ahead} from the upload date are generally better. It is instructive to note that
+our correction strategy is
+able to increase the overall accuracy only by a score of approximately 0.05 over all the countries, 
+for some countries such as Mexico and Argentina (for which the data update is typically noisy) we obtain 
+a substantial imporovement of scores. This suggests that the correction strategy may be selectively applied 
+when forecasting for certain countries. 
 
 
 \begin{table*}[tb!]
@@ -151,17 +141,15 @@ w/o $\mathcal{F}$ & 3.20& 3.12& 2.88& 2.89& 2.96& 3.19& 2.87& 3.00& 2.83& 3.02& 
 \end{tabular}
 \end{table*}
 
-{\noindent \textbf{Importance of data sources - Physical vs. Non-physical indicators: }} Finally we revisit the importance of different data sources
-towards final prediction. From Table.~\ref{tb:comparison_single}, we can analyze the data sources
-to find the ones which works the best when only individual models are created for each of them. 
-In that analysis, the data source with the best accuracy happens to be the physical indicator source, 
-weather data. However, while combining multiple sources the relations as identified via the individual models
-may no longer hold true. As such we present a detailed ``ablation test'' where we removed one data source at a time
-from the MFN and model level fusion framework and compared the final accruacy over the different countries. 
-While removing the weather data, degrades the accuracy score the most, removing any source from the framework is found
-to degrade the score to varying degrees. Thus we claim that it is important to consider both the physical 
-and non-physical indicators to get a refined signal about the prevalent ILI incidence in the population.
-
+{\noindent \textbf{How do physical vs social indicators fare against each other?}} 
+From Table~\ref{tb:comparison_single}, we 
+see that the data source with the best single accuracy happens to be the physical indicator source, i.e.,
+weather data. However, Table~\ref{tb:Ablation} conveys a mixed story. Here we conduct an {\it ablation test},
+wherein we remove one data source at a time from our model level MFN fusion framework and contrast accuracies.
+While removing the weather data degrades the accuracy score the most, removing the social indicators also degrades
+the score to varying degrees.
+Thus we posit that it is important to consider both the physical 
+and social indicators to get a refined signal about the prevalent ILI incidence in the population.
 
 %\begin{itemize}
   %%\item Table~\ref{tb:comparison_single} Comapring the three regression methods (one for each source and country). 
