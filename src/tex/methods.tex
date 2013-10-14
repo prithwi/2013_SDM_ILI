@@ -19,6 +19,7 @@ We define regression vectors $V_t$  and
 labels $L_t$ for all time points $t, \forall t = 1,\dots, T$
 as given in equation~\ref{eq:regressionvector}.
 %\prithwish{Check this}
+\vspace{-1em}
 \begin{equation}
   \label{eq:regressionvector}
   \begin{array}{lcl}
@@ -48,6 +49,7 @@ temporal continuity. As such to enforce temporal continuity, to predict for the 
 $T' (T +\alpha > T' > T)$ we use the regression vectors 
 and labels as defined in equation~\ref{eq:regressionvector} to define a $m \times n$ {\it prediction
 matrix} $\mathcal{M}$, as given in equation~\ref{eq:predictionmatrix}:
+\vspace{-1em}
 \begin{equation}
   \label{eq:predictionmatrix}
 \mathcal{M} = \left[\begin{array}{ll}
@@ -63,6 +65,7 @@ The prediction matrix is factorized into a $f\times m$ factor-feature matrix $U$
 a $f\times n$ factor-prediction matrix as:
 \[ \widehat{\mathcal{M}}_{i,j} = b_{u,i} + U^T_i \times F_j\]
 Here, $b_{i,j}$ is the baseline estimate given by:
+\vspace{-1em}
  \begin{equation}
    \label{eq:baseline}
    b_{i,j} = \bar{\mathcal{M}} + b_j 
@@ -99,6 +102,7 @@ Also, let us define the set
 $\mathcal{N}(i) = \lbrace k : \mbox{$V_k$ is one of the top  K nearest neighbors of $V_{i}$} \rbrace$ 
 where $K$ indicates the maximum number of nearest neighbors considered.
 The predicted count $\widehat{P}_{T'}$ for the time point $T'$ is given as:
+\vspace{-1em}
 \begin{equation} \label{eq:nearestneighbor:pred}
   \begin{array}{lcl}
     \widehat{P}_{T'} & = & \frac{\sum\limits_{k \in \mathcal{N}(T')} \theta_{k}L_{k,T - \alpha}}
@@ -121,6 +125,7 @@ as described in section~\ref{sec:model:matrixfactor}. We again define a similar 
 (see equation~\ref{eq:predictionmatrix}). Following ~\cite{koren2008factor}, we define the 
 matrix decomposition rule as 
 
+\vspace{-1em}
 \begin{equation}
   \label{eq:model:matrixfactornbr}
   \begin{array}{lcl}
@@ -134,6 +139,7 @@ The key difference between equation~\ref{eq:model:matrixfactornbr} and the one p
 only the top $K$ neighbors as found through Euclidean distance are used. 
 The model is fitted using Eqn~\ref{eq:matrixnbr:fit} as given below:
 
+\vspace{-1em}
 \begin{equation}
   \label{eq:matrixnbr:fit}
   \begin{array}{ll}
