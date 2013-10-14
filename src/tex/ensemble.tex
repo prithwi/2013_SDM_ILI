@@ -1,36 +1,34 @@
 % mainfile: ../ltexpprt.tex
-
 In the last section, we described different regression strategies to correlate
 a specific source with the ILI case count of a specfic country and predict
-future ILI counts. However, we want to work with a multitude of different data
-sources to get more accurate results. For this purpose, we broadly explored two
-different ways to work with multiple data sources:
+future ILI counts. In practice, we edsire to work with a multitude of data
+sources and there are two broad ways to accomplish this objective:
 
 \begin{enumerate}
-  \item Data level fusion, where we build a single regressor for all the different data
-    sources.
-  \item Model level fusion, where we build one regressor for each data source and 
-    the combine the prediction from the models.
+  \item Data level fusion, wherein we build a single regressor from all the different data
+    sources to the ILI case count; or
+  \item Model level fusion, wherein we build one regressor for each data source and 
+    subsequently combine the predictions from the models.
 \end{enumerate}
 
-In this section, we describe these fusion methods. Experiment results with each method is presented in Section~\ref{sec:results}.
+In this section, we describe these fusion methods. Experiment results with 
+both methods are presented in Section~\ref{sec:results}.
 
-\subsection{\label{sec:fusion:data} Data level fusion :}
-In Data level fusion, we express the feature vector $\mathcal{X}$ as a tuple over all the different data 
+\subsection{\label{sec:fusion:data} Data level fusion:}
+Here we express the feature vector $\mathcal{X}$ as a tuple over all the different data 
 sources and then proceed with either of the regression methods as outlined in Section~\ref{sec:methods}.
-For example, while combining Twitter Data and Weather Data, the feature vector $\mathcal{X}$ is given 
-by:
+For example, while combining Twitter and weather data sources (see Fig.~\ref{fig:ili_data_pipeline}), the 
+feature vector $\mathcal{X}$ is given by:
 \[\mathcal{X}_t = \langle \mathcal{T}_t, \mathcal{W}_t \rangle
 \]
+where $T_t$ and $W_t$ denote attributes derived from Twitter and weather, respectively.
 
-\subsection{\label{sec:fusion:model} Model level fusion :}
-Model level fusion is a more involved operation than the Data level fusion. 
-
-The models are combined using matrix factorization regression with 
+\subsection{\label{sec:fusion:model} Model level fusion:}
+In this approach, the models are combined using matrix factorization regression with 
 nearest neighbor embedding by comparing the
-prediction estimates from each model with the actual estimate and the average
+prediction estimates from each model with the actual estimate (since the ground truth
+can change as well) and the average
 ILI case count for the month for the particular country.
-
 Let us denote the average ILI case count for a particular calendar 
 month $I$ for a given country by:
 \begin{equation*}
