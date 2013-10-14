@@ -60,7 +60,7 @@ non-convex and is in general multi-modal.
 
 \subsection{Surrogate data sources.} Before
 describing our data sources in detail, we describe our overall methodology
-for organizing a flu-related disctionary (for tracking in multiple media such
+for organizing a flu-related dictionary (for tracking in multiple media such
 as news, tweets, and search queries).
 
 \subsubsection{\label{sec:keyword} Dictionary creation.} \input{tex/keywords}
@@ -116,10 +116,12 @@ count of our dictionary in tweets.
 \subsubsection{HealthMap ($\mathcal{H}$):} 
 Similar to Twitter data, we also collect flu-related
 news stories using HealthMap~\url{http://healthmap.org}, an online global disease alert
-system capturing outbreak data from over 50,000 electronic sources [including
-expert-curated accounts, such as ProMED-Mail~\cite{chase1996promed}, news media
-and official reports from local, national and global public health
-organizations.] Using this service we receive flu-related news as a daily feed
+system capturing outbreak data from over 50,000 electronic sources.
+%[including
+%expert-curated accounts, such as ProMED-Mail~\cite{chase1996promed}, news media
+%and official reports from local, national and global public health
+%organizations.] 
+Using this service we receive flu-related news as a daily feed
 which is similarly enriched and filtered to obtain
 a multivariate time series over lemmatized version of the keywords. 
 While Twitter is more suitable to ascertain general public response, the
@@ -163,24 +165,31 @@ restaurants with available tables was aggregated as a weekly time-series.
 
 \subsubsection{Weather ($\mathcal{W}$):}
 All of the previously described data sources can
-be termed as non-physical indicators. These data sources can work as indirect
+be termed as non-physical indicators which can work suitably as
+indirect
 indicators about the state of the population with respect to flu by exposing
-different population characteristics. At the same time, meteorological data can
-be considered a more direct and physical driver of influenza transmission~\cite{flu_humidity_physical}. It 
+different population characteristics. 
+On the other hand, meteorological data can
+be considered a more direct and physical driver of 
+influenza transmission~\cite{flu_humidity_physical}. It 
 has been shown in~\cite{Shaman_orig_humidity_link, Shaman_humidity_USA, ref9}
 that absolute humidity can be directly used to predict the onset of influenza
-epidemics. Here, we collected several other meteorological factors such as
+epidemics. Here, we collect several other meteorological indicators such as
 temperature and rainfall in addition to humidity from the Global Data
-Assimilation System (GDAS) which is a series of weather models run by National
-Weather Service's National Centers for Environmental Prediction that provides
-detailed meteorological data in near real-time across the globe.  We accessed
-the data via an archive hosted by NASA (\url{http://ladsweb.nascom.nasa.gov/}), 
-and provided in GRIB format. By specifying the resolution and
-the geographical boundaries we can collect the data for the countries under
-consideration to a resolution of 1 degrees lat/long interval. However, looking
-at all the lat/long for a country can often lead to noisy data. As such we
-filtered the downloaded data and parsed the meteorological data only around the
-PAHO surveillance centers as shown in Fig.~\ref{fig:surveillance}. We also
+Assimilation System (GDAS).
+%which is a series of weather models run by National
+%Weather Service's National Centers for Environmental Prediction that provides
+%detailed meteorological data in near real-time across the globe.
+We accessed this data in GRIB format from 
+%the data via an archive hosted by NASA 
+\url{http://ladsweb.nascom.nasa.gov/} at a resolution of 1 
+degrees lat/long interval. However, looking
+at all the lat/long for a country can often lead to noisy data.
+As such we filtered the downloaded data and used the indicators 
+only around the surveillance centers.
+%the meteorological data only around the
+%PAHO surveillance centers as shown in Fig.~\ref{fig:surveillance}.
+We also
 aggregate this data using weekly averages and thus obtain a resultant time series
 for each country. We collected this data weekly from Jan 2013 to August 2013. 
 
