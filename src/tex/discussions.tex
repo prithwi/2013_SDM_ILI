@@ -10,9 +10,10 @@ are presented in
 Table.~\ref{tb:comparison_single}. We analyze 
 some important observations from this table next.
 
-\begin{table*}
+\begin{table*}[H]
 \scriptsize
 \centering
+\captionsetup{font=scriptsize}
 \caption{\label{tb:comparison_single}  Comparing forecastng accuracy of models using individual sources.}
 \vspace{-1em}
 \begin{tabular}{|*{18}{c|}}
@@ -60,9 +61,10 @@ For some countries such as Panama, when using only Google Search Trends, MFN
 performs poorer than vanilla MF; nevertheless the average accuracy over all countries for any given
 data source is best when using MFN.
 
-\begin{table*}
+\begin{table*}[H]
   \scriptsize
   \centering
+\captionsetup{font=scriptsize}
   \caption{\label{tb:comparison_ensemble}Comparison of prediction accuracy while combining all data sources
   and using MFN regression.}
 \vspace{-1em}
@@ -84,9 +86,10 @@ For 8 of the 15 countries, model level fusion works
 appreciably better than data level fusion, while the reverse trend is seen for 4 other countries. 
 This showcases the importance of considering both kinds of fusion depending on the country of interest.
 
-\begin{table*}[tb!]
+\begin{table*}[H]
   \scriptsize
   \centering
+\captionsetup{font=scriptsize}
   \caption{\label{tb:moving} Comparison of prediction accuracy while using model level fusion 
   on MFN regressors and employing PAHO stabilization.}
 \vspace{-1em}
@@ -116,9 +119,10 @@ a substantial imporovement of scores. This suggests that the correction strategy
 when forecasting for certain countries. 
 
 
-\begin{table*}[tb!]
+\begin{table*}[H]
   \scriptsize
   \centering
+\captionsetup{font=scriptsize}
   \caption{\label{tb:Ablation} Discovering importance of sources in Model level fusion on MFN 
   regressors by ablating one source at a time.}
 \vspace{-1em}
@@ -167,9 +171,10 @@ Thus it is our opinion that although the reservation data could exhibit some sig
 conditions, it likely is also a surrogate for non-health conditions (e.g., social unrest) which must be factored
 out to make the data source more useful.
 
-\begin{table}[tb!]
+\begin{table}[H]
   \scriptsize
 \centering
+\captionsetup{font=scriptsize}
 \caption{\label{tb:opentable}  ILI case count prediction accruacy for Mexico using OpenTable data as a single source, and
 by combining it with all other sources using model level fusion on uncorrected ILI case count data.}
 \vspace{-1em}
@@ -184,13 +189,6 @@ Model Fusion & 2.96 & 2.87 & 2.99 \\
 \hline
 \end{tabular}
 \end{table}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.5\textwidth]{fig/accs}
-\caption{Accuracy of different methods for each country.}
-\label{fig:accuracies}
-\end{figure}
 
 Finally we present Figure~\ref{fig:accuracies} where we compare
 the overall prediction accuracies for different countries. We show the best

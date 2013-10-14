@@ -57,6 +57,7 @@
 \usepackage{color}
 \usepackage{url}
 \usepackage{hyperref}
+\usepackage{float}
 \usepackage{subfig}
 \usepackage{amssymb}
 \usepackage{multirow}
@@ -115,27 +116,44 @@ Count Predictions}
 \section{\label{sec:intro} Introduction}
 \input{tex/intro.tex}
 
+\vspace{-1em}
 \section{\label{sec:related}Related Works}
 \input{tex/related.tex}
 
+\vspace{-1em}
 \section{\label{sec:problem} Problem Formulation}
 \input{tex/problem.tex}
  
+\vspace{-1em}
 \subsection{\label{sec:methods} Methods}
 \input{tex/methods.tex}
 
+\vspace{-1em}
 \section{\label{sec:ensemble} Ensemble Approaches}
 \input{tex/ensemble.tex}
 
+\vspace{-1em}
 \section{\label{sec:moving} Forecasting a Moving Target}
 \input{tex/stability.tex}
 
+\vspace{-1em}
 \section{\label{sec:experiments} Experimental Setup}
 \input{tex/experiments.tex}
 
+\begin{figure}[H]
+\centering
+\captionsetup{font=scriptsize}
+\includegraphics[width=0.5\textwidth]{fig/accs}
+\caption{Accuracy of different methods for each country.}
+\label{fig:accuracies}
+\end{figure}
+
+
+\vspace{-1em}
 \section{\label{sec:results} Results}
 \input{tex/discussions.tex}
 
+\vspace{-1em}
 \section{\label{sec:conclusions} Conclusions and Further Work}
 \input{tex/conclusions.tex}
 
@@ -154,6 +172,7 @@ DoI/NBC, or the US Government.
 }
 \fi
 %FOR NOW. TO be replaced by the bbl
+\vspace{-1em}
 \bibliographystyle{IEEEtran}
 \bibliography{references}
 
