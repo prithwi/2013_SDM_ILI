@@ -30,21 +30,20 @@ section.}}
 Let
 \[\mathcal{P} = \langle {P}_1, {P}_2, \dots,{P}_T \rangle\]
 denote the known total weekly ILI case count for the country under
-consideration , where ${P}_t$  denotes the case count for
-the time point $t$.\\
-Also let $T$ denote the time point till which ILI case count is known.
+consideration, where ${P}_t$  denotes the case count for
+time point $t$ and $T$ denotes the time point till which the
+ILI case count is known.
 %\prithwish{Will have to decide later whether we want to specify PAHO
   %here $\rightarrow$ \textnormal{``as reported by the Pan-American Health Organization
 %(PAHO)~\cite{PAHO:2013}''}}\\
 Corresponding to the ILI case count data, let us denote the available surrogate informations
 for the same country by 
-\[\mathcal{X} = \langle \mathcal{X}_1, \mathcal{X}_2, \dots, \mathcal{X}_{T1}\rangle\]
-, where $T1$ is the time point till which the surrogate
-information is known and $\mathcal{X}_{t}$ denotes the surrogate attributes for time
+\[\mathcal{X} = \langle \mathcal{X}_1, \mathcal{X}_2, \dots, \mathcal{X}_{T1}\rangle,\]
+where $T1$ is the time point till which the surrogate
+information is available and $\mathcal{X}_{t}$ denotes the surrogate attributes for time
 point $t$. 
-
-Then the problem we want to solve is to find a predictive model ($f$)  for the 
-case count data, as presented formally in equation~\ref{eq:problem}.
+The problem we desire to solve is to find a predictive model ($f$) for the 
+case count data, as presented formally in Eqn~\ref{eq:problem}.
 \begin{equation}
   \label{eq:problem}
   f: \mathcal{P}_t = f\left(\mathcal{P}, \mathcal{X}\right)
