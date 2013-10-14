@@ -1,16 +1,13 @@
 % mainfile: ../ltexpprt.tex
-Surveillance reports published by health organizations is one of the
-main resources for monitoring Influenza like illness (ILI) cases and for
-years have been used by healthcare officials for public reactions.
-However, these surveillance reports are published with a considerable
-delay and hence, it takes a long time for health threats to become
-visible to health officials. Therefore, in recent years, various
-approaches have been proposed in the literature for monitoring and
-prediction of influenza epidemics based on data mining and network
-dynamics methods. A considerable number of such methods are based on collecting
-social signals by mining diverse data sources such as 
-search engine query statistics \cite{ref1, ref2}, social
-media ``chatter''~\cite{ref3, ref4, ref5, ref6, ref7} and news articles \cite{ref8},
+Surveillance reports published by health organizations are one of the
+primary resources for monitoring influenza like illness (ILI) cases and,
+for years, have been the primary source of information used by healthcare
+officials for policy decisions. However traditional surveillance
+reports are published with a considerable delay and thus recent research
+has focused on mining social signals from diverse data sources such as
+search engine query volume~\cite{ref1, ref2}, social
+media ``chatter''~\cite{ref3, ref4, ref5, ref6, ref7}, 
+and news articles \cite{ref8}.
 
 
 %and weather data \cite{ref9, Shaman_orig_humidity_link, Shaman_humidity_USA}.
@@ -28,49 +25,38 @@ media ``chatter''~\cite{ref3, ref4, ref5, ref6, ref7} and news articles \cite{re
 %population is also studied in a number of works in order to understand
 %the way that disease propagates through people and between cities
 %\cite{ref8}, \cite{ref11}.
-One of the pioneering work in this new-found usage of non-tradional data sources 
-was presented by Ginsberg et al.~\cite{ref2} where they predicted week ILI case counts
-by tracking the volume of search engine queries. This work inspired a number of similar 
-researches such ~\cite{ref1}, where Yuan et al. used search query data from Baidu (a popular
-search engine in China) to detect influenza outbreaks. Both these works were based on finding 
-correlations between search query volumes of different keywords with official ILI estimates 
-of corresponding regions. Apart from using different data sources, 
-these two work also differed on the actual regression model used. While the first one was based on 
-logit-linear model, the second one uses a simple linear regression model. 
 
-%In their approach, Ginsberg et al. build time
-%series based on Google search queries to track weekly ILI counts. In
-%addition to Google search trends, previously published values in CDC ILI
-%reports are used to learn a simple regression model that predicts weekly
-%influenza counts two weeks ahead of CDC ILI surveillance reports. 
-%In their approach
-%they use real-time search query results for specific keywords as well as
-%official statistics of influenza to build a regression model that can
-%predict influenza case count one or two weeks in advance. In addition to
-%different data sources, this method differs from \cite{ref2} in terms of
-%the used regression model. In \cite{ref2} a logit-linear model is used
-%while \cite{ref1} uses a simple linear regression model.
-Even real-time ILI detection~\cite{ref4} systems have been proposed by comparing 
-real-time Twitter data with disease statistics to monitor and predict ILI and cancer 
-in USA. This work also focusses on the importance of tracking both spatial and temporal 
-data. A similar work was presented by Sugamaran and Voss~\cite{ref7} to analyze 
-spatio-temporal spread of the West Nile Virus using Twitter Data. 
-Historical news articles have also been used by Ewing et al. in
-\cite{ref8} to study the spread of influenza pandemic. Authors used data
-mining and network analysis methods for this purpose. Topics are modeled
-by using latent Dirichlet allocation. In \cite{ref12}, Eggo et al. use a
-gravity model for propagation of disease between cities. They used
-Bayesian Markov Chain Monte Carlo methods to estimates parameters of
-their model. %This method can be considered as a single data source
+One of the pioneering works in this 
+space is the work of
+Ginsberg et al.~\cite{ref2} where the authors 
+predicted weekly ILI case counts
+by tracking the volume of search engine queries. This work 
+inspired significant follow-on work, e.g.,~\cite{ref1}, where Yuan 
+et al. used search query data from Baidu (a popular search 
+engine in China) to detect influenza outbreaks. 
+More real-time ILI detection~\cite{ref4} systems have been proposed 
+by modeling Twitter streams.
+%with disease statistics to monitor and predict ILI and cancer 
+%in USA. This work also focusses on the importance of tracking both spatial and temporal 
+%data. A similar work was presented by Sugamaran and Voss~\cite{ref7} to analyze 
+%spatio-temporal spread of the West Nile Virus using Twitter Data. 
+%Historical news articles have also been used by Ewing et al. in
+%\cite{ref8} to study the spread of influenza pandemic. Authors used data
+%mining and network analysis methods for this purpose. Topics are modeled
+%by using latent Dirichlet allocation. In \cite{ref12}, Eggo et al. use a
+%gravity model for propagation of disease between cities. They used
+%Bayesian Markov Chain Monte Carlo methods to estimates parameters of
+%their model. %This method can be considered as a single data source
 %solution that works with real-time Tweeter data. 
 
-Apart from these ``social sources'', there has also been considerable work on 
+Apart from such social media sources,
+there has also been considerable research on 
 correlating physical indicators such as climate data with influenza outbreaks. 
-The primary advantage of such data sources is the fact that the effects are much 
-more causal and less noisy. 
-Shaman et. al. ~\cite{ref9, Shaman_orig_humidity_link, Shaman_humidity_USA} 
-explored this area in detail and found absolute humidity to be a good indicator of 
-influezna outbreaks.
+The primary advantage of such data sources is that the
+effects are much more causal and less noisy. 
+Shaman et. al.~\cite{ref9, Shaman_orig_humidity_link, Shaman_humidity_USA} 
+explored this area in detail and found absolute humidity 
+to be a good indicator of influezna outbreaks.
 
 While these works have helped in showcasing the importance of the varied 
 ``surrogate'' sources that can be used to predict and/or monitor ILI outbreaks, 
