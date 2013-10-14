@@ -16,18 +16,17 @@ $\beta$ is the {\it lookback window length} denoting the number of time points t
 in order to find the regression relation between the case count and the surrogate data.
 
 We define regression vectors $V_t$  and 
-labels $L_t$ for all time points $t, \forall t = 1,\dots, T$
-as given in equation~\ref{eq:regressionvector}.
+labels $L_t,  \forall t = 1,\dots, T$ as below:.
 %\prithwish{Check this}
 \vspace{-1em}
-\begin{equation}
+\begin{equation*}
   \label{eq:regressionvector}
   \begin{array}{lcl}
     V_t & \equiv & \langle P_{t-\beta - \alpha}, \mathcal{X}_{t-\beta - \alpha}, P_{t + 1 -\beta-\alpha}, \mathcal{X}_{t + 1 - \beta-\alpha}, \dots, \\
         &        & P_{t-\alpha},\mathcal{X}_{t-\alpha} \rangle \\
     L_t & \equiv & P_{t}\\
   \end{array}
-\end{equation}
+\end{equation*}
 The regression vector for predicting the case count at time point $T' (T +
 \alpha > T' > T)$ is given by equation~\ref{eq:regressiontestvector}.
 \begin{equation}
