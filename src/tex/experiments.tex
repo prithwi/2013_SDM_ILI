@@ -1,63 +1,63 @@
 % mainfile: ../ltexpprt.tex
 
-
-\subsection{Experimental Setup}
- In this paper, we concentrated on 15 Latin
+\subsection{Reference Data.}
+In this paper, we focus on 15 Latin
 American countries viz. Argentina, Bolivia, Costa Rica, Colombia, Chile,
 Ecuador,  El Salvador, Guatemala, French Guiana, Honduras, Mexico, Nicaragua,
-Paraguay, Panama and Peru. We collected weekly Influenza estimates (ILI counts)
+Paraguay, Panama and Peru. We collected weekly ILI counts
 from the official Pan American Health Organization (PAHO)
-website~\cite{PAHO:2013}, every day from January 2013 to August 2013. The
-estimates downloaded every day for each country contain data from January 2010 to the last
-available week on the day of collection. The
-downloaded data may contain some weeks with no ILI estimates and its next 
-pre-processed to fill the missing using linear interpolation. 
+website~\cite{PAHO:2013}, {\bf every day} from January 2013 to August 2013. The
+estimates downloaded every day for each country contain data from January 2010 to the latest
+available week on the day of collection. 
+%The downloaded data may contain some weeks with no ILI estimates and its next 
+%pre-processed to fill the missing using linear interpolation. 
 This dataset is stored in a database we refer to as
-``Temporal Data Repository'' (TDR) .  The TDR is also timestamped so that for
+the {\it Temporal Data Repository} (TDR).  The TDR is also timestamped so that for
 any given day, we can readily retrieve the ILI case
 counts that were download on that day. This is important as historic data may be updated by
 PAHO even a number of weeks after the first update.  For the purpose of experimental validation
 we used the data for the period Jan 2010 to December 2012 as the static
-training set. We considered Wednesdays of the weeks as our time points.  For
+training set. We considered Wednesdays of the weeks as a reference day within a week.  For
 each Wednesday from Jan 2013 to July 2013, we used the latest available PAHO
 data in TDR for that day and predicted 3 weeks from the last available week for
 which the PAHO data was available. These predictions are next evaluated against
 the final ILI case count as downloaded on September 1, 2013 and we report the
 performance of our algorithms in Section~\ref{sec:results}. 
 
-\subsection{Evaluation criteria}
- We evaluated the prediction accuracy of the
-different algorithms using a modified version of ``Percentage Relative Error''.
-Using the notation as explained earlier and listed in Table~\ref{tb:notations}
-we defined the accuracy metric as given in equation~\ref{eq:def:accuracy}.
+\subsection{Evaluation criteria.}
+We evaluate the prediction accuracy of the
+different algorithms using a modified version of percentage relative error:
 
 \begin{equation} 
     \label{eq:def:accuracy} 
     \mathcal{A} = \frac{4}{N_p}\sum \limits_{t=t_s}^{t_e}\frac{|P_t -\hat{P}_t| }{max(P_t, \hat{P}_t, 10)}
 \end{equation} 
-where, $t_s$ and $t_e$ indicates the starting and the ending
+where $t_s$ and $t_e$ indicate the starting and the ending
 time point for which predictions were generated.  $N_p$ indicates the number of
-time points over the same time period (i.e. $N_p = t_e - t_s + 1$). 
-
-The accuracy criterion was designed according the following criteria:
-\begin{itemize} 
-    \item 
-    The accuracy estimates should reflect the percentage
-    deviation in prediction rather than absolute deviation. 
-     \prithwish{should we justify this?} 
-\item The accuracy estimates must be non-negative.  \item If we
-don't consider the max operator in the denominator, even ``good'' predictions
-such as 1 for an actual count of 0 will be assigned an accuracy score of 0. As
-such we chose a threshold (here 10) for which very small deviations are not
-over-penalized. The threshold was chosen by manually inspecting the span of ILI
-case counts (which were found to lie between 0 and 2000) and subsequent
-feedback from subject experts about the ``interesting'' range of predictions.
-\end{itemize} 
+time points over the same time period (i.e. $N_p = t_e - t_s + 1$). Note that
+the measure is scaled to have values in $[0,4]$ and the denominator is
+designed to not over-penalize small deviations from the true ILI case count (e.g., when
+the true case count is 0 and the predicted count is 1).
 It is to be noted that the accuracy metric so defined is
-non-convex and was found to be multi-modal. 
+non-convex and is in general multi-modal. 
+
+%The accuracy criterion was designed according the following criteria:
+%\begin{itemize} 
+%    \item 
+%    The accuracy estimates should reflect the percentage
+%    deviation in prediction rather than absolute deviation. 
+%     \prithwish{should we justify this?} 
+%\item The accuracy estimates must be non-negative.  \item If we
+%don't consider the max operator in the denominator, even ``good'' predictions
+%such as 1 for an actual count of 0 will be assigned an accuracy score of 0. As
+%such we chose a threshold (here 10) for which very small deviations are not
+%over-penalized. The threshold was chosen by manually inspecting the span of ILI
+%case counts (which were found to lie between 0 and 2000) and subsequent
+%feedback from subject experts about the ``interesting'' range of predictions.
+%\end{itemize} 
 
 
-\subsection{Surrogate Data sources}
+\subsection{Surrogate data sources.}
 For the algorithm we described in Section~\ref{sec:methods},
 we used a number of different data sources as
 surrogates. We considered a wide range for such surrogates comprising both
