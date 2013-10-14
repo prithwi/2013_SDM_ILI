@@ -1,19 +1,23 @@
 % mainfile: ../ltexpprt.tex
-In the last section, we described different regression strategies to correlate
-a specific source with the ILI case count of a specfic country and predict
-future ILI counts. In practice, we edsire to work with a multitude of data
-sources and there are two broad ways to accomplish this objective:
+%In the last section, we described different regression strategies to correlate
+%a specific source with the ILI case count of a specfic country and predict
+%future ILI counts. In practice, we edsire to work with a multitude of data
+%sources and there are two broad ways to accomplish this objective:
+%
+%\begin{enumerate}
+%  \item Data level fusion, wherein we build a single regressor from all the different data
+%    sources to the ILI case count; or
+%  \item Model level fusion, wherein we build one regressor for each data source and 
+%    subsequently combine the predictions from the models.
+%\end{enumerate}
+%
+%\noindent
+%In this section, we describe these fusion methods. Experimental results with 
+%both methods are presented in Section~\ref{sec:results}.
 
-\begin{enumerate}
-  \item Data level fusion, wherein we build a single regressor from all the different data
-    sources to the ILI case count; or
-  \item Model level fusion, wherein we build one regressor for each data source and 
-    subsequently combine the predictions from the models.
-\end{enumerate}
+In the last section, we described different strategies to correlate a specific source with the ILI case count of a specfic country and predict future ILI counts. In practice, we desire to work with a multitude of data sources and there are two broad ways to accomplish this objective. In data level fusion, a single regressor is constructed from different data     sources to the ILI case count, while in model level fusion, we build one regressor for each data source and subsequently combine the predictions from the models. In this section, we describe these fusion methods. Experimental results with
+both methods are presented in Section ~\ref{sec:results}.
 
-\noindent
-In this section, we describe these fusion methods. Experimental results with 
-both methods are presented in Section~\ref{sec:results}.
 
 \subsection{\label{sec:fusion:data} Data level fusion:}
 Here we express the feature vector $\mathcal{X}$ as a tuple over all the different data 
