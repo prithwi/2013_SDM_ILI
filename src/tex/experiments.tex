@@ -6,7 +6,7 @@ American countries viz. Argentina, Bolivia, Costa Rica, Colombia, Chile,
 Ecuador,  El Salvador, Guatemala, French Guiana, Honduras, Mexico, Nicaragua,
 Paraguay, Panama and Peru. We collected weekly ILI counts
 from the official Pan American Health Organization (PAHO)
-website~\cite{PAHO:2013}, {\bf every day} from January 2013 to August 2013. The
+website(\url{http://ais.paho.org/phip/viz/ed_flu.asp}), {\bf every day} from January 2013 to August 2013. The
 estimates downloaded every day for each country contain data from January 2010 to the latest
 available week on the day of collection. 
 %The downloaded data may contain some weeks with no ILI estimates and its next 
@@ -65,7 +65,7 @@ as news, tweets, and search queries).
 \subsubsection{\label{sec:keyword} Dictionary creation.} \input{tex/keywords}
 
 \subsubsection{Google Flu Trends ($\mathcal{F}$):}
-Google Flu Trends~\cite{GFT:2013} (GFT) is a tool based
+Google Flu Trends (GFT \url{http://www.google.org/flutrends}) is a tool based
 on~\cite{ginsberg2008detecting} and provided by Google.org which gives weekly
 and up-to-date ILI case count estimates using search query volumes. 
 Of the countries under
@@ -77,7 +77,8 @@ to be scaled accordingly.  We collected this data weekly on Monday from Jan
 2013 to Aug 2013. (The data downloaded on a particular day contains the entire
 time-series from 2004 to the corresponding week.)
  
-\subsubsection{Google Search Trends ($\mathcal{S}$):} Google Search Trends~\cite{GST:2013} is
+\subsubsection{Google Search Trends ($\mathcal{S}$):} 
+Google Search Trends~\url{http://www.google.com/trends} is
 another tool provided by Google. Using this tool we can download an estimate of
 search query volume as a percentage over its own temporal history, filtered
 geographically. We download
@@ -113,7 +114,7 @@ count of our dictionary in tweets.
 
 \subsubsection{HealthMap ($\mathcal{H}$):} 
 Similar to Twitter data, we also collect flu-related
-news stories using HealthMap~\cite{HM:2013}, an online global disease alert
+news stories using HealthMap~\url{http://healthmap.org}, an online global disease alert
 system capturing outbreak data from over 50,000 electronic sources [including
 expert-curated accounts, such as ProMED-Mail~\cite{chase1996promed}, news media
 and official reports from local, national and global public health
@@ -134,7 +135,8 @@ outbreak surveillance, as another surrogate for ILI detection.
 This novel data stream is based on the
 postulate that a higher than average number of restaurants with table
 availabilities in a region can serve as an indicator of an event of interest,
-such as increase in flu cases. Table availability was monitored using OpenTable~\cite{Opentable:2013}, 
+such as increase in flu cases. Table availability was monitored using 
+OpenTable~\url{http://www.opentable.com}, 
 an online restaurant reservation site with 28,000 restaurants at the time
 of this writing. Daily searches were performed starting from September 2012 for
 a table for two persons at lunch and dinner; between 12:30-3pm, and between
@@ -168,7 +170,7 @@ temperature and rainfall in addition to humidity from the Global Data
 Assimilation System (GDAS) which is a series of weather models run by National
 Weather Service's National Centers for Environmental Prediction that provides
 detailed meteorological data in near real-time across the globe.  We accessed
-the data via an archive hosted by NASA (\url{http://ladsweb.nascom.nasa.gov/})~\cite{HD:2013}, 
+the data via an archive hosted by NASA (\url{http://ladsweb.nascom.nasa.gov/}), 
 and provided in GRIB format. By specifying the resolution and
 the geographical boundaries we can collect the data for the countries under
 consideration to a resolution of 1 degrees lat/long interval. However, looking
