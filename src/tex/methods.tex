@@ -10,13 +10,12 @@ case count using three broad models:
   \item Nearest Neighbor Based Regression (NN).
   \item Matrix Factorization Regression using Nearest Neighbor embedding (MFN).
 \end{itemize}
-For each of the methods, we define two paramters- $\beta$ and $\alpha$. 
-`$\alpha$' is the ``lookahead window length'' denoting distance of the time point for prediction from $T$ 
- and $\beta$ is the ``lookback window length'' denoting the number of time points to looback
-in order to find the regression relation between the case count and the surrogate 
-data.
+For each of the methods, we define two parameters: $\beta$ and $\alpha$. 
+$\alpha$ is the {\it lookahead window length}, denoting distance of the time point for prediction from $T$;
+$\beta$ is the {\it lookback window length} denoting the number of time points to look back
+in order to find the regression relation between the case count and the surrogate data.
 
-Also, we define regression vectors $V_t$  and 
+We define regression vectors $V_t$  and 
 labels $L_t$ for all time points $t, \forall t = 1,\dots, T$
 as given in equation~\ref{eq:regressionvector}.
 %\prithwish{Check this}
@@ -28,7 +27,7 @@ as given in equation~\ref{eq:regressionvector}.
     L_t & \equiv & P_{t}\\
   \end{array}
 \end{equation}
-The the regression vector for predicting the case count at time point $T' (T +
+The regression vector for predicting the case count at time point $T' (T +
 \alpha > T' > T)$ is given by equation~\ref{eq:regressiontestvector}.
 \begin{equation}
   \label{eq:regressiontestvector}
@@ -37,17 +36,18 @@ The the regression vector for predicting the case count at time point $T' (T +
            &        & P_{T'-\alpha},\mathcal{X}_{T'-\alpha} \rangle \\
   \end{array}
 \end{equation}
-
+\noindent
 Under these definitions we describe the models as follows:
 \subsection{\label{sec:model:matrixfactor} Matrix Factorization Based Regression (MF):}
-Matrix Factorization has been long used in the recommender systems to predict user 
-preferences from incomplete user ratings/informations. Typically~\cite{canny2002factor},
-in recommender system an user-preference matrix is factored into an user-factor and
+Matrix Factorization is a well accepted technique in
+the recommender systems literature, to predict user 
+preferences from incomplete user ratings/informations. Typically~\cite{canny2002factor}
+a user-preference matrix is factored into an user-factor and
 factor-preference matrix. However, such factorizations are incognizant of any 
 temporal continuity. As such to enforce temporal continuity, to predict for the time point 
 $T' (T +\alpha > T' > T)$ we use the regression vectors 
-and labels as defined in equation~\ref{eq:regressionvector} to define a $m \times n$ ``prediction
-matrix'' $\mathcal{M}$ as given in equation~\ref{eq:predictionmatrix} 
+and labels as defined in equation~\ref{eq:regressionvector} to define a $m \times n$ {\it prediction
+matrix} $\mathcal{M}$, as given in equation~\ref{eq:predictionmatrix}:
 \begin{equation}
   \label{eq:predictionmatrix}
 \mathcal{M} = \left[\begin{array}{ll}
@@ -60,48 +60,44 @@ matrix'' $\mathcal{M}$ as given in equation~\ref{eq:predictionmatrix}
 \end{equation}
 
 The prediction matrix is factorized into a $f\times m$ factor-feature matrix $U$ and 
-a $f\times n$ factor-prediction matrix as :
+a $f\times n$ factor-prediction matrix as:
 \[ \widehat{\mathcal{M}}_{i,j} = b_{u,i} + U^T_i \times F_j\]
 Here, $b_{i,j}$ is the baseline estimate given by:
  \begin{equation}
    \label{eq:baseline}
    b_{i,j} = \bar{\mathcal{M}} + b_j 
  \end{equation}
- where $\bar{\mathcal{M}}$ represents the all element average and $b_j$ represents 
- the column wise deviations from the average and is generally a free-parameter i.e.
- its fitted as part of the optimization problem.
-
- Also, $U$ and $F$ matrix are estimated by minimizing the error function:
+ where $\bar{\mathcal{M}}$ represents the all-element average and $b_j$ represents 
+ the column wise deviations from the average and is generally a free-parameter, i.e.,
+it is fitted as part of the optimization problem.
+$U$ and $F$ matrix are estimated by minimizing the error function:
 \begin{equation}
   \begin{array}{ll}
   \label{eq:matrix:fit}
-  b_*, F, U  & =  argmin (\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n}  - \widehat{\mathcal{M}}_{i,n} \right)^2 \\ 
+  b_*, F, U  & =  \textrm{argmin} (\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n}  - \widehat{\mathcal{M}}_{i,n} \right)^2 \\ 
   & + \lambda_1\times(\sum \limits_{j=1}^{n}b_j^2 + \sum \limits_{i=1}^{m-1} || U_i||^2 + \sum \limits_{j=1}^{n} || F_j||^2))
 \end{array}
 \end{equation}
-
-Where, $\lambda_1$ is a regularization parameter. An important design criteria towards
-the error function as given in equation~\ref{eq:matrix:fit} is the fact that we only compute the error
-between the predicted label values and the actual label values i.e. the $n^{th}$ column of the prediction 
+\noindent
+where $\lambda_1$ is a regularization parameter. An important design criteria in
+the error function of Eqn~\ref{eq:matrix:fit} is the fact that we only compute the error
+between the predicted label values and the actual label values i.e., the $n^{th}$ column of the prediction 
 matrix $\mathcal{M}$. The rationale behind this choice is the fact that unlike traditional recommender 
 systems we are only concerned with the label column and can sacrifice reconstruction accuracies for other 
 columns. 
 
 The lookback window $\beta$, the factor size $f$ and the regularization parameter $\lambda_1$ 
-are estimated using the best cross-validation accuracy 
+are estimated using cross-validation
 and the final prediction for time point $T'$ is given by:
 \[\widehat{P}_{T'} = b_{m,n} + U_m^T \times F_{m,n} \]
 
 \subsection{\label{sec:model:nearestneighbor} Nearest Neighbor Based Regression (NN):}
-For Nearest Neighbor Models, we define a training set $\Gamma_{NN}
+For nearest neighbor models, we define a training set $\Gamma_{NN}
 = \lbrace V_t, L_t \rbrace$, where $V_t$ represents the regression attributes
 and $L_t$ denote the corresponding labels.
-
 Also, let us define the set 
 $\mathcal{N}(i) = \lbrace k : \mbox{$V_k$ is one of the top  K nearest neighbors of $V_{i}$} \rbrace$ 
-where, $K$ indicates the maximum number of nearest neighbors considered.
-
-
+where $K$ indicates the maximum number of nearest neighbors considered.
 The predicted count $\widehat{P}_{T'}$ for the time point $T'$ is given as:
 \begin{equation} \label{eq:nearestneighbor:pred}
   \begin{array}{lcl}
@@ -109,16 +105,16 @@ The predicted count $\widehat{P}_{T'}$ for the time point $T'$ is given as:
     {\sum\limits_{k=1}^{K} \theta_{k}}\\
   \end{array}
 \end{equation}
-
 %and $L_{k,T}$ indicates the label of the $k^{th}$ nearest neighbor to $V_{T'}$ in $\Gamma_{NN}$
 %at time point $T$. 
-Also, $\theta_k$ indicates the weight assigned to the $k^{th}$ nearest neighbor.
-Typically the inverse euclidean distances to $V_{T'}$ is chosen as the weights.
+\noindent
+Here $\theta_k$ indicates the weight assigned to the $k^{th}$ nearest neighbor.
+Typically the inverse Euclidean distances to $V_{T'}$ are chosen as the weights.
 
 \subsection{\label{sec:model:nearestmatrix} Matrix Factorization Based
 Regression using Nearest Neighbor Embedding (MFN):}
-It was shown in~\cite{koren2008factor},  that matrix factorization using nearest neighbor constraints can
-outperform classical matrix factorization approach as well as nearest neighbor approaches towards
+It has been shown in~\cite{koren2008factor} that matrix factorization using nearest neighbor constraints can
+outperform classical matrix factorization approach as well as traditional nearest neighbor approaches towards
 recommender systems. Here, we modify the method to suit the temporal nature of our problem in similar ways 
 as described in section~\ref{sec:model:matrixfactor}. We again define a similar prediction matrix $\mathcal{M}$ 
 (see equation~\ref{eq:predictionmatrix}). Following ~\cite{koren2008factor}, we define the 
@@ -131,17 +127,16 @@ matrix decomposition rule as
                                 &   & + F_j \times |\mathcal{N}(i)|^{-\frac{1}{2}}\sum_{k \in N(i)} (\mathcal{M}_{i,k} - b_{i,k}) x_k \\
   \end{array}
 \end{equation}
-
+\noindent
 The key difference between equation~\ref{eq:model:matrixfactornbr} and the one proposed in 
-~\cite{koren2008factor} is that we don't have any term for implicit feedback and also here 
-only the top $K$ neighbors as found through Euclidean distance is used. 
-
-The model is fitted using equation~\ref{eq:matrixnbr:fit} as given below:
+~\cite{koren2008factor} is that we don't have any term for implicit feedback and, further,
+only the top $K$ neighbors as found through Euclidean distance are used. 
+The model is fitted using Eqn~\ref{eq:matrixnbr:fit} as given below:
 
 \begin{equation}
   \label{eq:matrixnbr:fit}
   \begin{array}{ll}
-    b_*, F, U, x_*  = argmin &(\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n} - \widehat{\mathcal{M}}_{i,n}   \right)^2 \\
+    b_*, F, U, x_*  = \textrm{argmin} &(\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n} - \widehat{\mathcal{M}}_{i,n}   \right)^2 \\
                     & + \lambda_2\times(\sum \limits_{j=1}^{n}b_j^2 + \sum \limits_{i=1}^{m-1} || U_i||^2 \\
                     & + \sum \limits_{j=1}^{n} || F_j||^2 + \sum_k ||x_k||^2))
   \end{array}
