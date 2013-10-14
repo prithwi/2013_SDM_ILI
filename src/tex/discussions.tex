@@ -10,11 +10,11 @@ are presented in
 Table.~\ref{tb:comparison_single}. We analyze 
 some important observations from this table next.
 
-\begin{table*}[tb!]
+\begin{table*}
+\scriptsize
 \centering
 \caption{\label{tb:comparison_single}  Comparing forecastng accuracy of models using individual sources.}
-\vspace{1em}
-\footnotesize
+\vspace{-1em}
 \begin{tabular}{|*{18}{c|}}
 \hline
 Model               & Sources       & AR & BO & CL & CR & CO & EC & GF & GT & HN & MX & NI & PA & PY & PE & SV & All\\
@@ -60,11 +60,12 @@ For some countries such as Panama, when using only Google Search Trends, MFN
 performs poorer than vanilla MF; nevertheless the average accuracy over all countries for any given
 data source is best when using MFN.
 
-\begin{table*}[tb!]
+\begin{table*}
+  \scriptsize
   \centering
   \caption{\label{tb:comparison_ensemble}Comparison of prediction accuracy while combining all data sources
   and using MFN regression.}
-\vspace{1em}
+\vspace{-1em}
   \begin{tabular}{|p{1.5cm}|*{16}{l|}}
 \hline
 Fusion Level& AR & BO & CL & CR & CO & EC & GF & GT & HN & MX & NI & PA & PY & PE & SV & All\\
@@ -84,10 +85,11 @@ appreciably better than data level fusion, while the reverse trend is seen for 4
 This showcases the importance of considering both kinds of fusion depending on the country of interest.
 
 \begin{table*}[tb!]
+  \scriptsize
   \centering
   \caption{\label{tb:moving} Comparison of prediction accuracy while using model level fusion 
   on MFN regressors and employing PAHO stabilization.}
-\vspace{1em}
+\vspace{-1em}
 \begin{tabular}{|p{1.5cm}|*{16}{c|}}
 \hline
 Correction Method& AR & BO & CL & CR & CO & EC & GF & GT & HN & MX & NI & PA & PY & PE & SV & All\\
@@ -115,10 +117,11 @@ when forecasting for certain countries.
 
 
 \begin{table*}[tb!]
+  \scriptsize
   \centering
   \caption{\label{tb:Ablation} Discovering importance of sources in Model level fusion on MFN 
   regressors by ablating one source at a time.}
-\vspace{1em}
+\vspace{-1em}
 \begin{tabular}{|*{17}{c|}}
 \hline
 Sources & AR & BO & CL & CR & CO & EC & GF & GT & HN & MX & NI & PA & PY & PE & SV & All\\
@@ -165,10 +168,11 @@ conditions, it likely is also a surrogate for non-health conditions (e.g., socia
 out to make the data source more useful.
 
 \begin{table}[tb!]
+  \scriptsize
 \centering
 \caption{\label{tb:opentable}  ILI case count prediction accruacy for Mexico using OpenTable data as a single source, and
 by combining it with all other sources using model level fusion on uncorrected ILI case count data.}
-\vspace{1em}
+\vspace{-1em}
 \begin{tabular}{|p{1.5cm}|*{2}{l|}p{2cm}|}
 \hline
 Method& Lunch & Dinner & Lunch \& Dinner \\
