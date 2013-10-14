@@ -58,43 +58,31 @@ Shaman et. al.~\cite{ref9, Shaman_orig_humidity_link, Shaman_humidity_USA}
 explored this area in detail and found absolute humidity 
 to be a good indicator of influezna outbreaks.
 
-While these works have helped in showcasing the importance of the varied 
-``surrogate'' sources that can be used to predict and/or monitor ILI outbreaks, 
-only a few works have aimed at combining mutiple data sources 
-~\cite{ref10, ref3}.  These works are mainly dependent on social
-media data as well as other publicly available data sources such as news 
-articles, social media and clinical reports. However, to the best of our knowledge 
-ours is the first work that aims at investigating both ``social indicators'' as well 
-as ``physical indicators'' to predict the ILI incidence. While, the social indicators
-can serve to elucidate more direct response from the society about prevalent ILI 
-conditions, physical indicators such as humidity provide direct observance about 
-the underlying ILI levels. 
-
-Also, from our analysis we have found that the official estimates as reported by
-agencies~\cite{PAHO:2013} are often lagged by several weeks and even when they
-are reported, the reports are revised for several weeks before the estimates 
-are finalized. A real-time prediction system which is based on historical data
-needs to handle this kind of variations in the offical estimates to get an 
-accurate picture of the ILI conditions. Finally, most of the analysis have been 
-retrospective and without a proper experimental validation framework.
-
-In this paper we propose a novel matrix-factorization based regression method with 
-nearest neighbor embedding to predict the ILI case counts. Our contributions can be listed
-as:
+While the above works have made important strides, there are two important areas that
+have been relatively less studied. First, 
+only a few works have focused on combining mutiple data sources~\cite{ref10, ref3}
+to aid in forecasting. In particular, to the best of our knowledge there has been no work
+that investigates the combination of social indicators and physical indicators to forecast
+ILI incidence. Second, and more improtantly, official estimates as reported by health
+organizations (e.g., WHO, PAHO)~\cite{PAHO:2013} are often lagged by several weeks and
+even when reported are typically revised for several weeks before the case counts are
+finalized. Real-time prediction systems must be designed to handle the forecasting of
+such a `moving target'. Finally, most existing works have been retrospective and not set in
+the context of a formal data mining validation framework. To overcome these deficiences, we
+propose a novel approach to ILI case count forecasting. Our contributions are:
 \begin{itemize}
-  \item We investigate both ``social indicators'' and ''physical indicators'' to 
-    understand the efficacy of each kind of sources towards ILI prediction.
-  \item We present a systematic way of investigating each individual source for possible 
-    correlation with ILI by describing a novel matrix factorization based regression method
-    using neighborhood embedding to account for 
-    non-linear relations between the surrogates and the official ILI estimates.
-  \item We investigate the efficacy of combining the these different sources at model 
-    level vs. data level towards final accuracy.
-  \item We propose different ways of handling uncertaininties in the official 
-    estimates and factor these uncertainities in our prediction models.
+  \item Our approach integrates both social indicators and physical indicators and thus
+leverages the selective superiorities of both types of feature sets. We systematize such
+integration using a novel matrix factorization-based regression approach
+using neighborhood embedding, thus helping account for 
+non-linear relationships between the surrogates and the official ILI estimates.
+  \item We investigate the efficacy of combining diverse different sources at two
+levels: data fusion level, and model level, and discuss the relative (de)merits.
+  \item We propose different ways of handling uncertainties in the official 
+    estimates and factor these uncertainities into our prediction models.
   \item Finally, we present a detailed and prospective analysis of our proposed methods
-    by comparing predictions from a near-hoirzon real time prediction system to 
-    official estiamtes.
+    by comparing predictions from a near-horizon real time prediction system to 
+    official estimates of ILI case counts in 15 countries of Latin America.
 \end{itemize}
 
 %The rest of the paper is organized as follows: we touch upon some related works in 
