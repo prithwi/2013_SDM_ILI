@@ -5,7 +5,7 @@ delayed and, furthermore, even when published the estimates are revised
 over a number of weeks before these become finally stable.
 For this paper, we concentrate on 15 Latin American countries 
 as described in Section~\ref{sec:experiments} and consider the official 
-ILI estimates from the Pan American Health Organiation (PAHO)~\cite{PAHO:2013}.
+ILI estimates from the Pan American Health Organiation (PAHO).%~\cite{PAHO:2013}.
 %One of the problems with PAHO count dataset is that PAHO count value of a
 %specific week may change over time. In other words, PAHO count values are
 %unstable for a period of time after they are published for the first time.
@@ -84,18 +84,16 @@ set:
 \dot{\mathcal{P}}_i = \left \{P_i^{(1)},P_i^{(2)},...,P_i^{(m)},...  \right \}
 \end{equation}
 \noindent
-where $P_i^{(m)}$ is the value of $P_i$ after $m$ weeks of update. 
-For each stable PAHO count value, $\dot{P}_i$, there is a threshold, 
-$\dot{T}_i$ such that for $m \ge \dot{T}_i$, $P_i^{(m)}$ is stable.
-Hence, we have:
-\begin{equation}
-\dot{\mathcal{P}}_i = \left \{P_i^{(1)},P_i^{(2)},...,P_i
-^{(\dot{T}_i-1)},\dot{P}_i,\dot{P}_i,...  \right \}
-\end{equation}
-\noindent
-In other words, $P_i$ is stabilized after $\dot{T}_i$ weeks.
-
-
+where $P_i^{(m)}$ is the value of $P_i$ after $m$ weeks of update.
+%For each stable PAHO count value, $\dot{P}_i$, there is a threshold, 
+%$\dot{T}_i$ such that for $m \ge \dot{T}_i$, $P_i^{(m)}$ is stable.
+%Hence, we have:
+%\begin{equation}
+%\dot{\mathcal{P}}_i = \left \{P_i^{(1)},P_i^{(2)},...,P_i
+%^{(\dot{T}_i-1)},\dot{P}_i,\dot{P}_i,...  \right \}
+%\end{equation}
+%\noindent
+%In other words, $P_i$ is stabilized after $\dot{T}_i$ weeks.
 
 After recognizing high, low, and mid-season months for the country, we can
 categorize each $\dot{P}_i$ to belong to one of these categories. Then, for
