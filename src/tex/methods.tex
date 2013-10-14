@@ -136,9 +136,17 @@ The model is fitted using Eqn~\ref{eq:matrixnbr:fit} as given below:
 \begin{equation}
   \label{eq:matrixnbr:fit}
   \begin{array}{ll}
-    b_*, F, U, x_*  = \textrm{argmin} &(\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n} - \widehat{\mathcal{M}}_{i,n}   \right)^2 \\
-                    & + \lambda_2\times(\sum \limits_{j=1}^{n}b_j^2 + \sum \limits_{i=1}^{m-1} || U_i||^2 \\
-                    & + \sum \limits_{j=1}^{n} || F_j||^2 + \sum_k ||x_k||^2))
+    & b_*, F, U, x_*  = \textrm{argmin} (\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n} - \widehat{\mathcal{M}}_{i,n}   \right)^2 \\
+                    & + \lambda_2\times(\sum \limits_{j=1}^{n}b_j^2 + \sum \limits_{i=1}^{m-1} || U_i||^2 + \sum \limits_{j=1}^{n} || F_j||^2 + \sum_k ||x_k||^2))
   \end{array}
   \end{equation}
+
+%\begin{equation}
+%  \label{eq:matrixnbr:fit}
+%  \begin{array}{ll}
+%    b_*, F, U, x_*  = \textrm{argmin} &(\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n} - \widehat{\mathcal{M}}_{i,n}   \right)^2 \\
+%                    & + \lambda_2\times(\sum \limits_{j=1}^{n}b_j^2 + \sum \limits_{i=1}^{m-1} || U_i||^2 \\
+%                    & + \sum \limits_{j=1}^{n} || F_j||^2 + \sum_k ||x_k||^2))
+%  \end{array}
+%  \end{equation}
 
