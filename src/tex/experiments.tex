@@ -64,8 +64,6 @@ as news, tweets, and search queries).
 
 \subsubsection{\label{sec:keyword} Dictionary creation.} \input{tex/keywords}
 
-We next describe the different data sources.
-
 \subsubsection{Google Flu Trends ($\mathcal{F}$):}
 Google Flu Trends~\cite{GFT:2013} (GFT) is a tool based
 on~\cite{ginsberg2008detecting} and provided by Google.org which gives weekly
@@ -176,6 +174,7 @@ PAHO surveillance centers as shown in Fig.~\ref{fig:surveillance}. We also
 aggregate this data using weekly averages and thus obtain a resultant time series
 for each country. We collected this data weekly from Jan 2013 to August 2013. 
 
+\iffalse
 \subsubsection{Temporal Data Repository}
 All of the described data sources were
 added to a temporal database, ``Temporal Data Repository'' (TDR). Some of the
@@ -191,6 +190,7 @@ using TDR we can quickly reference the data available at that point of time and
 run our algorithm to simulate a prospective analysis scenario.  The entire data
 collection process is depicted pictorially in
 Figure~\ref{fig:ili_data_pipeline}.
+\fi
 
 
 
