@@ -1,15 +1,4 @@
 % mainfile: ../ltexpprt.tex
-
-We present an exhaustive set of experiments evaluating our algorithms 
-over 6 months of predictions 
-from Jan 2013 to August 2013. The final estimates of ILI case counts are stable according
-to the estimates downloaded from PAHO on Oct 1, 2013. All models considered here were
-used to forecast 2 weeks beyond the latest available PAHO ILI estimates. 
-Key findings
-are presented in 
-Table.~\ref{tb:comparison_single}. We analyze 
-some important observations from this table next.
-
 \begin{table*}[tb!]
 \scriptsize
 \centering
@@ -42,26 +31,6 @@ Model               & Sources       & AR & BO & CL & CR & CO & EC & GF & GT & HN
 \vspace{-1em}
 \end{table*}
 
-
-{\noindent \textbf{Can we `beat' Google Flu Trends with our custom dictionary?}}  
-The key difference between Google Flu Trends and Google Search Trends is that the former uses a closed dictionary whereas
-we constructed the dictionary to use with GST.
-As can be seen Table~\ref{tb:comparison_single},
-for majority of the common countries (countries for which data from both GST and GFT
-is present), regressors running on GST consistently 
-outperform those running on GFT (with Mexico and Peru being the exception).
-Thus we posit that the GST model devised here is a sufficiently close approximation to GFT, 
-with the added advantages of having access to raw level data and being available for more countries 
-than GFT (among the 15 countries we consider, only 6 of them are present in the GFT database).
-
-{\noindent \textbf{Which is the optimal regression model?}} From Table~\ref{tb:comparison_single}, we can also
-analyze the three different regressors proposed in Section~\ref{sec:methods} with respect to overall accuracy.
-With respect to each individual source, we can see that matrix factorization with nearest 
-neighbor embdedding (MFN) performs the best in average over the countries.
-For some countries such as Panama, when using only Google Search Trends, MFN
-performs poorer than vanilla MF; nevertheless the average accuracy over all countries for any given
-data source is best when using MFN.
-
 \begin{table*}[tb!]
   \scriptsize
   \centering
@@ -79,15 +48,6 @@ Data        &3.01&2.97&3.13&2.87&2.86&3.04&2.91&2.88&2.72&2.89&2.70&2.60&2.88&2.
 \end{tabular}
 \vspace{-1em}
 \end{table*}
-
-{\noindent \textbf{Which is the best strategy to combine
-multiple data sources?}} 
-As shown in Table~\ref{tb:comparison_ensemble}, in overall,
-model level fusion works better than data level fusion.
-For 8 of the 15 countries, model level fusion works
-appreciably better than data level fusion, while the reverse trend is seen for 4 other countries. 
-This showcases the importance of considering both kinds of fusion depending on the country of interest.
-
 \begin{table*}[tb!]
   \scriptsize
   \centering
@@ -107,20 +67,6 @@ Combined         &3.21&3.24&3.05&2.89&2.96&3.19&2.87&3.00&2.89&3.13&2.77&2.93&3.
 \end{tabular}
 \vspace{-1em}
 \end{table*}
-
-
-{\noindent \textbf{How effective are we at forecasting a moving PAHO target?}} 
-As shown in Table~\ref{tb:moving}, 
-our
-corrected estimates 
-using both the number of samples and 
-the {\it weeks ahead} from the upload date are generally better. It is instructive to note that
-our correction strategy is
-able to increase the overall accuracy only by a score of approximately 0.05 over all the countries, 
-for some countries such as Mexico and Argentina (for which the data update is typically noisy) we obtain 
-a substantial imporovement of scores. This suggests that the correction strategy may be selectively applied 
-when forecasting for certain countries. 
-
 
 \begin{table*}[tb!]
   \scriptsize
@@ -144,6 +90,63 @@ w/o $\mathcal{F}$ & 3.20& 3.12& 2.88& 2.89& 2.96& 3.19& 2.87& 3.00& 2.83& 3.02& 
 \end{tabular}
 \vspace{-1em}
 \end{table*}
+We present an exhaustive set of experiments evaluating our algorithms 
+over 6 months of predictions 
+from Jan 2013 to August 2013. The final estimates of ILI case counts are stable according
+to the estimates downloaded from PAHO on Oct 1, 2013. All models considered here were
+used to forecast 2 weeks beyond the latest available PAHO ILI estimates. 
+Key findings
+are presented in 
+Table.~\ref{tb:comparison_single}. We analyze 
+some important observations from this table next.
+
+
+
+
+{\noindent \textbf{Can we `beat' Google Flu Trends with our custom dictionary?}}  
+The key difference between Google Flu Trends and Google Search Trends is that the former uses a closed dictionary whereas
+we constructed the dictionary to use with GST.
+As can be seen Table~\ref{tb:comparison_single},
+for majority of the common countries (countries for which data from both GST and GFT
+is present), regressors running on GST consistently 
+outperform those running on GFT (with Mexico and Peru being the exception).
+Thus we posit that the GST model devised here is a sufficiently close approximation to GFT, 
+with the added advantages of having access to raw level data and being available for more countries 
+than GFT (among the 15 countries we consider, only 6 of them are present in the GFT database).
+
+{\noindent \textbf{Which is the optimal regression model?}} From Table~\ref{tb:comparison_single}, we can also
+analyze the three different regressors proposed in Section~\ref{sec:methods} with respect to overall accuracy.
+With respect to each individual source, we can see that matrix factorization with nearest 
+neighbor embdedding (MFN) performs the best in average over the countries.
+For some countries such as Panama, when using only Google Search Trends, MFN
+performs poorer than vanilla MF; nevertheless the average accuracy over all countries for any given
+data source is best when using MFN.
+
+
+
+{\noindent \textbf{Which is the best strategy to combine
+multiple data sources?}} 
+As shown in Table~\ref{tb:comparison_ensemble}, in overall,
+model level fusion works better than data level fusion.
+For 8 of the 15 countries, model level fusion works
+appreciably better than data level fusion, while the reverse trend is seen for 4 other countries. 
+This showcases the importance of considering both kinds of fusion depending on the country of interest.
+
+
+{\noindent \textbf{How effective are we at forecasting a moving PAHO target?}} 
+As shown in Table~\ref{tb:moving}, 
+our
+corrected estimates 
+using both the number of samples and 
+the {\it weeks ahead} from the upload date are generally better. It is instructive to note that
+our correction strategy is
+able to increase the overall accuracy only by a score of approximately 0.05 over all the countries, 
+for some countries such as Mexico and Argentina (for which the data update is typically noisy) we obtain 
+a substantial imporovement of scores. This suggests that the correction strategy may be selectively applied 
+when forecasting for certain countries. 
+
+
+
 
 {\noindent \textbf{How do physical vs social indicators fare against each other?}} 
 From Table~\ref{tb:comparison_single}, we 
