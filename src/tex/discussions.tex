@@ -1,12 +1,5 @@
 % mainfile: ../ltexpprt.tex
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.5\textwidth]{fig/accs}
-\caption{Accuracy of different methods for each country.}
-\label{fig:accuracies}
-\end{figure}
-
 We present an exhaustive set of experiments evaluating our algorithms 
 over 6 months of predictions 
 from Jan 2013 to August 2013. The final estimates of ILI case counts are stable according
@@ -161,27 +154,24 @@ and social indicators to get a refined signal about the prevalent ILI incidence 
 %\end{itemize}
 
 
-{\noindent \textbf{How good is restaurant reservation data to detect ILI: }} All the results so produced till now
-didn't consider OpenTable reservations data. The reason is that this data is available only for Mexico among the 
-countries being investigated. In general greater avaiability of tables may indicate higher ILI incidence rate in population.
-We considered two different time winodws : Lunch and Dinner and used the number of open tables as the surrogate data.
-We applied the three different regressors and also applied Model fusion over MFN regressors on this data and present 
-our findings in Table~\ref{tb:opentable}. There we also compare the accuracy while using reservation 
-data from only lunch and dinner as well as both time slots. As the results show, from this dataset we get the best 
-result when we consider both lunch and dinner reservation data. Also, we find that including this data as part of the
-ensemble decrease the accuracy by 0.01 over the one observed while using uncorrected ILI case count data. Thus its 
-our opinion that although the reservation data does conceal some signals about prevlent ILI conditions, additional
-information such as social-unrest events must be appended to this dataset to make this useful over the 
-other described sources.
+{\noindent \textbf{How relevant is restaurant reservation data to forecasting ILI?}} 
+All the results thus far do not consider the OpenTable reservation data, since this source is available only for
+Mexico (among the countries studied here). We considered table availability for different time ranges and compared
+performance using our MFN model. As Table~\ref{tb:opentable} demonstrates, we obtain the best performance when
+considering both lunch and dinner reservation data. Nevertheless, we have observed that including this source
+as part of the ensemble decreases the overall accuracy by 0.01 over the uncorrected ILI case count data.
+Thus it is our opinion that although the reservation data could exhibit some signals about prevalent ILI
+conditions, it likely is also a surrogate for non-health conditions (e.g., social unrest) which must be factored
+out to make the data source more useful.
 
 \begin{table}[tb!]
 \centering
-\caption{\label{tb:opentable}  ILI case count prediction accruacy for MX using OpenTable Data as a single source and
-by combining it with all other sources using Model level fusion on uncorrected ILI case count data.}
+\caption{\label{tb:opentable}  ILI case count prediction accruacy for Mexico using OpenTable data as a single source, and
+by combining it with all other sources using model level fusion on uncorrected ILI case count data.}
 \vspace{1em}
 \begin{tabular}{|p{1.5cm}|*{2}{l|}p{2cm}|}
 \hline
-Method& Lunch & Dinner & Lunch and Dinner Time \\
+Method& Lunch & Dinner & Lunch \& Dinner \\
 \hline \hline
 MF   & 1.92 & 2.23 & 2.31 \\
 NN   & 1.99 & 1.83 & 2.11 \\
@@ -191,11 +181,18 @@ Model Fusion & 2.96 & 2.87 & 2.99 \\
 \end{tabular}
 \end{table}
 
-Finally as a summary statistic, we present Figure~\ref{fig:accuracies} where we compare
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{fig/accs}
+\caption{Accuracy of different methods for each country.}
+\label{fig:accuracies}
+\end{figure}
+
+Finally we present Figure~\ref{fig:accuracies} where we compare
 the overall prediction accuracies for different countries. We show the best
-accuracy achievable from an individual source, before showing how we improve our 
-performance by using both Data level and Model level fusion of the different sources and finally 
-present the accuracies when Model level fusion of MF regressors is applied on the corrected PAHO 
+accuracy achievable from an individual source, before showing how we improve this 
+performance by using both data level and model level fusion of the different sources and finally 
+present the accuracies when model level fusion of MF regressors is applied on the corrected PAHO 
 estimates rather than the raw ones. As can be seen, we progresively increase our accuracies
 with the corrected PAHO estimates providing the final increase in predictive power to 
 our model level fusion framework.
