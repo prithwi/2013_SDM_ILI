@@ -1,43 +1,44 @@
 % mainfile: ../ltexpprt.tex
 
-The keywords indicating Influenza like Illness (ILI) activites was
-constructed from a set of seed words and expaned using a combination of 
-techniques such as time-series correlation analysis and pseudo-query
-expansion.
-The set of starting keywords was constructed based on feedback from our 
-in-house subject mattter expers. These included keywords such as 
-``symptoms'', ``medical'' and ``effects''.
-\paragraph{Pseudo-query Expansion}
-Using this set as the initial seed for pseudo-query expansion we crawled
+The keywords relating to ILI were
+organized from a seed set of words and expanded using a combination of 
+time-series correlation analysis and pseudo-query expansion.
+The seed set of keywords (e.g., {\em gripe}) was constructed in Spanish, 
+Portugese, and English using feedback from our 
+in-house subject mattter expers.
+
+\paragraph{Pseudo-query expansion.}
+Using the seed set, we crawled
 the top 20 web sites (according to Google Search) associated with each
-word in this set. We also crawled some ``expert'' sites such as the official CDC
-website and equivalent websites of the countries under consideration detailing the
+word in this set. We also crawled some expert sites such as the official CDC
+website and equivalent websites of the countries under consideration, detailing the
 causes, symptoms and treatment for influenza.
-Additionally, we also crawled a few hand picked websites such as
+Additionally we crawled a few hand-picked websites such as
 \url{http://www.flufacts.com} and \url{http://health.yahoo.net/channel/flu\_treatments}.
 We filtered the words from these sites using standard language
-processing filtering techniques such as stopword removal and porter
+processing filtering techniques such as stopword removal and Porter
 stemming. The filtered set of keywords were then ranked according to 
 the absolute frequency of occurrence. The top 500 words for Spanish and
-English were then selected. For example, words such as ``enfermedad'' 
-and ``pandemia'' were obtained from this step.
-\paragraph{Time-series Correlation analysis}
-Next we used Google Correlate (now a part of Google Trends) to compare
-the ILI case count time-series for each country and found the top 20
-correlated words. Once again these words were found to be a mix of 
+English were then selected. For example, words such as {\em enfermedad}
+and {\em pandemia} were obtained from this step.
+
+\paragraph{Time-series correlation analysis.}
+Next we used Google Correlate (now a part of Google Trends) to identify keywords
+most correlated with
+the ILI case count time-series for each country.
+Once again these words were found to be a mix of 
  both English and Spanish. As an added step in this process, we also
- compared time-shifter ILI counts: left-shifted  to capture the words searched leading up to 
+ compared time-shifted ILI counts: left-shifted  to capture the words searched leading up to 
  the actual flu infection and right-shifted to capture the words
 commonly searched during the tail of the infection. 
-This entire exercise provided us some interesting terms like ``ginger'' which has been used as
+This entire exercise provided us some interesting terms like {\em ginger} which has been used as
 a natural herbal remedy in the eastern world. We also found popular flu medications
-such as ``Acemuk''and  ``Oseltamivir'', which are also sold under the trade name of
-``Tamiflu'' as highly correlated search queries - particularly for
+such as {\em Acemuk} and  {\em Oseltamivir}, which are also sold under the trade name of
+{\em Tamiflu} as highly correlated search queries, especially particularly for
 Argentina.
-\paragraph{Final Filtering}
+
+\paragraph{Final filtering.}
 The set of terms obtained from query expansion and correlation analysis were then 
-pruned by hand to obtain a vocabulary of 151 words. We performed a final
-correlation check considering all the words and the ILI case counts and
-removed all the words with correlation scores lower than a certain
-threshold and were left with a final set of 114 keywords that are
-predictive of flu outbreak in South America.
+pruned by hand to obtain a vocabulary of 151 words. We then performed a final
+correlation check and retained a final set of 114 words.
+

@@ -57,117 +57,91 @@ non-convex and is in general multi-modal.
 %\end{itemize} 
 
 
-\subsection{Surrogate data sources.}
-For the algorithm we described in Section~\ref{sec:methods},
-we used a number of different data sources as
-surrogates. We considered a wide range for such surrogates comprising both
-physical indicators such as weather characteristics, and also non-physical
-indicators such as social network activities and user search queries.  For a
-number of the non-physical indicators such as Twitter activities, the most
-important part is to properly identify the keywords associated with flu so that
-we can get a proper estimate of the flu-related surrogate information. This key
-step is described in section~\ref{sec:keyword}, and is followed by an
-explanation of the surrogates sources in section. 
+\subsection{Surrogate data sources.} Before
+describing our data sources in detail, we describe our overall methodology
+for organizing a flu-related disctionary (for tracking in multiple media such
+as news, tweets, and search queries).
 
-\subsubsection{\label{sec:keyword} Keywords Extraction} \input{tex/keywords}
+\subsubsection{\label{sec:keyword} Dictionary creation.} \input{tex/keywords}
 
-We next describe the different data sources.
-
-\subsubsection{Google Flu Trends ($\mathcal{F}$) :}
+\subsubsection{Google Flu Trends ($\mathcal{F}$):}
 Google Flu Trends~\cite{GFT:2013} (GFT) is a tool based
 on~\cite{ginsberg2008detecting} and provided by Google.org which gives weekly
-and up-to-date ILI case count estimates using search query volumes. As
-mentioned in~\cite{ginsberg2008detecting}, GFT is based on a regression model
-from search query estimates to actual ILI case counts.  Of the countries under
-consideration, GFT provides weekly estimates for 6 of them viz.  Argentina,
-Bolivia, Chile, Mexico, Peru and Paraguay. As mentioned in
-Table.~\ref{tb:notations}, we denote the weekly estimate of GFT data for the
-country under consideration by $\mathcal{F} = \langle \mathcal{F}_1,
-\mathcal{F}_2, \dots, \mathcal{F}_{T1} \rangle$. This estimate is typically at
-a different scale than the ILI case counts provided by PAHO and therefore needs
+and up-to-date ILI case count estimates using search query volumes. 
+Of the countries under
+consideration, GFT provides weekly estimates for only 6 of them viz.  Argentina,
+Bolivia, Chile, Mexico, Peru and Paraguay. 
+These estimates are typically at
+a different scale than the ILI case counts provided by PAHO and therefore need
 to be scaled accordingly.  We collected this data weekly on Monday from Jan
-2013 to Aug 2013. The data downloaded on a particular day contains the entire
-time-series from 2004 to the corresponding week.  
+2013 to Aug 2013. (The data downloaded on a particular day contains the entire
+time-series from 2004 to the corresponding week.)
  
-
-\subsubsection{Google Search Trends ($\mathcal{S}$) :} Google Search Trends~\cite{GST:2013} is
+\subsubsection{Google Search Trends ($\mathcal{S}$):} Google Search Trends~\cite{GST:2013} is
 another tool provided by Google. Using this tool we can download an estimate of
-search query volume as a percentage over its own temporal history. This
-download can be further filtered geographically over a country.  We download
-the search query volumes for the 114 keywords as described in
-Section~\ref{sec:keyword} every week and convert the percentage measures to
+search query volume as a percentage over its own temporal history, filtered
+geographically. We download
+the search query volume time series for the 114 keywords described earlier
+and convert the percentage measures to
 absolute values using a static dataset we downloaded on Oct 2012 when Google
-Search Trends used to provide absolute query volumes. The
-time series constructed using this dataset, for the country under consideration
-is denoted by
-$\mathcal{S} = \langle \mathcal{S}_1, \mathcal{S}_2, \dots, \mathcal{S}_{T1} \rangle$.
+Search Trends used to provide absolute query volumes. 
 
-\subsubsection{Twitter ($\mathcal{T}$) :} 
-We also collected Twitter data from Datasift~\cite{Twitter:2013},
-one of the certified data resellers for
-Twitter data. Using a paid data collection API, we can specify queries in
-Datasift and get the corresponding filtered data.  We started with a mix of
-queries targeted at collecting data from only the countries under
-consideration. Using our in-house Geo coders we next processed the collected
-Tweets to specific countries and then using syntactic analyzers from Basis
-Enrichment~\cite{Basis:2013} we parsed the Tweet contents into ``lemma'' - root
-forms of words, and also detected the Language and the part of speech for the
-word under consideration.  Importantly, the Basis Enrichment step allows
-differentiation between different languages (for example the Spanish word
-``gripe'', meaning flu, is part of our flu keyword as opposed to the undesired
-and unrelated English word ``gripe''). Also using the lemmatized versions we
-can match between different parts-of-speech variations of the same word. Using
-the lemma sized equivalents of our keyword dictionary we next parsed the
-enriched Tweets for possible matches with flu related keywords and constructed
-a time series of flu keyword weekly occurrence count. For the country under
-consideration, we denote this time series by 
-$\mathcal{T} = \langle \mathcal{T}_1, \mathcal{T}_2, \dots, \mathcal{T}_{T1} \rangle$.
+\subsubsection{Twitter ($\mathcal{T}$):} 
+Twitter data was collected from Datasift.com
+and geotagged using an in-house geocoder. We lemmatized the tweet
+contents and used language detection and POS tagging to help differentiate relevant
+from irrelevant uses of our keywords 
+(e.g., the Spanish word
+{\it gripe}, meaning flu, is part of our flu keyword list as opposed to the undesired
+and unrelated English word `gripe'). The resulting analysis yields a weekly occurrence
+count of our dictionary in tweets.
+%Also using the lemmatized versions we
+%can match between different parts-of-speech variations of the same word. Using
+%the lemma sized equivalents of our keyword dictionary we next parsed the
+%enriched Tweets for possible matches with flu related keywords and constructed
+%a time series of flu keyword weekly occurrence count. For the country under
+%consideration, we denote this time series by 
+%$\mathcal{T} = \langle \mathcal{T}_1, \mathcal{T}_2, \dots, \mathcal{T}_{T1} \rangle$.
+%
+%We started collecting flu filtered Twitter Data from November 2012 and everyday
+%we download the corresponding Twitter time-series for each country. As shown in
+%Figure~\ref{fig:ili_data_pipeline}, every week we collect 10GB of raw Twitter
+%Data which are next enriched to 20GB of structured data. From this dataset, we
+%parse flu-related Tweets resulting in around 7GB of data. This data is finally
+%abstracted into a multivariate time series over lemmatized versions of the 114
+%flu related keywords and added to the TDR. 
 
-We started collecting flu filtered Twitter Data from November 2012 and everyday
-we download the corresponding Twitter time-series for each country. As shown in
-Figure~\ref{fig:ili_data_pipeline}, every week we collect 10GB of raw Twitter
-Data which are next enriched to 20GB of structured data. From this dataset, we
-parse flu-related Tweets resulting in around 7GB of data. This data is finally
-abstracted into a multivariate time series over lemmatized versions of the 114
-flu related keywords and added to the TDR. 
-
-\subsubsection{HealthMap ($\mathcal{H}$) :} 
+\subsubsection{HealthMap ($\mathcal{H}$):} 
 Similar to Twitter data, we also collect flu-related
 news stories using HealthMap~\cite{HM:2013}, an online global disease alert
 system capturing outbreak data from over 50,000 electronic sources [including
-  expert-curated accounts, such as ProMED-Mail~\cite{chase1996promed}, news media
+expert-curated accounts, such as ProMED-Mail~\cite{chase1996promed}, news media
 and official reports from local, national and global public health
 organizations.] Using this service we receive flu-related news as a daily feed
-which is similarly processed using Basis Enrichment and further filtered to get
-a multivariate time series over  lemmatized version of the keywords. For a
-particular country, we denote this time series by: 
-$\mathcal{H} = \langle \mathcal{H}_1, \mathcal{H}_2, \dots, \mathcal{H}_{T1} \rangle$.
-
-While Twitter Data is more suitable to look for general public response, the
+which is similarly enriched and filtered to obtain
+a multivariate time series over lemmatized version of the keywords. 
+While Twitter is more suitable to ascertain general public response, the
 HealthMap data provides more detailed information but may capture the trends
-more slowly than the Twitter Data. Thus each of these sources offers utility in
-capturing different surrogate signals: Twitter Data offers leading but noisy
-indicators whereas HealthMap Data provides a slightly delayed but more reliable
+at a slower rate. Thus each of these sources offers utility in
+capturing different surrogate signals: Twitter offers leading but noisy
+indicators whereas HealthMap provides a slightly delayed but more reliable
 indicator.
 
-\subsubsection{OpenTable ($\mathcal{O}$) :}
-We also use data on trends of restaurant table reservations, as initially 
-found in~\cite{elaine2013opentable} to be a potential early indicator for
+\subsubsection{OpenTable ($\mathcal{O}$):}
+We also use data on trends of restaurant table reservations, initially 
+studied in~\cite{elaine2013opentable} to be a potential early indicator for
 outbreak surveillance, as another surrogate for ILI detection.
 This novel data stream is based on the
-postulate that higher than average number of restaurants with table
-availabilities in a region can serve as an indicator of an event of interest
-such as increase in flu cases. Table availability was monitored using OpenTable
-~\cite{Opentable:2013}; an online restaurant reservation site with 28,000 restaurants at the time
+postulate that a higher than average number of restaurants with table
+availabilities in a region can serve as an indicator of an event of interest,
+such as increase in flu cases. Table availability was monitored using OpenTable~\cite{Opentable:2013}, 
+an online restaurant reservation site with 28,000 restaurants at the time
 of this writing. Daily searches were performed starting from September 2012 for
 a table for two persons at lunch and dinner; between 12:30-3pm, and between
 6-10:30pm. Data was collected for Mexico by city (Cancun, Mexico City, Puebla,
 Monterrey, and Guadalajara) and for the entire country. The daily proportion
 (proportion used due to changes in the number of restaurants in the system) of
-restaurants with available tables was aggregated as a weekly time-series and
-is denoted by 
-$\mathcal{O} = \langle \mathcal{O}_1, \mathcal{O}_2, \dots, \mathcal{O}_{T1} \rangle$.
-
+restaurants with available tables was aggregated as a weekly time-series.
 
 %--Since we monitored ten regions at twenty search times, this resulted in 200
 %distinct time-series curves.
@@ -177,34 +151,30 @@ $\mathcal{O} = \langle \mathcal{O}_1, \mathcal{O}_2, \dots, \mathcal{O}_{T1} \ra
   American countries.}
 \end{figure}
 
-\subsubsection{Weather Data ($\mathcal{W}$) :}
+\subsubsection{Weather ($\mathcal{W}$):}
 All of the previously described data sources can
-be termed as `non-physical' indicators. These data sources can work as indirect
+be termed as non-physical indicators. These data sources can work as indirect
 indicators about the state of the population with respect to flu by exposing
 different population characteristics. At the same time, meteorological data can
-be considered a more direct and `physical' driver of influenza transmission
-~\cite{flu_humidity_physical}. It has been shown
-in~\cite{Shaman_orig_humidity_link, Shaman_humidity_USA, ref9}
+be considered a more direct and physical driver of influenza transmission~\cite{flu_humidity_physical}. It 
+has been shown in~\cite{Shaman_orig_humidity_link, Shaman_humidity_USA, ref9}
 that absolute humidity can be directly used to predict the onset of influenza
 epidemics. Here, we collected several other meteorological factors such as
 temperature and rainfall in addition to humidity from the Global Data
 Assimilation System (GDAS) which is a series of weather models run by National
 Weather Service's National Centers for Environmental Prediction that provides
 detailed meteorological data in near real-time across the globe.  We accessed
-the data via an archive hosted by NASA (\url{http://ladsweb.nascom.nasa.gov/})
-~\cite{HD:2013}, and provided in GRIB format. By specifying the resolution and
+the data via an archive hosted by NASA (\url{http://ladsweb.nascom.nasa.gov/})~\cite{HD:2013}, 
+and provided in GRIB format. By specifying the resolution and
 the geographical boundaries we can collect the data for the countries under
 consideration to a resolution of 1 degrees lat/long interval. However, looking
 at all the lat/long for a country can often lead to noisy data. As such we
 filtered the downloaded data and parsed the meteorological data only around the
-PAHO surveillance centers as shown in Figure~\ref{fig:surveillance}. We also
-aggregate this data using weekly averages and for a particular country we
-represent the time resultant time series by: 
-$\mathcal{W} = \langle \mathcal{W}_1, \mathcal{W}_2, \dots, \mathcal{W}_{T1} \rangle$.
+PAHO surveillance centers as shown in Fig.~\ref{fig:surveillance}. We also
+aggregate this data using weekly averages and thus obtain a resultant time series
+for each country. We collected this data weekly from Jan 2013 to August 2013. 
 
-We collected this data weekly from Jan 2013 to August 2013. 
-
-
+\iffalse
 \subsubsection{Temporal Data Repository}
 All of the described data sources were
 added to a temporal database, ``Temporal Data Repository'' (TDR). Some of the
@@ -220,6 +190,7 @@ using TDR we can quickly reference the data available at that point of time and
 run our algorithm to simulate a prospective analysis scenario.  The entire data
 collection process is depicted pictorially in
 Figure~\ref{fig:ili_data_pipeline}.
+\fi
 
 
 
