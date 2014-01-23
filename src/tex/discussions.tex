@@ -24,7 +24,9 @@ some important observations from this table next.
 \scriptsize
 \centering
 \captionsetup{font=scriptsize}
-\caption{\label{tb:comparison_single}  Comparing forecasting accuracy of models using individual sources.}
+\caption{\label{tb:comparison_single} Comparing forecasting accuracy of
+models using individual sources. Scores in this and other tables are
+normalized to [0,4] so that 4 is the most accurate.}
 \vspace{-1em}
 \begin{tabular}{|*{18}{c|}}
 \hline
@@ -149,13 +151,15 @@ Thus we posit that the GST model devised here is a sufficiently close approximat
 with the added advantages of having access to raw level data and being available for more countries 
 than GFT (among the 15 countries we consider, only 6 of them are present in the GFT database).
 
-{\noindent \textbf{Which is the optimal regression model?}} From Table~\ref{tb:comparison_single}, we can also
-analyze the three different regressors proposed in Section~\ref{sec:methods} with respect to overall accuracy.
-With respect to each individual source, we can see that matrix factorization with nearest 
-neighbor embedding (MFN) performs the best in average over the countries.
-For some countries such as Panama, when using only Google Search Trends, MFN
-performs poorer than vanilla MF; nevertheless the average accuracy over all countries for any given
-data source is best when using MFN.
+{\noindent \textbf{Which is the optimal regression model?}} From
+Table~\ref{tb:comparison_single}, we can also analyze the three
+different regressors proposed in Section~\ref{sec:methods} with respect
+to overall accuracy.  With respect to each individual source, we can see
+that matrix factorization with nearest neighbor embedding (MFN) performs
+the best in average over the countries.  For some countries such as
+Panama, when using only GST, MFN performs poorer than
+vanilla MF; nevertheless the average accuracy over all countries for any
+given data source is best when using MFN.
 
 
 

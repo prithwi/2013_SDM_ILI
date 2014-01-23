@@ -65,7 +65,7 @@ matrix} $\mathcal{M}$, as given in equation~\ref{eq:predictionmatrix}:
 
 The prediction matrix is factorized into a $f\times m$ factor-feature matrix $U$ and 
 a $f\times n$ factor-prediction matrix as:
-\[ \widehat{\mathcal{M}}_{i,j} = b_{u,i} + U^T_i \times F_j\]
+\[ \widehat{\mathcal{M}}_{i,j} = b_{u,i} + U^T_i  F_j\]
 Here, $b_{i,j}$ is the baseline estimate given by:
 \vspace{-1em}
  \begin{equation}
@@ -81,7 +81,7 @@ $U$ and $F$ matrix are estimated by minimizing the error function:
   \begin{array}{l}
   \label{eq:matrix:fit}
   b_*, F, U   =  \textrm{argmin} (\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n}  - \widehat{\mathcal{M}}_{i,n} \right)^2 \\ 
-  \quad + \lambda_1\times(\sum \limits_{j=1}^{n}b_j^2 + \sum \limits_{i=1}^{m-1} || U_i||^2 + \sum \limits_{j=1}^{n} || F_j||^2))
+  \quad + \lambda_1\sum \limits_{j=1}^{n}b_j^2 + \sum \limits_{i=1}^{m-1} || U_i||^2 + \sum \limits_{j=1}^{n} || F_j||^2))
 \end{array}
 \end{equation}
 \noindent
@@ -95,7 +95,7 @@ columns.
 The lookback window $\beta$, the factor size $f$ and the regularization parameter $\lambda_1$ 
 are estimated using cross-validation
 and the final prediction for time point $T'$ is given by:
-\[\widehat{P}_{T'} = b_{m,n} + U_m^T \times F_{m,n} \]
+\[\widehat{P}_{T'} = b_{m,n} + U_m^T  F_{m,n} \]
 \vspace{-1em}
 \subsubsection{\label{sec:model:nearestneighbor} Nearest Neighbor Based Regression (NN):}
 For our second class of models, viz. nearest neighbor models, we define a training set $\Gamma_{NN}
@@ -135,8 +135,8 @@ matrix decomposition rule as
 \begin{equation}
   \label{eq:model:matrixfactornbr}
   \begin{array}{l}
-    \widehat{\mathcal{M}}_{i,j}  =   b_{i,j} + U_i^T\times F_j \\
-                  \quad             + F_j \times |\mathcal{N}(i)|^{-\frac{1}{2}}\sum_{k \in N(i)} (\mathcal{M}_{i,k} - b_{i,k}) x_k \\
+    \widehat{\mathcal{M}}_{i,j}  =   b_{i,j} + U_i^T F_j \\
+                  \quad             + F_j |\mathcal{N}(i)|^{-\frac{1}{2}}\sum_{k \in N(i)} (\mathcal{M}_{i,k} - b_{i,k}) x_k \\
   \end{array}
 \end{equation}
 \noindent
@@ -150,7 +150,7 @@ The model is fitted using Eqn~\ref{eq:matrixnbr:fit} as given below:
   \label{eq:matrixnbr:fit}
   \begin{array}{l}
     b_*, F, U, x_*  = \textrm{argmin} (\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n} - \widehat{\mathcal{M}}_{i,n}   \right)^2 \\
-                \,   + \lambda_2\times(\sum \limits_{j=1}^{n}b_j^2 +
+                \,   + \lambda_2(\sum \limits_{j=1}^{n}b_j^2 +
                 \sum \limits_{i=1}^{m-1} || U_i||^2 + \sum
                 \limits_{j=1}^{n} || F_j||^2 + \sum \limits_k ||x_k||^2))
   \end{array}
