@@ -15,19 +15,28 @@
 %In this section, we describe these fusion methods. Experimental results with 
 %both methods are presented in Section~\ref{sec:results}.
 
-In the last section, we described different strategies to correlate a specific source with the ILI case count of a specfic country and predict future ILI counts. In practice, we desire to work with a multitude of data sources and there are two broad ways to accomplish this objective. In data level fusion, a single regressor is constructed from different data     sources to the ILI case count, while in model level fusion, we build one regressor for each data source and subsequently combine the predictions from the models. In this section, we describe these fusion methods. Experimental results with
-both methods are presented in Section ~\ref{sec:results}.
+In the last section, we described different strategies to correlate a
+specific source with the ILI case count of a specific country and predict
+future ILI counts.  In practice, we desire to work with a multitude of
+data sources and there are two broad ways to accomplish this objective:
+(a) data level fusion, where a single regressor is constructed from different
+data sources to the ILI case count, and (b) model level fusion, where we
+build one regressor for each data source and subsequently combine the
+predictions from the models. In this section, we describe these fusion
+methods. Experimental results with both methods are presented in Section
+~\ref{sec:results}.
 
-
+\vspace{-1em}
 \subsection{\label{sec:fusion:data} Data level fusion:}
-Here we express the feature vector $\mathcal{X}$ as a tuple over all the different data 
-sources and then proceed with either of the regression methods as outlined in Section~\ref{sec:methods}.
+Here we express the feature vector $\mathcal{X}$, as a tuple over all the different data 
+sources and then proceed with any one of the regression methods as outlined in Section~\ref{sec:methods}.
 For example, while combining Twitter and weather data sources (see Fig.~\ref{fig:ili_data_pipeline}), the 
 feature vector $\mathcal{X}$ is given by:
 \[\mathcal{X}_t = \langle \mathcal{T}_t, \mathcal{W}_t \rangle
 \]
 where $T_t$ and $W_t$ denote attributes derived from Twitter and weather, respectively.
 
+\vspace{-1em}
 \subsection{\label{sec:fusion:model} Model level fusion:}
 In this approach, the models are combined using matrix factorization regression with 
 nearest neighbor embedding by comparing the
@@ -36,10 +45,12 @@ can change as well) and the average
 ILI case count for the month for the particular country (to help organize a baseline).
 Let us denote the average ILI case count for a particular calendar 
 month $I$ for a given country by:
-\vspace{-1em}
-\begin{equation*}
-  \mu_I = {1 \over {|\lbrace t \in I\rbrace|}} \sum_{t \in I}P_{t}
-\end{equation*}
+\[
+  %\begin{equation*}
+  \mu_I = \sum_{t \in I}P_{t}/{|\lbrace t \in I\rbrace|}
+  %\mu_I = {1 \over {|\lbrace t \in I\rbrace|}} \sum_{t \in I}P_{t}
+%\end{equation*}
+\]
 %where $|\mathcal{P}|$ is size of $\mathcal{P}$. 
 \noindent
 Considering $C$ different sources and hence $C$ different models, 
@@ -48,7 +59,8 @@ from the $c^{th}$ model by ${}_c\widehat{P}_t$.
 
 Using these definitions we can now proceed to describe the fusion 
 model. Essentially, the model is similar to the one described in 
-Section~\ref{sec:model:nearestmatrix}, with the difference being 
+Section~\ref{sec:model:nearestmatrix}, where the differences can be
+found in 
 the way we construct the feature vectors. Similar to Eqn~\ref{eq:predictionmatrix},
 we construct a prediction  $m'\times n'$ matrix for fusion given by${}_C\mathcal{M}$ where 
 the $t^{th}$ row is represented by equation~\ref{eq:fusion:predictionmatrix}.
@@ -64,12 +76,12 @@ the $t^{th}$ row is represented by equation~\ref{eq:fusion:predictionmatrix}.
 Then similar to Eqn~\ref{eq:model:matrixfactornbr}, we 
 factor this matrix into latent factors, ${}_C U$, ${}_C F$, ${}_C b_*$ as 
 given by Eqn~\ref{eq:fusion:matrixfactornbr}:
-\vspace{-1em}
+%\vspace{-1em}
 \begin{equation}
   \label{eq:fusion:matrixfactornbr}
   \begin{array}{l}
     {}_C \widehat{\mathcal{M}}_{i,j} =  \mu_i + {}_C b_{j} + {}_C U_i^T\times {}_C F_j \\
-                                \quad + {}_C F_j \times |{}_C \mathcal{N}(i)|^{-\frac{1}{2}}
+                                \, + {}_C F_j \times |{}_C \mathcal{N}(i)|^{-\frac{1}{2}}
     \sum_{k \in {}_C N(i)} ({}_C\mathcal{M}_{i,k} - \mu_i + {}_C b_{k}) {}_Cx_k \\
   \end{array}
 \end{equation}
@@ -78,11 +90,12 @@ $T$th data point is given by
 \[\widehat{P}_T = {}_C \widehat{\mathcal{M}}_T,n'.\]
 The fitting function is given by equation~\ref{eq:fusion:matrixnbr:fit}:
 \begin{equation}
+  \small
   \label{eq:fusion:matrixnbr:fit}
   \begin{array}{l}
     {}_C b_*, {}_C F, {}_C U, {}_C x_*  = \textrm{argmin} (\sum \limits_{i=1}^{m'-1} \left({}_C \mathcal{M}_{i,n'} - {}_C \widehat{\mathcal{M}}_{i,n'}   \right)^2 \\
-     \quad + \lambda_3 (\sum \limits_{j=1}^{n'}{}_C b_j^2 + \sum \limits_{i=1}^{m'-1} ||{}_C U_i||^2 \\
-     \quad+ \sum \limits_{j=1}^{n'} ||{}_C F_j||^2 + \sum_k ||{}_C x_k||^2))
+     \, + \lambda_3 (\sum \limits_{j=1}^{n'}{}_C b_j^2 + \sum \limits_{i=1}^{m'-1} ||{}_C U_i||^2 
+     + \sum \limits_{j=1}^{n'} ||{}_C F_j||^2 + \sum_k ||{}_C x_k||^2))
   \end{array}
 \end{equation}
 \noindent

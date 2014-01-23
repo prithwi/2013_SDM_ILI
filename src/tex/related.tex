@@ -19,36 +19,39 @@ six different data sources used in this paper to forecast ILI case counts.}
  \end{figure}
 
 Related work naturally falls into the categories of social media
-analytics, physical indicators, and event dynamics modeling. 
+analytics, physical indicators, and event dynamics modeling.  These are
+next described as follows:
  
 \textbf{Social media analytics:}
-Most work in social media analytics focuses on Twitter, specifically tracking
+Most relevant works using social media analytics focuses on Twitter,
+specifically  by tracking
 a dictionary of ILI-related keywords in the data stream.
-Some investigations have focused on the importance of diversity in keyword 
+Such investigations have often focused on the importance of diversity in keyword 
 lists, e.g.,~\cite{ref5, ref6}. In~\cite{ref5}, 
 Kanhabua and Nejdl used clustering methods to determine
-important topics in Twitter data, construct time series for matched keywords,
+important topics in Twitter data, constructed time series for matched keywords,
 and used Jaccards coefficient to characterize the temporal
-diversity of tweets. They note that such temporal diversity may be
+diversity of tweets. They noted, that such temporal diversity may be
 correlated with real-world ILI outbreaks. In~\cite{ref6}
-the authors study the dynamics of changes in tweets related to the H1N1 virus. We 
-present our approach towards creating the keyword dictionary in Section~\ref{sec:keyword}.
+the authors studied the dynamics between the change in circulated tweets
+and the H1N1 virus. Inspired by these works, we curated a custom ILI
+related keyword dictionary which is described in details in Section~\ref{sec:keyword}.
 
 \textbf{Physical indicators for detecting ILI incidence levels:} 
 %One of the key indicators of ILI levels in a country is the prevalent 
 %climactic patterns and the deviation from ``normal'' levels of these 
 %indicators. For example 
 Tamerius et al.~\cite{ref9} investigated the existence of seasonal 
-cycles of influenza epidemics in different climate regions
-by considering climatic information from 78 globally distributed sites. Through 
-logistic regression they found that, in cold-dry and humid-rainy
-environments, strong correlation exists between influenza epidemics and
-weather conditions. Similary exciting results were found 
-by Shaman et. al.~\cite{Shaman_orig_humidity_link, Shaman_humidity_USA}
+cycles of influenza epidemics in different climate regions. For the said
+work, they considered climatic information from 78 globally distributed sites. 
+Using logistic regression  they found that, strong correlations exist between 
+influenza epidemics and weather conditions, especially when conditions
+are cold-dry or humid-rainy. Similarly, exciting results were reported
+by Shaman et. al. in ~\cite{Shaman_orig_humidity_link, Shaman_humidity_USA}
 where they discovered absolute humidity to be a key indicator of flu. To uncover 
 these relationships they used non-linear regressors such as Kalman filters,
-and this was a key inspiration to us to find a uniform model for the
-vaired data sources as explained in Section~\ref{sec:methods}.
+and this was a key inspiration for us in finding a uniform model for the
+varied data sources as explained in Section~\ref{sec:methods}.
 
 %\textbf{Non-linear regression methods:}
 %There has been significant research in recommender systems to predict unknown user 
@@ -64,7 +67,7 @@ vaired data sources as explained in Section~\ref{sec:methods}.
 %
 \textbf{Event dynamics modeling:}
 Denecke et al.~\cite{ref3}
-have proposed an event-based approach for early prediction
+proposed an event-based approach for early prediction
 of ILI threats \cite{ref3}. Their method (M-Eco) considers
 multiple resources such as Twitter, TV reports, online news articles,
 and blogs and uses clustering to identify signals for event detection.

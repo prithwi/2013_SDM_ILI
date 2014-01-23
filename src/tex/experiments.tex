@@ -19,7 +19,7 @@ PAHO even a number of weeks after the first update.  For the purpose of experime
 we used the data for the period Jan 2010 to December 2012 as the static
 training set. We considered Wednesdays of the weeks as a reference day within a week.  For
 each Wednesday from Jan 2013 to July 2013, we used the latest available PAHO
-data in TDR for that day and predicted 3 weeks from the last available week for
+data in TDR for that day and predicted 2 weeks from the last available week for
 which the PAHO data was available. These predictions are next evaluated against
 the final ILI case count as downloaded on September 1, 2013 and we report the
 performance of our algorithms in Section~\ref{sec:results}. 
@@ -62,8 +62,9 @@ non-convex and is in general multi-modal.
 describing our data sources in detail, we describe our overall methodology
 for organizing a flu-related dictionary (for tracking in multiple media such
 as news, tweets, and search queries).
-
+\vspace{-1em}
 \subsubsection{\label{sec:keyword} Dictionary creation.} \input{tex/keywords}
+\vspace{-1em}
 
 \subsubsection{Google Flu Trends ($\mathcal{F}$):}
 Google Flu Trends (GFT \url{http://www.google.org/flutrends}) is a tool based
@@ -78,6 +79,7 @@ to be scaled accordingly.  We collected this data weekly on Monday from Jan
 2013 to Aug 2013. (The data downloaded on a particular day contains the entire
 time-series from 2004 to the corresponding week.)
  
+\vspace{-1em}
 \subsubsection{Google Search Trends ($\mathcal{S}$):} 
 Google Search Trends~\url{http://www.google.com/trends} is
 another tool provided by Google. Using this tool we can download an estimate of
@@ -88,6 +90,7 @@ and convert the percentage measures to
 absolute values using a static dataset we downloaded on Oct 2012 when Google
 Search Trends used to provide absolute query volumes. 
 
+\vspace{-1em}
 \subsubsection{Twitter ($\mathcal{T}$):} 
 Twitter data was collected from Datasift.com
 and geotagged using an in-house geocoder. We lemmatized the tweet
@@ -113,9 +116,10 @@ count of our dictionary in tweets.
 %abstracted into a multivariate time series over lemmatized versions of the 114
 %flu related keywords and added to the TDR. 
 
+\vspace{-1em}
 \subsubsection{HealthMap ($\mathcal{H}$):} 
-Similar to Twitter data, we also collect flu-related
-news stories using HealthMap~\url{http://healthmap.org}, an online global disease alert
+Similar to Twitter, we also collect flu-related
+news stories using HealthMap(\url{http://healthmap.org}), an online global disease alert
 system capturing outbreak data from over 50,000 electronic sources.
 %[including
 %expert-curated accounts, such as ProMED-Mail~\cite{chase1996promed}, news media
@@ -131,13 +135,14 @@ capturing different surrogate signals: Twitter offers leading but noisy
 indicators whereas HealthMap provides a slightly delayed but more reliable
 indicator.
 
+\vspace{-1em}
 \subsubsection{OpenTable ($\mathcal{O}$):}
 We also use data on trends of restaurant table reservations, initially 
 studied in~\cite{elaine2013opentable} to be a potential early indicator for
 outbreak surveillance, as another surrogate for ILI detection.
 This novel data stream is based on the
 postulate that a higher than average number of restaurants with table
-availabilities in a region can serve as an indicator of an event of interest,
+availability in a region can serve as an indicator of an event of interest,
 such as increase in flu cases. Table availability was monitored using 
 OpenTable~\url{http://www.opentable.com}, 
 an online restaurant reservation site with 28,000 restaurants at the time
@@ -163,6 +168,7 @@ restaurants with available tables was aggregated as a weekly time-series.
 \end{figure}
 \fi
 
+\vspace{-1em}
 \subsubsection{Weather ($\mathcal{W}$):}
 All of the previously described data sources can
 be termed as non-physical indicators which can work suitably as

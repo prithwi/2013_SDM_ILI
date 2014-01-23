@@ -10,8 +10,8 @@
     ${P}_t$         & Known ILI case count for time point $t$.\\
     $\hat{P}_t$     & Predicted ILI case count for time point $t$ \\
     $T$             & Max number of time points for which ILI case count is known.\\
-    $\mathcal{X}_t$ & Surroagte data stream at time point $t$ .\\
-    $T1$            & Max number of time points for which the surrogatedata streams are available.\\
+    $\mathcal{X}_t$ & Surrogate data stream at time point $t$ .\\
+    $T1$            & Max number of time points for which the surrogate data streams are available.\\
     $\mathcal{F}_t$ & Google Flu Trends estimate at time point $t$ .\\
     $\mathcal{H}_t$ & Healthmap attributes at time point $t$ .\\
     $\mathcal{R}_t$ & Reservation data attributes at time point $t$ .\\
@@ -23,13 +23,13 @@
     $K$             & Maximum number of Nearest Neighbors.\\
     \hline
   \end{tabular}
-  \caption{\label{tb:notations} Explanattions of notations used in the paper.
+  \caption{\label{tb:notations} Explanation of notations used in the paper.
   \prithwish{May take this off later and put in the supplemental
 section.}}
 \end{table*}
 \fi
 
-Let
+In this section, we formally introduce the problem. Let
 $\mathcal{P} = \langle {P}_1, {P}_2, \dots,{P}_T \rangle$
 denote the known total weekly ILI case count for the country under
 consideration, where ${P}_t$  denotes the case count for
@@ -39,7 +39,8 @@ ILI case count is known.
   %here $\rightarrow$ \textnormal{``as reported by the Pan-American Health Organization
 %(PAHO)~\cite{PAHO:2013}''}}\\
 Corresponding to the ILI case count data, let us denote the available surrogate information
-for the same country by 
+for the same country
+ by 
 $\mathcal{X} = \langle \mathcal{X}_1, \mathcal{X}_2, \dots, \mathcal{X}_{T1}\rangle$, 
 where $T1$ is the time point till which the surrogate
 information is available and $\mathcal{X}_{t}$ denotes the surrogate attributes for time
@@ -53,4 +54,8 @@ case count data, as presented formally in Eqn~\ref{eq:problem}.
     \vspace{-1em}
 \end{equation}
 
+In this paper, in order to better understand the importance of different sources,
+we assume that the ILI activities in different countries are
+independent of each other.
+\vspace{-1em}
 

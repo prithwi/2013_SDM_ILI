@@ -3,10 +3,11 @@
 %1. ``time point'' vs ``time point''\\
 %2. ``langle'' vs ``left(''}
 
-We employ non-linear temporal regressions over the surrogate attributes to forecast the
-case count using three broad models:
+Focusing on the methods, we employ non-linear temporal regressions
+over the surrogate attributes to forecast the
+case count using three models:
 %\begin{itemize}
-(a) Matrix Factorizaiton Based Regression (MF),
+(a) Matrix Factorization Based Regression (MF),
 (b) Nearest Neighbor Based Regression (NN),  and
 (c)  Matrix Factorization Regression using Nearest Neighbor embedding (MFN).
 %\end{itemize}
@@ -38,12 +39,13 @@ The regression vector for predicting the case count at time point $T' (T +
 \end{equation}
 \noindent
 Under these definitions we describe the models as follows:
+\vspace{-1em}
 \subsubsection{\label{sec:model:matrixfactor} Matrix Factorization Based Regression (MF):}
 Matrix Factorization is a well accepted technique in
-the recommender systems literature, to predict user 
-preferences from incomplete user ratings/informations. Typically~\cite{canny2002factor}
+the recommender systems literature to predict user 
+preferences from incomplete user ratings/information. Typically~\cite{canny2002factor}
 a user-preference matrix is factored into an user-factor and
-factor-preference matrix. However, such factorizations are incognizant of any 
+factor-preference matrix. However, such factorizations are in-cognizant of any 
 temporal continuity. As such to enforce temporal continuity, to predict for the time point 
 $T' (T +\alpha > T' > T)$ we use the regression vectors 
 and labels as defined earlier, %in equation~\ref{eq:regressionvector}
@@ -74,11 +76,12 @@ Here, $b_{i,j}$ is the baseline estimate given by:
  the column wise deviations from the average and is generally a free-parameter, i.e.,
 it is fitted as part of the optimization problem.
 $U$ and $F$ matrix are estimated by minimizing the error function:
+\vspace{-1.0em}
 \begin{equation}
-  \begin{array}{ll}
+  \begin{array}{l}
   \label{eq:matrix:fit}
-  b_*, F, U  & =  \textrm{argmin} (\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n}  - \widehat{\mathcal{M}}_{i,n} \right)^2 \\ 
-  & + \lambda_1\times(\sum \limits_{j=1}^{n}b_j^2 + \sum \limits_{i=1}^{m-1} || U_i||^2 + \sum \limits_{j=1}^{n} || F_j||^2))
+  b_*, F, U   =  \textrm{argmin} (\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n}  - \widehat{\mathcal{M}}_{i,n} \right)^2 \\ 
+  \quad + \lambda_1\times(\sum \limits_{j=1}^{n}b_j^2 + \sum \limits_{i=1}^{m-1} || U_i||^2 + \sum \limits_{j=1}^{n} || F_j||^2))
 \end{array}
 \end{equation}
 \noindent
@@ -93,9 +96,9 @@ The lookback window $\beta$, the factor size $f$ and the regularization paramete
 are estimated using cross-validation
 and the final prediction for time point $T'$ is given by:
 \[\widehat{P}_{T'} = b_{m,n} + U_m^T \times F_{m,n} \]
-
+\vspace{-1em}
 \subsubsection{\label{sec:model:nearestneighbor} Nearest Neighbor Based Regression (NN):}
-For nearest neighbor models, we define a training set $\Gamma_{NN}
+For our second class of models, viz. nearest neighbor models, we define a training set $\Gamma_{NN}
 = \lbrace V_t, L_t \rbrace$, where $V_t$ represents the regression attributes
 and $L_t$ denote the corresponding labels.
 Also, let us define the set 
@@ -104,23 +107,26 @@ where $K$ indicates the maximum number of nearest neighbors considered.
 The predicted count $\widehat{P}_{T'}$ for the time point $T'$ is given as:
 \vspace{-1em}
 \begin{equation} \label{eq:nearestneighbor:pred}
-  \begin{array}{lcl}
-    \widehat{P}_{T'} & = & \frac{\sum\limits_{k \in \mathcal{N}(T')} \theta_{k}L_{k,T - \alpha}}
-    {\sum\limits_{k=1}^{K} \theta_{k}}\\
+  \begin{array}{l}
+    \widehat{P}_{T'}  =  \left({\sum\limits_{k \in \mathcal{N}(T')}
+  \theta_{k}L_{k,T - \alpha}}\right)
+    /{\sum\limits_{k=1}^{K} \theta_{k}}\\
+    %\widehat{P}_{T'} & = & \frac{\sum\limits_{k \in \mathcal{N}(T')} \theta_{k}L_{k,T - \alpha}}
+    %{\sum\limits_{k=1}^{K} \theta_{k}}\\
   \end{array}
-    \vspace{-1em}
+\vspace{-0.6em}
 \end{equation}
 %and $L_{k,T}$ indicates the label of the $k^{th}$ nearest neighbor to $V_{T'}$ in $\Gamma_{NN}$
 %at time point $T$. 
 \noindent
 Here $\theta_k$ indicates the weight assigned to the $k^{th}$ nearest neighbor.
 Typically the inverse Euclidean distances to $V_{T'}$ are chosen as the weights.
-
+\vspace{-1em}
 \subsubsection{\label{sec:model:nearestmatrix} Matrix Factorization Based
 Regression using Nearest Neighbor Embedding (MFN):}
 It has been shown in~\cite{koren2008factor} that matrix factorization using nearest neighbor constraints can
 outperform classical matrix factorization approach as well as traditional nearest neighbor approaches towards
-recommender systems. Here, we modify the method to suit the temporal nature of our problem in similar ways 
+recommender systems. Drawing inspirations from the result, we modify the method to suit the temporal nature of our problem in similar ways 
 as described in section~\ref{sec:model:matrixfactor}. We again define a similar prediction matrix $\mathcal{M}$ 
 (see equation~\ref{eq:predictionmatrix}). Following ~\cite{koren2008factor}, we define the 
 matrix decomposition rule as 
@@ -128,9 +134,9 @@ matrix decomposition rule as
 \vspace{-1em}
 \begin{equation}
   \label{eq:model:matrixfactornbr}
-  \begin{array}{lcl}
-    \widehat{\mathcal{M}}_{i,j} & = &  b_{i,j} + U_i^T\times F_j \\
-                                &   & + F_j \times |\mathcal{N}(i)|^{-\frac{1}{2}}\sum_{k \in N(i)} (\mathcal{M}_{i,k} - b_{i,k}) x_k \\
+  \begin{array}{l}
+    \widehat{\mathcal{M}}_{i,j}  =   b_{i,j} + U_i^T\times F_j \\
+                  \quad             + F_j \times |\mathcal{N}(i)|^{-\frac{1}{2}}\sum_{k \in N(i)} (\mathcal{M}_{i,k} - b_{i,k}) x_k \\
   \end{array}
 \end{equation}
 \noindent
@@ -142,9 +148,11 @@ The model is fitted using Eqn~\ref{eq:matrixnbr:fit} as given below:
 \vspace{-1em}
 \begin{equation}
   \label{eq:matrixnbr:fit}
-  \begin{array}{ll}
-    & b_*, F, U, x_*  = \textrm{argmin} (\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n} - \widehat{\mathcal{M}}_{i,n}   \right)^2 \\
-                    & + \lambda_2\times(\sum \limits_{j=1}^{n}b_j^2 + \sum \limits_{i=1}^{m-1} || U_i||^2 + \sum \limits_{j=1}^{n} || F_j||^2 + \sum_k ||x_k||^2))
+  \begin{array}{l}
+    b_*, F, U, x_*  = \textrm{argmin} (\sum \limits_{i=1}^{m-1} \left(\mathcal{M}_{i,n} - \widehat{\mathcal{M}}_{i,n}   \right)^2 \\
+                \,   + \lambda_2\times(\sum \limits_{j=1}^{n}b_j^2 +
+                \sum \limits_{i=1}^{m-1} || U_i||^2 + \sum
+                \limits_{j=1}^{n} || F_j||^2 + \sum \limits_k ||x_k||^2))
   \end{array}
   \end{equation}
 
