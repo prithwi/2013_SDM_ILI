@@ -12,8 +12,6 @@ except fusion
 Use SIAM DM format
 
 Forecasting a moving target: Ensemble models for ILI case count predictions
-Prithwish, Pejman, Patrick, Aravindan Mahendiran, Bryan, Elaine, Sumiko,
-Brownstein, Madhav, Naren
 
 1. **Introduction**  
    naren will write this at the end.  
